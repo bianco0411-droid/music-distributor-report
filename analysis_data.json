@@ -1,0 +1,358 @@
+{
+  "eur_usd": 1.085,
+  "believe_total_usd": 39856.37007471721,
+  "dz_total_usd": 244941.4998238603,
+  "region_unit_price": {
+    "US": {
+      "believe_Spotify": 2.096029,
+      "dz_Spotify": 3.522855,
+      "believe_Apple Music": 5.395638,
+      "dz_Apple Music": 4.503386,
+      "believe_YouTube Music": null,
+      "dz_YouTube Music": 8.087051,
+      "believe_YouTube Shorts": 0.006745,
+      "dz_YouTube Shorts": null,
+      "believe_YouTube Content ID": 3.00808,
+      "dz_YouTube Content ID": 2.673631,
+      "believe_YouTube Music Video": 8.209565,
+      "dz_YouTube Music Video": null
+    },
+    "GB": {
+      "believe_Spotify": 2.274534,
+      "dz_Spotify": 3.865705,
+      "believe_Apple Music": 8.353584,
+      "dz_Apple Music": 10.47318,
+      "believe_YouTube Music": null,
+      "dz_YouTube Music": 8.023447,
+      "believe_YouTube Shorts": 0.006745,
+      "dz_YouTube Shorts": null,
+      "believe_YouTube Content ID": 2.5231,
+      "dz_YouTube Content ID": 2.138858,
+      "believe_YouTube Music Video": 10.163735,
+      "dz_YouTube Music Video": null
+    },
+    "JP": {
+      "believe_Spotify": 0.866827,
+      "dz_Spotify": 1.684915,
+      "believe_Apple Music": 3.846818,
+      "dz_Apple Music": 5.078864,
+      "believe_YouTube Music": null,
+      "dz_YouTube Music": 4.858237,
+      "believe_YouTube Shorts": 0.006745,
+      "dz_YouTube Shorts": null,
+      "believe_YouTube Content ID": 1.202524,
+      "dz_YouTube Content ID": 1.349334,
+      "believe_YouTube Music Video": 5.093481,
+      "dz_YouTube Music Video": null
+    },
+    "KR": {
+      "believe_Spotify": null,
+      "dz_Spotify": 1.964891,
+      "believe_Apple Music": null,
+      "dz_Apple Music": 4.108847,
+      "believe_YouTube Music": null,
+      "dz_YouTube Music": 5.017557,
+      "believe_YouTube Shorts": null,
+      "dz_YouTube Shorts": null,
+      "believe_YouTube Content ID": null,
+      "dz_YouTube Content ID": 0.691577,
+      "believe_YouTube Music Video": null,
+      "dz_YouTube Music Video": null
+    },
+    "TW": {
+      "believe_Spotify": 0.620232,
+      "dz_Spotify": 1.129451,
+      "believe_Apple Music": 3.232379,
+      "dz_Apple Music": 3.894957,
+      "believe_YouTube Music": null,
+      "dz_YouTube Music": 3.31905,
+      "believe_YouTube Shorts": 0.006745,
+      "dz_YouTube Shorts": null,
+      "believe_YouTube Content ID": 1.615616,
+      "dz_YouTube Content ID": 1.177812,
+      "believe_YouTube Music Video": 3.000468,
+      "dz_YouTube Music Video": null
+    },
+    "TH": {
+      "believe_Spotify": 0.233437,
+      "dz_Spotify": 0.754925,
+      "believe_Apple Music": 2.772432,
+      "dz_Apple Music": 3.486419,
+      "believe_YouTube Music": null,
+      "dz_YouTube Music": 1.442297,
+      "believe_YouTube Shorts": 0.006745,
+      "dz_YouTube Shorts": null,
+      "believe_YouTube Content ID": 0.486409,
+      "dz_YouTube Content ID": 0.502197,
+      "believe_YouTube Music Video": 1.197376,
+      "dz_YouTube Music Video": null
+    },
+    "ID": {
+      "believe_Spotify": 0.085247,
+      "dz_Spotify": 0.49061,
+      "believe_Apple Music": 1.786514,
+      "dz_Apple Music": 2.179977,
+      "believe_YouTube Music": null,
+      "dz_YouTube Music": 1.237787,
+      "believe_YouTube Shorts": 0.006745,
+      "dz_YouTube Shorts": null,
+      "believe_YouTube Content ID": 0.090061,
+      "dz_YouTube Content ID": 0.107516,
+      "believe_YouTube Music Video": 1.315216,
+      "dz_YouTube Music Video": null
+    },
+    "VN": {
+      "believe_Spotify": 0.217427,
+      "dz_Spotify": 0.438234,
+      "believe_Apple Music": 1.871966,
+      "dz_Apple Music": 2.271314,
+      "believe_YouTube Music": null,
+      "dz_YouTube Music": 0.674609,
+      "believe_YouTube Shorts": 0.006745,
+      "dz_YouTube Shorts": null,
+      "believe_YouTube Content ID": 0.05956,
+      "dz_YouTube Content ID": 0.13351,
+      "believe_YouTube Music Video": 0.567367,
+      "dz_YouTube Music Video": null
+    },
+    "IN": {
+      "believe_Spotify": 0.421442,
+      "dz_Spotify": 0.643915,
+      "believe_Apple Music": 1.070486,
+      "dz_Apple Music": 1.26034,
+      "believe_YouTube Music": null,
+      "dz_YouTube Music": 0.900242,
+      "believe_YouTube Shorts": 0.006745,
+      "dz_YouTube Shorts": null,
+      "believe_YouTube Content ID": 0.237332,
+      "dz_YouTube Content ID": 0.057507,
+      "believe_YouTube Music Video": 0.962378,
+      "dz_YouTube Music Video": null
+    },
+    "HK": {
+      "believe_Spotify": 1.360942,
+      "dz_Spotify": 2.370678,
+      "believe_Apple Music": 5.365078,
+      "dz_Apple Music": 6.456958,
+      "believe_YouTube Music": null,
+      "dz_YouTube Music": 5.312852,
+      "believe_YouTube Shorts": 0.006745,
+      "dz_YouTube Shorts": null,
+      "believe_YouTube Content ID": 1.978055,
+      "dz_YouTube Content ID": 1.576094,
+      "believe_YouTube Music Video": 5.476701,
+      "dz_YouTube Music Video": null
+    },
+    "SG": {
+      "believe_Spotify": 1.531463,
+      "dz_Spotify": 2.815647,
+      "believe_Apple Music": 7.301902,
+      "dz_Apple Music": 8.755151,
+      "believe_YouTube Music": null,
+      "dz_YouTube Music": 6.117911,
+      "believe_YouTube Shorts": 0.006745,
+      "dz_YouTube Shorts": null,
+      "believe_YouTube Content ID": 2.272234,
+      "dz_YouTube Content ID": 1.938157,
+      "believe_YouTube Music Video": 6.073089,
+      "dz_YouTube Music Video": null
+    },
+    "MY": {
+      "believe_Spotify": 0.438345,
+      "dz_Spotify": 1.0059,
+      "believe_Apple Music": 3.135107,
+      "dz_Apple Music": 3.911239,
+      "believe_YouTube Music": null,
+      "dz_YouTube Music": 1.925543,
+      "believe_YouTube Shorts": 0.006745,
+      "dz_YouTube Shorts": null,
+      "believe_YouTube Content ID": 0.844547,
+      "dz_YouTube Content ID": 0.80066,
+      "believe_YouTube Music Video": 1.88509,
+      "dz_YouTube Music Video": null
+    }
+  },
+  "believe_revenue_struct": {
+    "YouTube Music Video": 16276.8321,
+    "Spotify": 9163.3127,
+    "Apple Music": 7231.0677,
+    "Facebook/Instagram": 3984.7398,
+    "YouTube Content ID": 2255.3791,
+    "TikTok": 485.4633,
+    "Other": 355.2876,
+    "YouTube Other": 29.4415,
+    "YouTube Shorts": 20.3974,
+    "Amazon": 18.9194,
+    "NetEase": 16.9116,
+    "Yandex": 13.2111,
+    "Deezer": 5.3866,
+    "Boomplay": 0.0202
+  },
+  "dz_revenue_struct": {
+    "YouTube Music": 103824.8602,
+    "Apple Music": 51393.7288,
+    "YouTube Content ID": 44427.4949,
+    "Spotify": 36908.4862,
+    "YouTube Other": 2519.3255,
+    "Facebook/Instagram": 2473.7946,
+    "Other": 2191.9622,
+    "TikTok": 969.7154,
+    "Amazon": 191.6178,
+    "Deezer": 38.1242,
+    "KKBOX": 2.39
+  },
+  "believe_by_platform_detail": {
+    "Amazon": {
+      "qty": 3623,
+      "rev": 18.9194
+    },
+    "Apple Music": {
+      "qty": 2173793,
+      "rev": 7231.0677
+    },
+    "Boomplay": {
+      "qty": 733,
+      "rev": 0.0202
+    },
+    "Deezer": {
+      "qty": 934,
+      "rev": 5.3866
+    },
+    "Facebook/Instagram": {
+      "qty": 92046064,
+      "rev": 3984.7398
+    },
+    "NetEase": {
+      "qty": 59712,
+      "rev": 16.9116
+    },
+    "Other": {
+      "qty": 82964,
+      "rev": 355.2876
+    },
+    "Spotify": {
+      "qty": 10273083,
+      "rev": 9163.3127
+    },
+    "TikTok": {
+      "qty": 415466,
+      "rev": 485.4633
+    },
+    "Yandex": {
+      "qty": 34367,
+      "rev": 13.2111
+    },
+    "YouTube Content ID": {
+      "qty": 2925918,
+      "rev": 2255.3791
+    },
+    "YouTube Music Video": {
+      "qty": 6396526,
+      "rev": 16276.8321
+    },
+    "YouTube Other": {
+      "qty": 28902,
+      "rev": 29.4415
+    },
+    "YouTube Shorts": {
+      "qty": 3024112,
+      "rev": 20.3974
+    }
+  },
+  "dz_by_platform_detail": {
+    "Amazon": {
+      "qty": 63636,
+      "rev": 191.6178
+    },
+    "Apple Music": {
+      "qty": 13701986,
+      "rev": 51393.7288
+    },
+    "Deezer": {
+      "qty": 9515,
+      "rev": 38.1242
+    },
+    "Facebook/Instagram": {
+      "qty": 331918212,
+      "rev": 2473.7946
+    },
+    "KKBOX": {
+      "qty": 692,
+      "rev": 2.39
+    },
+    "Other": {
+      "qty": 1255987,
+      "rev": 2191.9622
+    },
+    "Spotify": {
+      "qty": 21265978,
+      "rev": 36908.4862
+    },
+    "TikTok": {
+      "qty": 956190553,
+      "rev": 969.7154
+    },
+    "YouTube Content ID": {
+      "qty": 55763131,
+      "rev": 44427.4949
+    },
+    "YouTube Music": {
+      "qty": 34966242,
+      "rev": 103824.8602
+    },
+    "YouTube Other": {
+      "qty": 86125385,
+      "rev": 2519.3255
+    }
+  },
+  "believe_yt_cid_pct": 46.5,
+  "dz_yt_cid_pct": 18.14,
+  "believe_by_region": {
+    "TW": 11340.2894,
+    "US": 5615.5746,
+    "CN": 3663.8132,
+    "HK": 3297.976,
+    "SG": 2779.4343,
+    "MY": 2139.4521,
+    "VN": 1665.8253,
+    "TH": 1579.0918,
+    "AU": 1267.4117,
+    "CA": 1045.8293,
+    "JP": 728.6146,
+    "GB": 676.9932,
+    "FR": 384.8476,
+    "DE": 358.9251,
+    "PH": 287.4047
+  },
+  "dz_by_region": {
+    "TW": 79715.3143,
+    "US": 29507.7461,
+    "CN": 26984.359,
+    "HK": 18728.948,
+    "SG": 16352.0034,
+    "MY": 16257.3729,
+    "JP": 10776.0645,
+    "AU": 7097.6408,
+    "CA": 5718.6106,
+    "TH": 5543.7377,
+    "VN": 3924.3236,
+    "GB": 3581.5058,
+    "KR": 3255.1529,
+    "DE": 2201.392,
+    "FR": 1440.1991
+  },
+  "global_believe_Spotify": 0.891973,
+  "global_dz_Spotify": 1.735565,
+  "global_believe_Apple Music": 3.326475,
+  "global_dz_Apple Music": 3.750913,
+  "global_believe_YouTube Music": null,
+  "global_dz_YouTube Music": 2.966965,
+  "global_believe_YouTube Shorts": 0.006745,
+  "global_dz_YouTube Shorts": null,
+  "global_believe_YouTube Content ID": 0.770828,
+  "global_dz_YouTube Content ID": 0.796247,
+  "global_believe_YouTube Music Video": 2.544636,
+  "global_dz_YouTube Music Video": null,
+  "global_believe_TikTok_per1000": 1.168479,
+  "global_dz_TikTok_per1000": 0.001014
+}

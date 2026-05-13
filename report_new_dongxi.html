@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>东西音乐 2026Q1 商业对比分析报告</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+<style>
+:root {
+  --bg: #0f1419;
+  --card: #1a2332;
+  --card2: #1e2d3d;
+  --border: #2d3f55;
+  --text: #e8edf4;
+  --text2: #8899aa;
+  --accent: #4a9eff;
+  --green: #00c853;
+  --red: #ff5252;
+  --yellow: #ffca28;
+  --orange: #ff7043;
+  --purple: #ab47bc;
+  --teal: #26a69a;
+  --pink: #ec407a;
+  --gold: #ffd740;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  padding: 24px;
+}
+
+.container { max-width: 1400px; margin: 0 auto; }
+
+/* Header */
+.header {
+  text-align: center;
+  margin-bottom: 40px;
+  padding: 40px 24px;
+  background: linear-gradient(135deg, #1a2a3a 0%, #0d1a26 100%);
+  border-radius: 16px;
+  border: 1px solid var(--border);
+}
+.header h1 {
+  font-size: 2.2em;
+  font-weight: 700;
+  background: linear-gradient(90deg, #4a9eff, #00c853);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 8px;
+}
+.header .subtitle {
+  color: var(--text2);
+  font-size: 1.1em;
+  margin-bottom: 24px;
+}
+.metrics-bar {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+.metric-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px 24px;
+  text-align: center;
+  min-width: 160px;
+}
+.metric-card .value {
+  font-size: 1.8em;
+  font-weight: 700;
+  color: var(--accent);
+}
+.metric-card .label {
+  font-size: 0.85em;
+  color: var(--text2);
+  margin-top: 4px;
+}
+.metric-card.green .value { color: var(--green); }
+.metric-card.orange .value { color: var(--orange); }
+.metric-card.purple .value { color: var(--purple); }
+
+/* Section */
+.section {
+  margin-bottom: 40px;
+}
+.section-title {
+  font-size: 1.3em;
+  font-weight: 600;
+  color: var(--accent);
+  margin-bottom: 16px;
+  padding-left: 12px;
+  border-left: 3px solid var(--accent);
+}
+
+/* Grid layouts */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+
+@media (max-width: 1000px) {
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+}
+
+/* Cards */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+}
+.card.full { grid-column: 1 / -1; }
+.card canvas { max-width: 100%; }
+
+/* Tables */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9em;
+}
+.data-table th {
+  background: var(--card2);
+  color: var(--accent);
+  padding: 10px 12px;
+  text-align: left;
+  border-bottom: 2px solid var(--border);
+  font-weight: 600;
+}
+.data-table td {
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+}
+.data-table tr:hover td { background: var(--card2); }
+.data-table .num { text-align: right; font-variant-numeric: tabular-nums; }
+.data-table .pct { text-align: right; }
+.data-table .up { color: var(--green); }
+.data-table .down { color: var(--red); }
+.data-table .mid { color: var(--yellow); }
+
+/* Tags */
+.tag {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.75em;
+  font-weight: 600;
+}
+.tag-red { background: rgba(255,82,82,0.15); color: var(--red); }
+.tag-green { background: rgba(0,200,83,0.15); color: var(--green); }
+.tag-yellow { background: rgba(255,202,40,0.15); color: var(--yellow); }
+.tag-purple { background: rgba(171,71,188,0.15); color: var(--purple); }
+.tag-orange { background: rgba(255,112,67,0.15); color: var(--orange); }
+.tag-teal { background: rgba(38,166,154,0.15); color: var(--teal); }
+.tag-pink { background: rgba(236,64,122,0.15); color: var(--pink); }
+.tag-gold { background: rgba(255,215,64,0.15); color: var(--gold); }
+
+/* Warning */
+.warning-box {
+  background: rgba(255,82,82,0.08);
+  border: 1px solid rgba(255,82,82,0.3);
+  border-radius: 8px;
+  padding: 16px;
+  margin-top: 16px;
+  font-size: 0.9em;
+  color: var(--red);
+}
+
+/* Compare table */
+.compare-header {
+  display: grid;
+  grid-template-columns: 200px 1fr 1fr;
+  gap: 1px;
+  background: var(--border);
+  border-radius: 8px 8px 0 0;
+  overflow: hidden;
+  font-size: 0.9em;
+  font-weight: 600;
+}
+.compare-col {
+  background: var(--card2);
+  padding: 10px 14px;
+  text-align: center;
+}
+.compare-col.yt { background: rgba(255,82,82,0.1); }
+.compare-row {
+  display: grid;
+  grid-template-columns: 200px 1fr 1fr;
+  gap: 1px;
+  background: var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.compare-row > div {
+  background: var(--card);
+  padding: 8px 14px;
+  font-size: 0.85em;
+}
+.compare-row > div:not(:first-child) { text-align: right; }
+
+/* Legend */
+.chart-legend-custom {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 12px;
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8em;
+  color: var(--text2);
+}
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* Source note */
+.source-note {
+  text-align: center;
+  color: var(--text2);
+  font-size: 0.8em;
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
+
+/* Scrollable table wrapper */
+.table-scroll {
+  overflow-x: auto;
+}
+.table-scroll table { min-width: 600px; }
+
+/* Highlight row */
+.highlight-row td { background: rgba(74,158,255,0.08); font-weight: 600; }
+.yt-cid-row td { background: rgba(255,82,82,0.05); }
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- Header -->
+<div class="header">
+  <h1>东西音乐 2026Q1 商业对比分析报告</h1>
+  <p class="subtitle">发行商数据对比 · Believe vs 东西音乐 · 2026年1月-3月</p>
+  <div class="metrics-bar">
+    <div class="metric-card">
+      <div class="value">$195,953</div>
+      <div class="label">东西 Q1总收入 (USD)</div>
+    </div>
+    <div class="metric-card green">
+      <div class="value">15.0亿</div>
+      <div class="label">总播放量 (streams)</div>
+    </div>
+    <div class="metric-card orange">
+      <div class="value">18.2%</div>
+      <div class="label">YouTube Content ID占总收入</div>
+    </div>
+    <div class="metric-card purple">
+      <div class="value">12</div>
+      <div class="label">覆盖目标地区数</div>
+    </div>
+  </div>
+</div>
+
+<!-- Platform Overview -->
+<div class="section">
+  <h2 class="section-title">一、平台收入概览</h2>
+  <div class="grid-2">
+    <div class="card">
+      <h3 style="color:var(--accent);margin-bottom:16px;">收入占比分布</h3>
+      <canvas id="revenueShareChart"></canvas>
+    </div>
+    <div class="card">
+      <h3 style="color:var(--accent);margin-bottom:16px;">播放量分布 (streams)</h3>
+      <canvas id="quantityShareChart"></canvas>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:20px;">
+    <h3 style="color:var(--accent);margin-bottom:16px;">平台详细数据</h3>
+    <div class="table-scroll">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>平台</th>
+            <th class="num">收入 (USD)</th>
+            <th class="num">收入占比</th>
+            <th class="num">播放量 (streams)</th>
+            <th class="num">单价 (USD/千次)</th>
+            <th class="num">广告收入</th>
+            <th class="num">订阅收入</th>
+          </tr>
+        </thead>
+        <tbody id="platformTableBody">
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Unit Price by Platform -->
+<div class="section">
+  <h2 class="section-title">二、单价对比 (/1000 streams, USD)</h2>
+  <div class="grid-2">
+    <div class="card">
+      <h3 style="color:var(--accent);margin-bottom:16px;">全局单价对比</h3>
+      <canvas id="unitPriceChart"></canvas>
+    </div>
+    <div class="card">
+      <h3 style="color:var(--accent);margin-bottom:16px;">单价排序</h3>
+      <canvas id="unitPriceSortChart"></canvas>
+    </div>
+  </div>
+
+  <!-- Region × Platform Matrix -->
+  <div class="card" style="margin-top:20px;">
+    <h3 style="color:var(--accent);margin-bottom:16px;">12地区 × 主要平台 单价矩阵 (USD/千次)</h3>
+    <div class="table-scroll">
+      <table class="data-table" id="regionPlatformTable">
+        <thead>
+          <tr id="regionPlatformHeader"></tr>
+        </thead>
+        <tbody id="regionPlatformBody"></tbody>
+      </table>
+    </div>
+    <p style="color:var(--text2);font-size:0.8em;margin-top:8px;">
+      注：空白或0表示该月份/地区无对应平台数据。单价 = 收入(USD) ÷ 播放量 × 1000。
+    </p>
+  </div>
+</div>
+
+<!-- Region Revenue -->
+<div class="section">
+  <h2 class="section-title">三、地区收入分析</h2>
+  <div class="grid-2">
+    <div class="card">
+      <h3 style="color:var(--accent);margin-bottom:16px;">12目标地区收入</h3>
+      <canvas id="regionRevenueChart"></canvas>
+    </div>
+    <div class="card">
+      <h3 style="color:var(--accent);margin-bottom:16px;">12目标地区播放量</h3>
+      <canvas id="regionQuantityChart"></canvas>
+    </div>
+  </div>
+</div>
+
+<!-- YouTube Deep Dive -->
+<div class="section">
+  <h2 class="section-title">四、YouTube 家族专项分析</h2>
+  <div class="grid-4">
+    <div class="metric-card">
+      <div class="value">$120,617</div>
+      <div class="label">YouTube家族总收入</div>
+    </div>
+    <div class="metric-card">
+      <div class="value">61.6%</div>
+      <div class="label">占整体收入比例</div>
+    </div>
+    <div class="metric-card">
+      <div class="value">1.77亿</div>
+      <div class="label">YouTube家族播放量</div>
+    </div>
+    <div class="metric-card">
+      <div class="value">$0.682</div>
+      <div class="label">YouTube整体均价/千次</div>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top:20px;">
+    <div class="card">
+      <h3 style="color:var(--accent);margin-bottom:16px;">YouTube各平台收入对比</h3>
+      <canvas id="ytRevenueChart"></canvas>
+    </div>
+    <div class="card">
+      <h3 style="color:var(--accent);margin-bottom:16px;">YouTube各平台单价对比</h3>
+      <canvas id="ytUnitPriceChart"></canvas>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:20px;">
+    <h3 style="color:var(--accent);margin-bottom:12px;">YouTube各平台详细指标</h3>
+    <p style="color:var(--text2);font-size:0.85em;margin-bottom:10px;">
+      <span class="tag tag-red">YouTube Music</span> = Art Tracks + Audio Tier &nbsp;|&nbsp;
+      <span class="tag tag-orange">YouTube Content ID</span> = Audio Content ID + MCN &nbsp;|&nbsp;
+      <span class="tag tag-yellow">Official Video</span> = YouTube Music Video &nbsp;|&nbsp;
+      <span class="tag tag-gold">YouTube Shorts</span> = YouTubeShorts
+    </p>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>平台</th>
+          <th class="num">收入 (USD)</th>
+          <th class="num">收入占比</th>
+          <th class="num">播放量</th>
+          <th class="num">单价 (USD/千次)</th>
+          <th>收入性质</th>
+          <th class="num">评估</th>
+        </tr>
+      </thead>
+      <tbody id="ytDetailBody"></tbody>
+    </table>
+  </div>
+
+  <div class="warning-box" style="margin-top:16px;">
+    <strong>⚠️ TikTok陷阱警告：</strong>TikTok产生9.56亿次播放，但收入仅$776，单价$0.0008/千次。与YouTube Content ID ($0.64/千次) 相差800倍。流量大但变现极低。
+  </div>
+</div>
+
+<!-- Compare Believe vs 东西 -->
+<div class="section">
+  <h2 class="section-title">五、Believe vs 东西音乐 核心指标对比</h2>
+  <div class="card">
+    <div class="compare-header">
+      <div class="compare-col">指标</div>
+      <div class="compare-col" style="background:rgba(74,158,255,0.1);">Believe (参考)</div>
+      <div class="compare-col" style="background:rgba(0,200,83,0.1);">东西音乐</div>
+    </div>
+    <div id="compareBody"></div>
+  </div>
+</div>
+
+<!-- Distribution capability -->
+<div class="section">
+  <h2 class="section-title">六、发行能力对比评估</h2>
+  <div class="card">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>能力维度</th>
+          <th>Believe</th>
+          <th>东西音乐</th>
+          <th>备注</th>
+        </tr>
+      </thead>
+      <tbody id="capabilityBody"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Sources -->
+<div class="source-note">
+  数据来源：东西音乐2026年1-3月原始报表（202601.csv / 202602.csv / 202603.csv）全量统计 · 单位：USD · 分析工具：Python + Chart.js · 数据行数：5,567,709行
+</div>
+
+</div>
+
+<script>
+// ============================================================
+// DATA
+// ============================================================
+const platformData = [{"platform": "YouTube Music", "revenue": 60270.52, "quantity": 24036929, "unit_price": 2.5074, "pct": 30.8, "ad_revenue": 6363.97, "sub_revenue": 53906.55, "other_revenue": 0}, {"platform": "Apple Music", "revenue": 41133.24, "quantity": 13736890, "unit_price": 2.9944, "pct": 21.0, "ad_revenue": 0, "sub_revenue": 41133.24, "other_revenue": 0}, {"platform": "YouTube Content ID", "revenue": 35597.17, "quantity": 55811284, "unit_price": 0.6378, "pct": 18.2, "ad_revenue": 17090.38, "sub_revenue": 18506.79, "other_revenue": 0}, {"platform": "Spotify", "revenue": 29526.79, "quantity": 21265978, "unit_price": 1.3885, "pct": 15.1, "ad_revenue": 0, "sub_revenue": 29526.79, "other_revenue": 0}, {"platform": "Official Video", "revenue": 22882.52, "quantity": 11004885, "unit_price": 2.0793, "pct": 11.7, "ad_revenue": 7070.17, "sub_revenue": 15812.35, "other_revenue": 0}, {"platform": "Facebook", "revenue": 1979.04, "quantity": 331918212, "unit_price": 0.006, "pct": 1.0, "ad_revenue": 1979.04, "sub_revenue": 0, "other_revenue": 0}, {"platform": "YouTube Shorts", "revenue": 1867.13, "quantity": 86001660, "unit_price": 0.0217, "pct": 0.9, "ad_revenue": 1867.13, "sub_revenue": 0, "other_revenue": 0}, {"platform": "Other Streaming", "revenue": 1612.61, "quantity": 1177202, "unit_price": 1.3699, "pct": 0.8, "ad_revenue": 48.98, "sub_revenue": 1552.82, "other_revenue": 0}, {"platform": "TikTok", "revenue": 775.77, "quantity": 956190553, "unit_price": 0.0008, "pct": 0.4, "ad_revenue": 738.27, "sub_revenue": 0, "other_revenue": 0}, {"platform": "Amazon", "revenue": 153.29, "quantity": 63636, "unit_price": 2.4089, "pct": 0.1, "ad_revenue": 0, "sub_revenue": 153.29, "other_revenue": 0}, {"platform": "Melon", "revenue": 124.61, "quantity": 44573, "unit_price": 2.7956, "pct": 0.1, "ad_revenue": 0, "sub_revenue": 124.61, "other_revenue": 0}, {"platform": "Deezer", "revenue": 30.5, "quantity": 9515, "unit_price": 3.2054, "pct": 0.0, "ad_revenue": 0, "sub_revenue": 30.5, "other_revenue": 0}];
+
+const regionData = [{"region": "TW", "revenue": 63772.25, "quantity": 173958406, "unit_price": 0.3666, "pct": 32.54}, {"region": "Other", "revenue": 44171.55, "quantity": 443019718, "unit_price": 0.0997, "pct": 22.54}, {"region": "US", "revenue": 23606.2, "quantity": 39064803, "unit_price": 0.6043, "pct": 12.05}, {"region": "HK", "revenue": 14983.16, "quantity": 10613676, "unit_price": 1.4117, "pct": 7.65}, {"region": "SG", "revenue": 13081.6, "quantity": 18942158, "unit_price": 0.6906, "pct": 6.68}, {"region": "MY", "revenue": 13005.9, "quantity": 80613803, "unit_price": 0.1613, "pct": 6.64}, {"region": "JP", "revenue": 8620.85, "quantity": 107683509, "unit_price": 0.0801, "pct": 4.4}, {"region": "TH", "revenue": 4434.99, "quantity": 87174643, "unit_price": 0.0509, "pct": 2.26}, {"region": "VN", "revenue": 3139.46, "quantity": 323632511, "unit_price": 0.0097, "pct": 1.6}, {"region": "UK", "revenue": 2865.2, "quantity": 6001353, "unit_price": 0.4774, "pct": 1.46}, {"region": "KR", "revenue": 2604.12, "quantity": 25739196, "unit_price": 0.1012, "pct": 1.33}, {"region": "ID", "revenue": 1141.39, "quantity": 157463296, "unit_price": 0.0072, "pct": 0.58}, {"region": "IN", "revenue": 526.53, "quantity": 27354245, "unit_price": 0.0192, "pct": 0.27}];
+
+const regionPlatformMatrix = {
+  "US": {"Spotify": 2.8183, "Apple Music": 3.539, "YouTube Music": 6.6988, "YouTube Content ID": 2.1419, "Official Video": 5.6214, "YouTube Shorts": 0.1417, "TikTok": 0.0043, "Facebook": 0.0306},
+  "UK": {"Spotify": 3.0926, "Apple Music": 8.332, "YouTube Music": 7.0842, "YouTube Content ID": 1.7157, "Official Video": 4.8154, "YouTube Shorts": 0.0662, "TikTok": 0.0037, "Facebook": 0.016},
+  "JP": {"Spotify": 1.3479, "Apple Music": 4.0476, "YouTube Music": 4.0705, "YouTube Content ID": 1.0799, "Official Video": 3.2535, "YouTube Shorts": 0.0222, "TikTok": 0.0019, "Facebook": 0.0251},
+  "KR": {"Spotify": 1.5719, "Apple Music": 3.2871, "YouTube Music": 4.3042, "YouTube Content ID": 0.5544, "Official Video": 2.8919, "YouTube Shorts": 0.0207, "TikTok": 0.0023, "Facebook": 0.0264},
+  "TW": {"Spotify": 0.9036, "Apple Music": 3.1076, "YouTube Music": 2.9048, "YouTube Content ID": 0.9433, "Official Video": 2.2581, "YouTube Shorts": 0.0153, "TikTok": 0.0024, "Facebook": 0.0119},
+  "TH": {"Spotify": 0.6039, "Apple Music": 2.7762, "YouTube Music": 1.2061, "YouTube Content ID": 0.3998, "Official Video": 1.0029, "YouTube Shorts": 0.007, "TikTok": 0.0007, "Facebook": 0.005},
+  "ID": {"Spotify": 0.3925, "Apple Music": 1.7391, "YouTube Music": 1.093, "YouTube Content ID": 0.0862, "Official Video": 0.7768, "YouTube Shorts": 0.0025, "TikTok": 0.0003, "Facebook": 0.0007},
+  "VN": {"Spotify": 0.3506, "Apple Music": 1.8132, "YouTube Music": 0.5371, "YouTube Content ID": 0.1068, "Official Video": 0.5484, "YouTube Shorts": 0.0057, "TikTok": 0.0004, "Facebook": 0.0018},
+  "IN": {"Spotify": 0.5151, "Apple Music": 1.0072, "YouTube Music": 0.715, "YouTube Content ID": 0.0461, "Official Video": 0.7568, "YouTube Shorts": 0.0042, "TikTok": 0.0001, "Facebook": 0.0003},
+  "HK": {"Spotify": 1.8965, "Apple Music": 5.1539, "YouTube Music": 4.5717, "YouTube Content ID": 1.2627, "Official Video": 3.3239, "YouTube Shorts": 0.018, "TikTok": 0.0001, "Facebook": 0.012},
+  "SG": {"Spotify": 2.2525, "Apple Music": 6.9737, "YouTube Music": 5.5435, "YouTube Content ID": 1.5537, "Official Video": 3.732, "YouTube Shorts": 0.0251, "TikTok": 0.0019, "Facebook": 0.0103},
+  "MY": {"Spotify": 0.8047, "Apple Music": 3.1202, "YouTube Music": 1.6204, "YouTube Content ID": 0.6412, "Official Video": 1.3787, "YouTube Shorts": 0.0082, "TikTok": 0.0007, "Facebook": 0.0045}
+};
+
+const mainPlatforms = ["Spotify", "Apple Music", "YouTube Music", "YouTube Content ID", "Official Video", "YouTube Shorts", "TikTok", "Facebook"];
+
+const grandTotalRevenue = 195953.20;
+const grandTotalQuantity = 1501261317;
+const ytFamilyRevenue = 60177.37 + 35542.0 + 23030.85 + 1867.13;
+const ytFamilyQty = 24036929 + 55811284 + 11004885 + 86001660;
+const ytFamilyUnit = ytFamilyRevenue / ytFamilyQty * 1000;
+
+// Colors
+const COLORS = [
+  '#4a9eff','#00c853','#ff5252','#ffca28','#ab47bc',
+  '#ff7043','#26a69a','#ec407a','#ffd740','#78909c',
+  '#42a5f5','#66bb6a'
+];
+
+// ============================================================
+// HELPERS
+// ============================================================
+function fmt(n, decimals=2) {
+  if (n === undefined || n === null || isNaN(n)) return '-';
+  if (Math.abs(n) >= 1e6) return (n/1e6).toFixed(1) + 'M';
+  if (Math.abs(n) >= 1e3) return (n/1e3).toFixed(1) + 'K';
+  return n.toFixed(decimals);
+}
+
+function fmtUSD(n) {
+  if (n === undefined || isNaN(n)) return '-';
+  return '$' + n.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+}
+
+function fmtQty(n) {
+  if (n === undefined || isNaN(n) || n === 0) return '-';
+  if (n >= 1e9) return (n/1e9).toFixed(2) + 'B';
+  if (n >= 1e6) return (n/1e6).toFixed(2) + 'M';
+  if (n >= 1e3) return (n/1e3).toFixed(1) + 'K';
+  return n.toLocaleString();
+}
+
+// ============================================================
+// PLATFORM TABLE
+// ============================================================
+const tbody = document.getElementById('platformTableBody');
+const platformColorMap = {
+  'YouTube Music': '#ff5252',
+  'YouTube Content ID': '#ff7043',
+  'Official Video': '#ffca28',
+  'YouTube Shorts': '#ffd740',
+  'Spotify': '#00c853',
+  'Apple Music': '#4a9eff',
+  'TikTok': '#ec407a',
+  'Facebook': '#ab47bc',
+  'Amazon': '#ff9800',
+  'Melon': '#26a69a',
+  'Deezer': '#00bcd4',
+  'Other Streaming': '#78909c'
+};
+
+platformData.forEach((p, i) => {
+  const isYtCid = p.platform === 'YouTube Content ID';
+  const row = document.createElement('tr');
+  if (isYtCid) row.className = 'yt-cid-row';
+  const adSub = p.ad_revenue > 0 && p.sub_revenue > 0 ? '混合' : (p.ad_revenue > 0 ? '广告' : (p.sub_revenue > 0 ? '订阅' : '-'));
+  const unitClass = p.unit_price >= 2 ? 'up' : (p.unit_price >= 0.5 ? 'mid' : 'down');
+  row.innerHTML = `
+    <td><span class="tag" style="background:${platformColorMap[p.platform] || '#78909c'}22;color:${platformColorMap[p.platform] || '#78909c'}">${p.platform}</span></td>
+    <td class="num">${fmtUSD(p.revenue)}</td>
+    <td class="num">${p.pct.toFixed(1)}%</td>
+    <td class="num">${fmtQty(p.quantity)}</td>
+    <td class="num ${unitClass}">$${p.unit_price.toFixed(4)}</td>
+    <td class="num">${p.ad_revenue > 0 ? fmtUSD(p.ad_revenue) : '-'}</td>
+    <td class="num">${p.sub_revenue > 0 ? fmtUSD(p.sub_revenue) : '-'}</td>
+  `;
+  tbody.appendChild(row);
+});
+
+// ============================================================
+// REVENUE SHARE PIE
+// ============================================================
+const ytOthers = platformData.filter(p => !['YouTube Music','YouTube Content ID','Official Video','YouTube Shorts'].includes(p.platform));
+const ytGroup = platformData.filter(p => ['YouTube Music','YouTube Content ID','Official Video','YouTube Shorts'].includes(p.platform));
+const ytSum = ytGroup.reduce((s,p)=>s+p.revenue,0);
+const pieLabels = ['YouTube家族', ...ytOthers.map(p=>p.platform)];
+const pieData = [ytSum, ...ytOthers.map(p=>p.revenue)];
+const pieColors = ['#ff5252','#00c853','#4a9eff','#ec407a','#ab47bc','#26a69a','#ffca28','#78909c','#ff9800','#ffd740','#00bcd4'];
+
+new Chart(document.getElementById('revenueShareChart'), {
+  type: 'doughnut',
+  data: {
+    labels: pieLabels,
+    datasets: [{ data: pieData, backgroundColor: pieColors, borderWidth: 0 }]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: { position: 'right', labels: { color: '#e8edf4', padding: 12, font: { size: 11 } } },
+      tooltip: { callbacks: { label: ctx => ` ${ctx.label}: ${fmtUSD(ctx.raw)} (${(ctx.raw/grandTotalRevenue*100).toFixed(1)}%)` } }
+    }
+  }
+});
+
+// Quantity share
+const qtyLabels = ['YouTube家族', ...ytOthers.map(p=>p.platform)];
+const qtyData = [ytFamilyQty, ...ytOthers.map(p=>p.quantity)];
+new Chart(document.getElementById('quantityShareChart'), {
+  type: 'doughnut',
+  data: {
+    labels: qtyLabels,
+    datasets: [{ data: qtyData, backgroundColor: pieColors, borderWidth: 0 }]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: { position: 'right', labels: { color: '#e8edf4', padding: 12, font: { size: 11 } } },
+      tooltip: { callbacks: { label: ctx => ` ${ctx.label}: ${fmtQty(ctx.raw)}` } }
+    }
+  }
+});
+
+// ============================================================
+// UNIT PRICE CHARTS
+// ============================================================
+const upLabels = platformData.map(p => p.platform);
+const upValues = platformData.map(p => p.unit_price);
+const upColors = upLabels.map(l => platformColorMap[l] || '#78909c');
+
+new Chart(document.getElementById('unitPriceChart'), {
+  type: 'bar',
+  data: {
+    labels: upLabels,
+    datasets: [{ label: 'USD/千次', data: upValues, backgroundColor: upColors, borderRadius: 4 }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true,
+    plugins: {
+      legend: { display: false },
+      tooltip: { callbacks: { label: ctx => ` $${ctx.raw.toFixed(4)}/千次` } }
+    },
+    scales: {
+      x: { grid: { color: '#2d3f55' }, ticks: { color: '#8899aa' } },
+      y: { grid: { display: false }, ticks: { color: '#e8edf4', font: { size: 11 } } }
+    }
+  }
+});
+
+// Sorted unit price
+const sorted = [...platformData].sort((a,b)=>b.unit_price-a.unit_price);
+new Chart(document.getElementById('unitPriceSortChart'), {
+  type: 'bar',
+  data: {
+    labels: sorted.map(p => p.platform),
+    datasets: [{ label: 'USD/千次', data: sorted.map(p => p.unit_price), backgroundColor: sorted.map(p=>platformColorMap[p.platform]||'#78909c'), borderRadius: 4 }]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: { display: false },
+      tooltip: { callbacks: { label: ctx => ` $${ctx.raw.toFixed(4)}/千次` } }
+    },
+    scales: {
+      x: { grid: { color: '#2d3f55' }, ticks: { color: '#8899aa' } },
+      y: { grid: { display: false }, ticks: { color: '#e8edf4', font: { size: 11 } } }
+    }
+  }
+});
+
+// ============================================================
+// REGION TABLE (Matrix)
+// ============================================================
+const rpHeader = document.getElementById('regionPlatformHeader');
+rpHeader.innerHTML = '<th>地区</th>' + mainPlatforms.map(p => `<th class="num">${p}</th>`).join('');
+
+const rpBody = document.getElementById('regionPlatformBody');
+const regionOrder = ['TW','US','HK','SG','MY','JP','KR','UK','TH','VN','ID','IN'];
+regionOrder.forEach(reg => {
+  const row = document.createElement('tr');
+  let cells = `<td><strong>${reg}</strong></td>`;
+  mainPlatforms.forEach(plat => {
+    const val = regionPlatformMatrix[reg]?.[plat] || 0;
+    if (val > 0) {
+      const cls = val >= 2 ? 'up' : (val >= 0.5 ? 'mid' : 'down');
+      cells += `<td class="num ${cls}">$${val.toFixed(2)}</td>`;
+    } else {
+      cells += `<td class="num" style="color:var(--text2)">-</td>`;
+    }
+  });
+  row.innerHTML = cells;
+  rpBody.appendChild(row);
+});
+
+// ============================================================
+// REGION CHARTS
+// ============================================================
+const targetRegions = regionData.filter(r => r.region !== 'Other');
+const regLabels = targetRegions.map(r => r.region);
+const regColors = ['#4a9eff','#00c853','#ff5252','#ffca28','#ab47bc','#ff7043','#26a69a','#ec407a','#ffd740','#78909c','#ff9800','#00bcd4'];
+
+new Chart(document.getElementById('regionRevenueChart'), {
+  type: 'bar',
+  data: {
+    labels: regLabels,
+    datasets: [{ label: '收入 (USD)', data: regLabels.map(r=>regionData.find(d=>d.region===r)?.revenue||0), backgroundColor: regColors, borderRadius: 4 }]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: { display: false },
+      tooltip: { callbacks: { label: ctx => ` ${fmtUSD(ctx.raw)}` } }
+    },
+    scales: {
+      x: { grid: { display: false }, ticks: { color: '#e8edf4' } },
+      y: { grid: { color: '#2d3f55' }, ticks: { color: '#8899aa', callback: v => '$'+(v/1000).toFixed(0)+'K' } }
+    }
+  }
+});
+
+new Chart(document.getElementById('regionQuantityChart'), {
+  type: 'bar',
+  data: {
+    labels: regLabels,
+    datasets: [{ label: '播放量', data: regLabels.map(r=>regionData.find(d=>d.region===r)?.quantity||0), backgroundColor: regColors, borderRadius: 4 }]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: { display: false },
+      tooltip: { callbacks: { label: ctx => ` ${fmtQty(ctx.raw)} streams` } }
+    },
+    scales: {
+      x: { grid: { display: false }, ticks: { color: '#e8edf4' } },
+      y: { grid: { color: '#2d3f55' }, ticks: { color: '#8899aa', callback: v => (v/1e6).toFixed(0)+'M' } }
+    }
+  }
+});
+
+// ============================================================
+// YOUTUBE DEEP DIVE
+// ============================================================
+const ytPlatforms = platformData.filter(p =>
+  ['YouTube Music','YouTube Content ID','Official Video','YouTube Shorts'].includes(p.platform)
+);
+
+new Chart(document.getElementById('ytRevenueChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ytPlatforms.map(p=>p.platform),
+    datasets: [{ data: ytPlatforms.map(p=>p.revenue), backgroundColor: ['#ff5252','#ff7043','#ffca28','#ffd740'], borderWidth: 0 }]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: { position: 'bottom', labels: { color: '#e8edf4', padding: 12, font: { size: 11 } } },
+      tooltip: { callbacks: { label: ctx => ` ${ctx.label}: ${fmtUSD(ctx.raw)}` } }
+    }
+  }
+});
+
+new Chart(document.getElementById('ytUnitPriceChart'), {
+  type: 'bar',
+  data: {
+    labels: ytPlatforms.map(p=>p.platform),
+    datasets: [{ label: 'USD/千次', data: ytPlatforms.map(p=>p.unit_price), backgroundColor: ['#ff5252','#ff7043','#ffca28','#ffd740'], borderRadius: 4 }]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: { display: false },
+      tooltip: { callbacks: { label: ctx => ` $${ctx.raw.toFixed(4)}/千次` } }
+    },
+    scales: {
+      x: { grid: { display: false }, ticks: { color: '#e8edf4', font: { size: 10 } } },
+      y: { grid: { color: '#2d3f55' }, ticks: { color: '#8899aa' } }
+    }
+  }
+});
+
+const ytDetailBody = document.getElementById('ytDetailBody');
+const ytEval = {
+  'YouTube Music': ['高（订阅分成稳定）', 'green'],
+  'YouTube Content ID': ['中（量大利薄）', 'yellow'],
+  'Official Video': ['高（订阅分成）', 'green'],
+  'YouTube Shorts': ['极低（量中价极低）', 'red']
+};
+ytPlatforms.forEach(p => {
+  const [eval_text, eval_color] = ytEval[p.platform] || ['-','grey'];
+  const row = document.createElement('tr');
+  row.innerHTML = `
+    <td><span class="tag" style="background:#ff525222;color:#ff5252">${p.platform}</span></td>
+    <td class="num">${fmtUSD(p.revenue)}</td>
+    <td class="num">${p.pct.toFixed(1)}%</td>
+    <td class="num">${fmtQty(p.quantity)}</td>
+    <td class="num ${p.unit_price >= 2?'up':p.unit_price>=0.5?'mid':'down'}">$${p.unit_price.toFixed(4)}</td>
+    <td>${p.ad_revenue > 0 ? '<span class="tag tag-red">广告</span>' : '<span class="tag tag-green">订阅</span>'}</td>
+    <td><span class="tag tag-${eval_color}">${eval_text}</span></td>
+  `;
+  ytDetailBody.appendChild(row);
+});
+
+// ============================================================
+// COMPARE TABLE
+// ============================================================
+const compareBody = document.getElementById('compareBody');
+const compareRows = [
+  { label: '总收入 (USD)', b: '$39,856', d: '$195,953', note: '东西约5倍于Believe' },
+  { label: '总播放量', b: '43.9M', d: '1,501M', note: '东西播放量约34倍' },
+  { label: 'Spotify 单价', b: '$0.89', d: '$1.39', note: '东西高56%' },
+  { label: 'Apple Music 单价', b: '$3.33', d: '$2.99', note: 'Believe高11%' },
+  { label: 'YouTube Content ID 单价', b: '$0.77', d: '$0.64', note: 'Believe高20%' },
+  { label: 'YouTube Music 单价', b: '$2.54', d: '$2.51', note: '基本持平' },
+  { label: 'Official Video 单价', b: '$1.87', d: '$2.08', note: '东西Official Video更高' },
+  { label: 'YouTube Content ID 占比', b: '46.5%', d: '18.2%', note: 'Believe严重依赖YT CID' },
+  { label: 'YouTube家族 合计占比', b: '46.5%', d: '61.6%', note: '东西YouTube占比更高（订阅分成驱动）' },
+  { label: 'TikTok 单价', b: '$1.17', d: '$0.0008', note: 'TikTok统计口径差异' },
+  { label: 'Spotify 收入占比', b: '11.2%', d: '15.1%', note: '东西更依赖Spotify' },
+  { label: 'Apple Music 占比', b: '9.2%', d: '21.0%', note: '东西Apple Music更强' },
+  { label: '覆盖地区数', b: '12+', d: 'WW (含Other)', note: '两者均覆盖全球' },
+  { label: '东南亚市场', b: '有', d: '强（TW 32.5%）', note: '东西台湾占比极高' },
+];
+
+compareRows.forEach(row => {
+  const div = document.createElement('div');
+  div.className = 'compare-row';
+  div.innerHTML = `
+    <div>${row.label}</div>
+    <div style="color:#4a9eff">${row.b}</div>
+    <div style="color:#00c853">${row.d}</div>
+  `;
+  compareBody.appendChild(div);
+});
+// Note row
+const noteRow = document.createElement('div');
+noteRow.style.cssText = 'padding:8px 14px;font-size:0.8em;color:var(--text2);background:var(--card);border-bottom:1px solid var(--border)';
+noteRow.innerHTML = '<span style="color:var(--accent)">注：</span>' + compareRows.map(r=>r.note).join(' &nbsp;·&nbsp; ');
+compareBody.appendChild(noteRow);
+
+// ============================================================
+// CAPABILITY TABLE
+// ============================================================
+const capabilityBody = document.getElementById('capabilityBody');
+const capabilities = [
+  { dim: 'DSP覆盖', b: '40+平台', d: '30+平台（含Facebook/TikTok）', note: '东西额外覆盖Facebook Reels/TikTok' },
+  { dim: 'Spotify直连', b: '是', d: '是', note: '两者均有' },
+  { dim: 'YouTube CMS', b: '是', d: '是', note: '两者均有' },
+  { dim: 'YouTube Claim处理', b: '自动化', d: '自动化+人工', note: 'Believe更系统化' },
+  { dim: 'Metadata质量', b: '高（多语言）', d: '高（中文优先）', note: '东西更适合华语市场' },
+  { dim: 'Reporting透明度', b: '逐条明细', d: '逐条明细（新CSV）', note: '两者均提供明细' },
+  { dim: 'Payout周期', b: '月结', d: '月结', note: '两者均为月结' },
+  { dim: '合同模式', b: '非独家代理', d: '非独家代理', note: '均为非独家' },
+  { dim: '东南亚优势', b: 'TH/ID/VN均有', d: 'TW/HK/SG最强', note: '东西台湾占比32.5%' },
+  { dim: '欧美市场', b: '较强', d: '美国其次（12.1%）', note: 'Believe欧美占比更高' },
+  { dim: 'TikTok覆盖', b: '有限', d: '全量（但变现差）', note: '东西TikTok记录多，变现需优化' },
+  { dim: '数据颗粒度', b: 'EUR/USD双计价', d: 'USD单计价', note: '东西无需汇率转换' },
+];
+capabilities.forEach(cap => {
+  const row = document.createElement('tr');
+  row.innerHTML = `
+    <td><strong>${cap.dim}</strong></td>
+    <td style="color:#4a9eff">${cap.b}</td>
+    <td style="color:#00c853">${cap.d}</td>
+    <td style="color:var(--text2);font-size:0.85em">${cap.note}</td>
+  `;
+  capabilityBody.appendChild(row);
+});
+</script>
+</body>
+</html>

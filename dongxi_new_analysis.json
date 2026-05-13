@@ -1,0 +1,392 @@
+{
+  "grand_total_revenue": 244941.5,
+  "grand_total_quantity": 1501261317,
+  "platform_summary": [
+    {
+      "platform": "YouTube Music",
+      "revenue": 75338.15,
+      "quantity": 24036929,
+      "unit_price": 3.1343,
+      "pct": 30.76,
+      "ad_revenue": 7929.99,
+      "sub_revenue": 67291.72,
+      "other_revenue": 116.44
+    },
+    {
+      "platform": "Apple Music",
+      "revenue": 51416.55,
+      "quantity": 13736890,
+      "unit_price": 3.743,
+      "pct": 20.99,
+      "ad_revenue": 0,
+      "sub_revenue": 49713.36,
+      "other_revenue": 1703.2
+    },
+    {
+      "platform": "YouTube Content ID",
+      "revenue": 44496.47,
+      "quantity": 55811284,
+      "unit_price": 0.7973,
+      "pct": 18.17,
+      "ad_revenue": 21390.95,
+      "sub_revenue": 23105.51,
+      "other_revenue": 0
+    },
+    {
+      "platform": "Spotify",
+      "revenue": 36908.49,
+      "quantity": 21265978,
+      "unit_price": 1.7356,
+      "pct": 15.07,
+      "ad_revenue": 0,
+      "sub_revenue": 26.38,
+      "other_revenue": 36882.11
+    },
+    {
+      "platform": "YouTube Music Video",
+      "revenue": 28603.15,
+      "quantity": 11004885,
+      "unit_price": 2.5991,
+      "pct": 11.68,
+      "ad_revenue": 8798.44,
+      "sub_revenue": 19804.71,
+      "other_revenue": 0
+    },
+    {
+      "platform": "Facebook",
+      "revenue": 2473.79,
+      "quantity": 331918212,
+      "unit_price": 0.0075,
+      "pct": 1.01,
+      "ad_revenue": 2471.97,
+      "sub_revenue": 0,
+      "other_revenue": 1.83
+    },
+    {
+      "platform": "YouTube Shorts",
+      "revenue": 2333.92,
+      "quantity": 86001660,
+      "unit_price": 0.0271,
+      "pct": 0.95,
+      "ad_revenue": 2333.92,
+      "sub_revenue": 0,
+      "other_revenue": 0
+    },
+    {
+      "platform": "Other Streaming",
+      "revenue": 2015.77,
+      "quantity": 1177202,
+      "unit_price": 1.7123,
+      "pct": 0.82,
+      "ad_revenue": 61.23,
+      "sub_revenue": 65.26,
+      "other_revenue": 1889.28
+    },
+    {
+      "platform": "TikTok",
+      "revenue": 969.72,
+      "quantity": 956190553,
+      "unit_price": 0.001,
+      "pct": 0.4,
+      "ad_revenue": 922.84,
+      "sub_revenue": 0,
+      "other_revenue": 46.87
+    },
+    {
+      "platform": "Amazon",
+      "revenue": 191.62,
+      "quantity": 63636,
+      "unit_price": 3.0112,
+      "pct": 0.08,
+      "ad_revenue": 0,
+      "sub_revenue": 0,
+      "other_revenue": 191.62
+    },
+    {
+      "platform": "Melon",
+      "revenue": 155.76,
+      "quantity": 44573,
+      "unit_price": 3.4945,
+      "pct": 0.06,
+      "ad_revenue": 0,
+      "sub_revenue": 0,
+      "other_revenue": 155.76
+    },
+    {
+      "platform": "Deezer",
+      "revenue": 38.12,
+      "quantity": 9515,
+      "unit_price": 4.0067,
+      "pct": 0.02,
+      "ad_revenue": 0,
+      "sub_revenue": 0,
+      "other_revenue": 38.12
+    }
+  ],
+  "region_summary": [
+    {
+      "region": "TW",
+      "revenue": 79715.31,
+      "quantity": 173958406,
+      "unit_price": 0.4582,
+      "pct": 32.54
+    },
+    {
+      "region": "Other",
+      "revenue": 55214.43,
+      "quantity": 443019718,
+      "unit_price": 0.1246,
+      "pct": 22.54
+    },
+    {
+      "region": "US",
+      "revenue": 29507.75,
+      "quantity": 39064803,
+      "unit_price": 0.7554,
+      "pct": 12.05
+    },
+    {
+      "region": "HK",
+      "revenue": 18728.95,
+      "quantity": 10613676,
+      "unit_price": 1.7646,
+      "pct": 7.65
+    },
+    {
+      "region": "SG",
+      "revenue": 16352.0,
+      "quantity": 18942158,
+      "unit_price": 0.8633,
+      "pct": 6.68
+    },
+    {
+      "region": "MY",
+      "revenue": 16257.37,
+      "quantity": 80613803,
+      "unit_price": 0.2017,
+      "pct": 6.64
+    },
+    {
+      "region": "JP",
+      "revenue": 10776.06,
+      "quantity": 107683509,
+      "unit_price": 0.1001,
+      "pct": 4.4
+    },
+    {
+      "region": "TH",
+      "revenue": 5543.74,
+      "quantity": 87174643,
+      "unit_price": 0.0636,
+      "pct": 2.26
+    },
+    {
+      "region": "VN",
+      "revenue": 3924.32,
+      "quantity": 323632511,
+      "unit_price": 0.0121,
+      "pct": 1.6
+    },
+    {
+      "region": "UK",
+      "revenue": 3581.51,
+      "quantity": 6001353,
+      "unit_price": 0.5968,
+      "pct": 1.46
+    },
+    {
+      "region": "KR",
+      "revenue": 3255.15,
+      "quantity": 25739196,
+      "unit_price": 0.1265,
+      "pct": 1.33
+    },
+    {
+      "region": "ID",
+      "revenue": 1426.74,
+      "quantity": 157463296,
+      "unit_price": 0.0091,
+      "pct": 0.58
+    },
+    {
+      "region": "IN",
+      "revenue": 658.16,
+      "quantity": 27354245,
+      "unit_price": 0.0241,
+      "pct": 0.27
+    }
+  ],
+  "region_platform_matrix": {
+    "US": {
+      "Spotify": 3.5229,
+      "Apple Music": 4.4237,
+      "YouTube Music": 8.3735,
+      "YouTube Content ID": 2.6774,
+      "YouTube Music Video": 7.0268,
+      "YouTube Shorts": 0.1771,
+      "TikTok": 0.0054,
+      "Facebook": 0.0382
+    },
+    "UK": {
+      "Spotify": 3.8657,
+      "Apple Music": 10.4151,
+      "YouTube Music": 8.8552,
+      "YouTube Content ID": 2.1446,
+      "YouTube Music Video": 6.0193,
+      "YouTube Shorts": 0.0828,
+      "TikTok": 0.0047,
+      "Facebook": 0.02
+    },
+    "JP": {
+      "Spotify": 1.6849,
+      "Apple Music": 5.0595,
+      "YouTube Music": 5.0881,
+      "YouTube Content ID": 1.3499,
+      "YouTube Music Video": 4.0669,
+      "YouTube Shorts": 0.0278,
+      "TikTok": 0.0024,
+      "Facebook": 0.0313
+    },
+    "KR": {
+      "Spotify": 1.9649,
+      "Apple Music": 4.1088,
+      "YouTube Music": 5.3803,
+      "YouTube Content ID": 0.6931,
+      "YouTube Music Video": 3.6148,
+      "YouTube Shorts": 0.0259,
+      "TikTok": 0.0028,
+      "Facebook": 0.033
+    },
+    "TW": {
+      "Spotify": 1.1295,
+      "Apple Music": 3.8845,
+      "YouTube Music": 3.631,
+      "YouTube Content ID": 1.1791,
+      "YouTube Music Video": 2.8226,
+      "YouTube Shorts": 0.0191,
+      "TikTok": 0.003,
+      "Facebook": 0.0149
+    },
+    "TH": {
+      "Spotify": 0.7549,
+      "Apple Music": 3.4703,
+      "YouTube Music": 1.5076,
+      "YouTube Content ID": 0.4997,
+      "YouTube Music Video": 1.2537,
+      "YouTube Shorts": 0.0088,
+      "TikTok": 0.0009,
+      "Facebook": 0.0063
+    },
+    "ID": {
+      "Spotify": 0.4906,
+      "Apple Music": 2.1739,
+      "YouTube Music": 1.3662,
+      "YouTube Content ID": 0.1077,
+      "YouTube Music Video": 0.971,
+      "YouTube Shorts": 0.0032,
+      "TikTok": 0.0004,
+      "Facebook": 0.0009
+    },
+    "VN": {
+      "Spotify": 0.4382,
+      "Apple Music": 2.2665,
+      "YouTube Music": 0.6714,
+      "YouTube Content ID": 0.1335,
+      "YouTube Music Video": 0.6855,
+      "YouTube Shorts": 0.0071,
+      "TikTok": 0.0005,
+      "Facebook": 0.0023
+    },
+    "IN": {
+      "Spotify": 0.6439,
+      "Apple Music": 1.2591,
+      "YouTube Music": 0.8937,
+      "YouTube Content ID": 0.0576,
+      "YouTube Music Video": 0.946,
+      "YouTube Shorts": 0.0052,
+      "TikTok": 0.0002,
+      "Facebook": 0.0004
+    },
+    "HK": {
+      "Spotify": 2.3707,
+      "Apple Music": 6.4423,
+      "YouTube Music": 5.7146,
+      "YouTube Content ID": 1.5784,
+      "YouTube Music Video": 4.1549,
+      "YouTube Shorts": 0.0225,
+      "TikTok": 0.0002,
+      "Facebook": 0.015
+    },
+    "SG": {
+      "Spotify": 2.8156,
+      "Apple Music": 8.7171,
+      "YouTube Music": 6.9293,
+      "YouTube Content ID": 1.9421,
+      "YouTube Music Video": 4.665,
+      "YouTube Shorts": 0.0314,
+      "TikTok": 0.0024,
+      "Facebook": 0.0128
+    },
+    "MY": {
+      "Spotify": 1.0059,
+      "Apple Music": 3.9002,
+      "YouTube Music": 2.0255,
+      "YouTube Content ID": 0.8015,
+      "YouTube Music Video": 1.7233,
+      "YouTube Shorts": 0.0103,
+      "TikTok": 0.0009,
+      "Facebook": 0.0057
+    }
+  },
+  "main_platforms": [
+    "Spotify",
+    "Apple Music",
+    "YouTube Music",
+    "YouTube Content ID",
+    "YouTube Music Video",
+    "YouTube Shorts",
+    "TikTok",
+    "Facebook"
+  ],
+  "yt_cid_revenue": 44496.47,
+  "yt_cid_pct": 18.17,
+  "tiktok_revenue": 969.72,
+  "tiktok_unit_price": 0.001,
+  "tiktok_quantity": 956190553,
+  "all_stores": [
+    "AWA",
+    "Amazon Ads",
+    "Amazon Prime",
+    "Amazon Unlimited",
+    "Anghami",
+    "Apple Match",
+    "Apple Music",
+    "Apple iTunes",
+    "Audiomack",
+    "Deezer",
+    "Facebook",
+    "Flo",
+    "KKbox",
+    "MOOV",
+    "Melon",
+    "Omusic",
+    "Pandora",
+    "Snap",
+    "SoundCloud",
+    "SoundtrackYourBrand",
+    "Spotify",
+    "Tidal",
+    "TikTok",
+    "Trebel",
+    "VEVO",
+    "Yandex",
+    "YouTube Art Tracks",
+    "YouTube Audio Content ID",
+    "YouTube Audio Tier",
+    "YouTube Music Video",
+    "YouTubeMCN",
+    "YouTubeShorts",
+    "iHeart"
+  ],
+  "all_services_count": 294
+}
