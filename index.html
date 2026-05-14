@@ -519,11 +519,11 @@ function ratio(b, d) {
   return `<span style="${cls}">${r.toFixed(2)}x</span>`;
 }
 
-// 按指定 key 从高到低排序后生成表格行（两列均显示 USD + RMB）
-function buildTableRowsSorted(tbId, bKey, dKey, sortKey) {
+// 按地区收入排名排序（TW→US→HK...）
+function buildTableRowsSorted(tbId, bKey, dKey) {
   const tb = document.getElementById(tbId);
   let html = '';
-  const sortedRegions = [...REGIONS].sort((a, b) => (DATA[b][sortKey] ?? -Infinity) - (DATA[a][sortKey] ?? -Infinity));
+  const sortedRegions = [...REGIONS].sort((a, b) => (REGION_RANK_MAP[a] ?? 99) - (REGION_RANK_MAP[b] ?? 99));
   sortedRegions.forEach(r => {
     const rn = REGION_NAMES[r];
     const bv = DATA[r][bKey];
@@ -535,15 +535,19 @@ function buildTableRowsSorted(tbId, bKey, dKey, sortKey) {
   tb.innerHTML = html;
 }
 
-buildTableRowsSorted('tb-spotify', 'bSp', 'dSp', 'dSp');
-buildTableRowsSorted('tb-apple', 'bAp', 'dAp', 'dAp');
+// 地区收入排名（按东西界世收入从高到低）
+const REGION_REV_RANK = ['TW','US','HK','SG','MY','JP','VN','TH','GB','KR'];
+const REGION_RANK_MAP = Object.fromEntries(REGION_REV_RANK.map((r,i) => [r, i]));
+
+buildTableRowsSorted('tb-spotify', 'bSp', 'dSp');
+buildTableRowsSorted('tb-apple', 'bAp', 'dAp');
 
 // YouTube Music table (Believe=YT Audio Tier, DZ=YT Audio Tier / YT Art Tracks)
 // 按东西 YT Art Tracks 单价从高到低排序；两列均显示 USD + RMB
 (function(){
   const tb = document.getElementById('tb-ytmusic');
   let html = '';
-  const sortedRegions = [...REGIONS].sort((a, b) => (DATA[b]['dYmAr'] ?? -Infinity) - (DATA[a]['dYmAr'] ?? -Infinity));
+  const sortedRegions = [...REGIONS].sort((a, b) => (REGION_RANK_MAP[a] ?? 99) - (REGION_RANK_MAP[b] ?? 99));
   sortedRegions.forEach(r => {
     const rn = REGION_NAMES[r];
     const bv = DATA[r]['bYm'];
@@ -559,11 +563,11 @@ buildTableRowsSorted('tb-apple', 'bAp', 'dAp', 'dAp');
 })();
 
 // YouTube Content ID table: Believe YT Official Content vs 东西 Audio CID
-// 按 Believe YT Official Content 单价从高到低排序；两列均显示 USD + RMB
+// 按地区收入排名排序；两列均显示 USD + RMB
 (function(){
   const tb = document.getElementById('tb-ytcid');
   let html = '';
-  const sortedRegions = [...REGIONS].sort((a, b) => (DATA[b]['bYc'] ?? -Infinity) - (DATA[a]['bYc'] ?? -Infinity));
+  const sortedRegions = [...REGIONS].sort((a, b) => (REGION_RANK_MAP[a] ?? 99) - (REGION_RANK_MAP[b] ?? 99));
   sortedRegions.forEach(r => {
     const rn = REGION_NAMES[r];
     const bv = DATA[r]['bYc'];
@@ -577,11 +581,11 @@ buildTableRowsSorted('tb-apple', 'bAp', 'dAp', 'dAp');
 })();
 
 // Shorts
-// 按东西 YT Shorts 单价从高到低排序；两列均显示 USD + RMB
+// 按地区收入排名排序；两列均显示 USD + RMB
 (function(){
   const tb = document.getElementById('tb-ytshorts');
   let html = '';
-  const sortedRegions = [...REGIONS].sort((a, b) => (DATA[b]['dSh'] ?? -Infinity) - (DATA[a]['dSh'] ?? -Infinity));
+  const sortedRegions = [...REGIONS].sort((a, b) => (REGION_RANK_MAP[a] ?? 99) - (REGION_RANK_MAP[b] ?? 99));
   sortedRegions.forEach(r => {
     const rn = REGION_NAMES[r];
     const bv = DATA[r]['bSh'];
