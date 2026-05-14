@@ -302,7 +302,7 @@
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:24px;align-items:stretch;">
     <div class="chart-card" style="display:flex;flex-direction:column;">
       <div class="chart-title" style="color:var(--accent)">📊 两家合计 · 渠道收入汇总（$284,798 USD）</div>
-      <div class="chart-container" style="height:300px;flex:1;">
+      <div class="chart-container" style="height:380px;flex:1;">
         <canvas id="chart-combined"></canvas>
       </div>
     </div>
@@ -685,55 +685,50 @@ new Chart(document.getElementById('chart-dz-struct'), {
   }
 });
 
-// ─── Combined Channel Summary ───
-// YouTube 按实际子类拆分（不含 Audio Tier $116）
-const combinedData = {
+// ─── Combined Channel Summary — 分组条形图 ───
+// 每条渠道展示 Believe vs 东西各自贡献（点击即对比，无需交互）
+const combinedBarData = {
   labels: [
     'YT Official Content', 'YT Audio Content ID', 'YT Art Tracks',
     'YT Music Video', 'YT UGC', 'YT Shorts',
     'Apple Music', 'Spotify', 'Facebook/其他', 'TikTok'
   ],
-  values: [
-    16276.83,   // Believe YT Official Content
-    44427.49,   // 东西 YT Audio Content ID
-    75221.71,   // 东西 YT Art Tracks
-    28603.15,   // 东西 YT Music Video
-    2255.38,    // Believe YT UGC
-    2354.32,    // Believe YT Shorts($20) + 东西 YT Shorts($2,334)
-    56944.38,   // Apple Music
-    46071.33,   // Spotify
-    6931.73,    // Facebook/其他
-    1442.20     // TikTok
-  ]
+  belVals: [16276.83, 0, 0, 0, 2255.38, 20.40, 7231.02, 9163.33, 3984.74, 472.20],
+  dzVals:  [0, 44427.49, 75221.71, 28603.15, 0, 2333.92, 49713.36, 36908.49, 2473.79, 969.70]
 };
 new Chart(document.getElementById('chart-combined'), {
-  type: 'doughnut',
+  type: 'bar',
   data: {
-    labels: combinedData.labels,
-    datasets: [{
-      data: combinedData.values,
-      backgroundColor: [
-        '#6C5CE7','#00B894','#00cec9',
-        '#e17055','#a29bfe','#fd79a8',
-        '#74b9ff','#55efc4','#fd79a8','#fdcb6e'
-      ],
-      borderWidth: 2,
-      borderColor: '#1a1d27'
-    }]
+    labels: combinedBarData.labels,
+    datasets: [
+      { label: 'Believe', data: combinedBarData.belVals, backgroundColor: 'rgba(108,92,231,0.8)', borderRadius: 4, borderSkipped: false },
+      { label: '东西界世', data: combinedBarData.dzVals, backgroundColor: 'rgba(0,184,148,0.8)', borderRadius: 4, borderSkipped: false }
+    ]
   },
   options: {
-    responsive: true, maintainAspectRatio: false,
+    indexAxis: 'y',
+    responsive: true,
+    maintainAspectRatio: false,
     plugins: {
-      legend: { position: 'right', labels: { font: { size: 12 }, padding: 12, boxWidth: 14 } },
+      legend: { position: 'top', labels: { font: { size: 12 }, padding: 16 } },
       tooltip: {
         callbacks: {
           label: (ctx) => {
-            const total = ctx.dataset.data.reduce((a,b)=>a+b,0);
-            const pct = (ctx.parsed/total*100).toFixed(1);
-            const rmb = (ctx.parsed * 7.2).toLocaleString('zh-CN', {maximumFractionDigits:0});
-            return ` $${ctx.parsed.toLocaleString()} / ¥${rmb} (${pct}%)`;
+            const v = ctx.parsed.x;
+            const rmb = (v * 7.2).toLocaleString('zh-CN', {maximumFractionDigits: 0});
+            return ` ${ctx.dataset.label}: $${v.toLocaleString()} / ¥${rmb}`;
           }
         }
+      }
+    },
+    scales: {
+      x: {
+        grid: { color: '#2e3250' },
+        ticks: { callback: v => '$' + (v >= 1000 ? (v/1000).toFixed(0)+'K' : v) }
+      },
+      y: {
+        grid: { display: false },
+        ticks: { font: { size: 11 } }
       }
     }
   }
