@@ -480,10 +480,10 @@
 // ══════════════════════════════════════════
 // DATA
 // ══════════════════════════════════════════
-const REGIONS = ['US','GB','JP','KR','TW','TH','ID','VN','HK','SG','MY','CN'];
+const REGIONS = ['US','GB','JP','KR','TW','TH','ID','VN','HK','SG','MY'];
 const REGION_NAMES = {
   US:'美国',GB:'英国',JP:'日本',KR:'韩国',TW:'台湾',TH:'泰国',
-  ID:'印度尼西亚',VN:'越南',HK:'香港',SG:'新加坡',MY:'马来西亚',CN:'中国'
+  ID:'印度尼西亚',VN:'越南',HK:'香港',SG:'新加坡',MY:'马来西亚'
 };
 
 const DATA = {
@@ -540,11 +540,31 @@ function buildTableRowsSorted(tbId, bKey, dKey) {
 }
 
 // 地区收入排名（按东西界世收入从高到低）
-const REGION_REV_RANK = ['TW','US','HK','SG','MY','JP','VN','TH','GB','KR','CN'];
+const REGION_REV_RANK = ['TW','US','HK','SG','MY','JP','VN','TH','GB','KR'];
 const REGION_RANK_MAP = Object.fromEntries(REGION_REV_RANK.map((r,i) => [r, i]));
 
+// Apple Music 表格：正常排序 + CN 单独追加（CN 无收入数据，排在最后）
 buildTableRowsSorted('tb-spotify', 'bSp', 'dSp');
-buildTableRowsSorted('tb-apple', 'bAp', 'dAp');
+(function(){
+  const tb = document.getElementById('tb-apple');
+  let html = '';
+  const sortedRegions = [...REGIONS].sort((a, b) => (REGION_RANK_MAP[a] ?? 99) - (REGION_RANK_MAP[b] ?? 99));
+  sortedRegions.forEach(r => {
+    const rn = REGION_NAMES[r];
+    const bv = DATA[r]['bAp'];
+    const dv = DATA[r]['dAp'];
+    const bStr = bv != null ? `<span class="val-b">${fv(bv)}</span><br><span style="font-size:10px;color:var(--muted)">≈ ¥${(bv * 7.2).toFixed(2)}</span>` : '<span class="td-na">N/A</span>';
+    const dStr = dv != null ? `<span class="val-d">${fv(dv)}</span><br><span style="font-size:10px;color:var(--muted)">≈ ¥${(dv * 7.2).toFixed(2)}</span>` : '<span class="td-na">N/A</span>';
+    html += `<tr><td class="td-region">${r} <span style="color:var(--muted);font-weight:400;font-size:11px">${rn}</span></td><td>${bStr}</td><td>${dStr}</td><td>${winner(bv,dv)}</td></tr>`;
+  });
+  // CN 大陆单独追加（Apple Music 专项数据）
+  const bvCN = DATA['CN']['bAp'];
+  const dvCN = DATA['CN']['dAp'];
+  const bStrCN = bvCN != null ? `<span class="val-b">${fv(bvCN)}</span><br><span style="font-size:10px;color:var(--muted)">≈ ¥${(bvCN * 7.2).toFixed(2)}</span>` : '<span class="td-na">N/A</span>';
+  const dStrCN = dvCN != null ? `<span class="val-d">${fv(dvCN)}</span><br><span style="font-size:10px;color:var(--muted)">≈ ¥${(dvCN * 7.2).toFixed(2)}</span>` : '<span class="td-na">N/A</span>';
+  html += `<tr><td class="td-region">CN <span style="color:var(--muted);font-weight:400;font-size:11px">中国</span></td><td>${bStrCN}</td><td>${dStrCN}</td><td>${winner(bvCN,dvCN)}</td></tr>`;
+  tb.innerHTML = html;
+})();
 
 // YouTube Music table (Believe=YT Audio Tier, DZ=YT Audio Tier / YT Art Tracks)
 // 按东西 YT Art Tracks 单价从高到低排序；两列均显示 USD + RMB
