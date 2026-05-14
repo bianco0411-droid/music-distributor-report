@@ -312,6 +312,36 @@
     </div>
   </div>
 
+  <!-- 合并渠道汇总 -->
+  <div class="chart-card" style="margin-bottom:24px;">
+    <div class="chart-title" style="color:var(--accent)">📊 两家合计 · 渠道收入汇总（$284,798 USD）</div>
+    <div class="chart-container">
+      <canvas id="chart-combined"></canvas>
+    </div>
+  </div>
+  <div class="insight-grid" style="margin-top:0;">
+    <div class="insight-box neutral" style="border-left-color:var(--accent)">
+      <h4 style="color:var(--accent)">📊 渠道汇总 · 各平台收入</h4>
+      <ul>
+        <li><b>YouTube系</b>：$169,154 · ¥1,217,909（59.4%）</li>
+        <li><b>Apple Music</b>：$56,944 · ¥409,997（20.0%）</li>
+        <li><b>Spotify</b>：$46,071 · ¥331,714（16.2%）</li>
+        <li><b>Facebook/其他</b>：$6,931 · ¥49,903（2.4%）</li>
+        <li><b>TikTok</b>：$1,442 · ¥10,384（0.5%）</li>
+        <li style="border-top:1px solid var(--border);margin-top:6px;padding-top:6px"><b>合计：$284,798 USD · ¥2,049,541</b></li>
+      </ul>
+    </div>
+    <div class="insight-box neutral" style="border-left-color:var(--accent)">
+      <h4 style="color:var(--accent)">💡 渠道洞察</h4>
+      <ul>
+        <li><b>YouTube系</b>占总收入近 <b style="color:var(--accent)">60%</b>，是绝对主力渠道</li>
+        <li>Apple Music 占比 20%，是第二大可靠渠道</li>
+        <li>Spotify 占比 16.2%，两家伙后约各占一半</li>
+        <li>TikTok 虽有近10亿次使用，但实际分成极低（0.5%）</li>
+      </ul>
+    </div>
+  </div>
+
   <!-- YouTube CID highlight -->
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
     <div class="insight-box believe">
@@ -366,8 +396,7 @@
       <ul>
         <li>TW第一：$11,340 (28.5%)</li>
         <li>US第二：$5,616 (14.1%)</li>
-        <li>CN第三：$3,664 (9.2%)</li>
-        <li>HK第四：$3,298 (8.3%)</li>
+        <li>HK第三：$3,298 (8.3%)</li>
         <li>东南亚合计（VN+TH+MY+ID+SG）约23.2%</li>
         <li>英日德法占比相对较低（合计约7.3%）</li>
       </ul>
@@ -477,11 +506,11 @@ const DATA = {
   TH: {bSp:0.2334, dSp:0.7549, bAp:2.7724, dAp:3.4703, bYm:1.2652, dYmAt:1.3941, dYmAr:1.5071, bYc:1.1974, dYcAr:0.4997, bSh:0.0067, dSh:0.0088},
   ID: {bSp:0.0853, dSp:0.4906, bAp:1.7866, dAp:2.1739, bYm:0.8793, dYmAt:0.9675, dYmAr:1.3672, bYc:1.3152, dYcAr:0.1077, bSh:0.0067, dSh:0.0032},
   VN: {bSp:0.2174, dSp:0.4382, bAp:1.8719, dAp:2.2665, bYm:null, dYmAt:null, dYmAr:0.6711, bYc:0.5674, dYcAr:0.1335, bSh:0.0067, dSh:0.0071},
-  // IN: {bSp:0.4214, dSp:0.6439, bAp:1.0705, dAp:1.2591, bYm:0.4957, dYmAt:0.5472, dYmAr:0.8933, bYc:0.9624, dYcAr:0.0576, bSh:0.0067, dSh:0.0052},  // 印度（已移除）
-  CN: {bSp:0.8500, dSp:1.2000, bAp:2.8302, dAp:3.2152, bYm:1.8000, dYmAt:2.0000, dYmAr:4.5000, bYc:4.0000, dYcAr:1.5000, bSh:0.0067, dSh:0.0500},
   HK: {bSp:1.3609, dSp:2.3707, bAp:5.3651, dAp:6.4423, bYm:null, dYmAt:1.2794, dYmAr:5.7108, bYc:5.4767, dYcAr:1.5784, bSh:0.0067, dSh:0.0225},
   SG: {bSp:1.5315, dSp:2.8156, bAp:7.3020, dAp:8.7171, bYm:1.8492, dYmAt:2.0371, dYmAr:6.9630, bYc:6.0731, dYcAr:1.9421, bSh:0.0067, dSh:0.0314},
   MY: {bSp:0.4383, dSp:1.0059, bAp:3.1351, dAp:3.9002, bYm:1.1381, dYmAt:1.2616, dYmAr:2.0249, bYc:1.8851, dYcAr:0.8015, bSh:0.0067, dSh:0.0103},
+  // CN 仅保留 Apple Music（其他平台已删除中国大陆数据）
+  CN: {bSp:null, dSp:null, bAp:2.8302, dAp:3.2152, bYm:null, dYmAt:null, dYmAr:null, bYc:null, dYcAr:null, bSh:0.0067, dSh:null},
 };
 
 // ══════════════════════════════════════════
@@ -667,11 +696,50 @@ new Chart(document.getElementById('chart-dz-struct'), {
   }
 });
 
+// ─── Combined Channel Summary ───
+const combinedData = {
+  labels: ['YouTube系', 'Apple Music', 'Spotify', 'Facebook/其他', 'TikTok'],
+  values: [
+    169154.00,   // YouTube系：Believe($18,532) + 东西($150,702)
+    56944.38,    // Apple Music：Believe($7,231) + 东西($49,713)
+    46071.33,    // Spotify：Believe($9,163) + 东西($36,908)
+    6931.73,     // Facebook/其他：Believe($3,985+$431) + 东西($2,474+$41)
+    1442.20      // TikTok：Believe($472) + 东西($970)
+  ]
+};
+new Chart(document.getElementById('chart-combined'), {
+  type: 'doughnut',
+  data: {
+    labels: combinedData.labels,
+    datasets: [{
+      data: combinedData.values,
+      backgroundColor: ['#64ffda','#74b9ff','#a29bfe','#fd79a8','#fdcb6e'],
+      borderWidth: 2,
+      borderColor: '#1a1d27'
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { position: 'right', labels: { font: { size: 12 }, padding: 12, boxWidth: 14 } },
+      tooltip: {
+        callbacks: {
+          label: (ctx) => {
+            const total = ctx.dataset.data.reduce((a,b)=>a+b,0);
+            const pct = (ctx.parsed/total*100).toFixed(1);
+            const rmb = (ctx.parsed * 7.2).toLocaleString('zh-CN', {maximumFractionDigits:0});
+            return ` $${ctx.parsed.toLocaleString()} / ¥${rmb} (${pct}%)`;
+          }
+        }
+      }
+    }
+  }
+});
+
 // Region Revenue — 按东西收入从高到低排序
 const regionData = [
   {r:'TW', b:11340.29, d:63772.25},
   {r:'US', b:5615.57, d:23606.20},
-  {r:'CN', b:3663.82, d:14983.16},
   {r:'HK', b:3297.98, d:13081.60},
   {r:'SG', b:2779.43, d:13005.90},
   {r:'MY', b:2139.46, d:8620.85},
