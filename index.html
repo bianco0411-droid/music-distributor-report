@@ -302,7 +302,7 @@
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:24px;align-items:stretch;">
     <div class="chart-card" style="display:flex;flex-direction:column;">
       <div class="chart-title" style="color:var(--accent)">📊 两家合计 · 渠道收入汇总（$284,798 USD）</div>
-      <div class="chart-container" style="height:380px;flex:1;">
+      <div class="chart-container" style="height:300px;flex:1;">
         <canvas id="chart-combined"></canvas>
       </div>
     </div>
@@ -685,8 +685,8 @@ new Chart(document.getElementById('chart-dz-struct'), {
   }
 });
 
-// ─── Combined Channel Summary — 分组条形图 ───
-// 每条渠道展示 Believe vs 东西各自贡献（点击即对比，无需交互）
+// ─── Combined Channel Summary — 饼图，点击显示两家贡献 ───
+// 每条渠道展示 Believe vs 东西各自贡献
 const combinedBarData = {
   labels: [
     'YT Official Content', 'YT Audio Content ID', 'YT Art Tracks',
@@ -697,38 +697,42 @@ const combinedBarData = {
   dzVals:  [0, 44427.49, 75221.71, 28603.15, 0, 2333.92, 49713.36, 36908.49, 2473.79, 969.70]
 };
 new Chart(document.getElementById('chart-combined'), {
-  type: 'bar',
+  type: 'doughnut',
   data: {
     labels: combinedBarData.labels,
-    datasets: [
-      { label: 'Believe', data: combinedBarData.belVals, backgroundColor: 'rgba(108,92,231,0.8)', borderRadius: 4, borderSkipped: false },
-      { label: '东西界世', data: combinedBarData.dzVals, backgroundColor: 'rgba(0,184,148,0.8)', borderRadius: 4, borderSkipped: false }
-    ]
+    datasets: [{
+      data: combinedBarData.labels.map((_, i) => combinedBarData.belVals[i] + combinedBarData.dzVals[i]),
+      backgroundColor: [
+        '#6C5CE7','#00B894','#00cec9',
+        '#e17055','#a29bfe','#fd79a8',
+        '#74b9ff','#55efc4','#fd79a8','#fdcb6e'
+      ],
+      borderWidth: 2,
+      borderColor: '#1a1d27'
+    }]
   },
   options: {
-    indexAxis: 'y',
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
-      legend: { position: 'top', labels: { font: { size: 12 }, padding: 16 } },
+      legend: { position: 'right', labels: { font: { size: 11 }, padding: 10, boxWidth: 12 } },
       tooltip: {
         callbacks: {
           label: (ctx) => {
-            const v = ctx.parsed.x;
-            const rmb = (v * 7.2).toLocaleString('zh-CN', {maximumFractionDigits: 0});
-            return ` ${ctx.dataset.label}: $${v.toLocaleString()} / ¥${rmb}`;
+            const i = ctx.dataIndex;
+            const bel = combinedBarData.belVals[i];
+            const dz  = combinedBarData.dzVals[i];
+            const total = bel + dz;
+            const pct = (total / combinedBarData.labels.reduce((_, j) => combinedBarData.belVals[j] + combinedBarData.dzVals[j], 0) * 100).toFixed(1);
+            const belRmb = (bel * 7.2).toLocaleString('zh-CN', {maximumFractionDigits:0});
+            const dzRmb  = (dz  * 7.2).toLocaleString('zh-CN', {maximumFractionDigits:0});
+            return [
+              `合计: $${total.toLocaleString()} / ¥${(total*7.2).toLocaleString('zh-CN',{maximumFractionDigits:0})} (${pct}%)`,
+              `  Believe: $${bel.toLocaleString()} / ¥${belRmb}`,
+              `  东西界世: $${dz.toLocaleString()} / ¥${dzRmb}`
+            ];
           }
         }
-      }
-    },
-    scales: {
-      x: {
-        grid: { color: '#2e3250' },
-        ticks: { callback: v => '$' + (v >= 1000 ? (v/1000).toFixed(0)+'K' : v) }
-      },
-      y: {
-        grid: { display: false },
-        ticks: { font: { size: 11 } }
       }
     }
   }
