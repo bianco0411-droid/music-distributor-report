@@ -723,7 +723,8 @@ new Chart(document.getElementById('chart-combined'), {
             const bel = combinedBarData.belVals[i];
             const dz  = combinedBarData.dzVals[i];
             const total = bel + dz;
-            const pct = (total / combinedBarData.labels.reduce((_, j) => combinedBarData.belVals[j] + combinedBarData.dzVals[j], 0) * 100).toFixed(1);
+            const grandTotal = combinedBarData.belVals.reduce((a, v, j) => a + v + combinedBarData.dzVals[j], 0);
+            const pct = (total / grandTotal * 100).toFixed(1);
             const belRmb = (bel * 7.2).toLocaleString('zh-CN', {maximumFractionDigits:0});
             const dzRmb  = (dz  * 7.2).toLocaleString('zh-CN', {maximumFractionDigits:0});
             return [
