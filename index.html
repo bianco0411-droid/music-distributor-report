@@ -298,15 +298,15 @@
   <div class="section-title">收入结构分析</div>
   <p class="section-desc">2026Q1三个月各平台收入占比对比</p>
 
-  <!-- 合并渠道汇总 + 渠道洞察（并排） -->
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:24px;">
-    <div class="chart-card">
+  <!-- 合并渠道汇总 + 渠道洞察（并排，等高） -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:24px;align-items:stretch;">
+    <div class="chart-card" style="display:flex;flex-direction:column;">
       <div class="chart-title" style="color:var(--accent)">📊 两家合计 · 渠道收入汇总（$284,798 USD）</div>
-      <div class="chart-container" style="height:300px;">
+      <div class="chart-container" style="height:300px;flex:1;">
         <canvas id="chart-combined"></canvas>
       </div>
     </div>
-    <div class="insight-box neutral" style="border-left-color:var(--accent);align-self:center;">
+    <div class="insight-box neutral" style="border-left-color:var(--accent);">
       <h4 style="color:var(--accent)">💡 渠道洞察</h4>
       <ul>
         <li><b>YouTube Art Tracks</b> 是最大单一渠道（26.4%），全部来自东西</li>
