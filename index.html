@@ -298,6 +298,19 @@
     </table>
   </div>
 
+  <!-- YouTube Music Video -->
+  <h3 style="font-size:14px;color:var(--muted);margin-bottom:8px;margin-top:20px;">🎵 YouTube Music Video — 每1,000 streams</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr>
+        <th>地区</th>
+        <th style="color:#a29bfe">Believe（USD）</th>
+        <th>优势方</th>
+      </tr></thead>
+      <tbody id="tb-ytmusicvid"></tbody>
+    </table>
+  </div>
+
   <!-- YouTube Shorts -->
   <h3 style="font-size:14px;color:var(--muted);margin-bottom:8px;margin-top:20px;">🩳 YouTube Shorts — 每1,000 shorts</h3>
   <div class="table-wrap">
@@ -493,18 +506,19 @@ const DATA = {
   // dYmAt = 东西 YouTube Audio Tier, dYmAr = 东西 YouTube Art Tracks
   // dYcAr = 东西 YouTube Audio CID
   // bSp 数据来源：Spotify 专项 Excel（EUR/USD 1.085），Revenue/Quantity×1000 换算
-  US: {bSp:3.1903, dSp:3.5229, bAp:5.3960, dAp:4.5034, bYm:2.2686, dYmAt:2.5000, dYmAr:8.4011, bYc:8.2096, dYcAr:2.6774, bSh:0.0067, dSh:0.1771},
-  GB: {bSp:3.3018, dSp:3.8657, bAp:8.3537, dAp:10.4151, bYm:2.2046, dYmAt:2.4255, dYmAr:8.9137, bYc:10.1642, dYcAr:2.1446, bSh:0.0067, dSh:0.0828},
-  JP: {bSp:1.2971, dSp:1.6849, bAp:3.8469, dAp:5.0595, bYm:2.3167, dYmAt:1.9123, dYmAr:5.0883, bYc:5.0935, dYcAr:1.3499, bSh:0.0067, dSh:0.0278},
-  KR: {bSp:1.4582, dSp:1.9649, bAp:3.6846, dAp:4.1088, bYm:2.0949, dYmAt:2.2995, dYmAr:5.3784, bYc:4.4885, dYcAr:0.6931, bSh:0.0067, dSh:0.0259},
-  TW: {bSp:1.0250, dSp:1.1295, bAp:3.2324, dAp:3.8845, bYm:1.1492, dYmAt:1.2654, dYmAr:3.6433, bYc:3.0005, dYcAr:1.1791, bSh:0.0067, dSh:0.0191},
-  TH: {bSp:0.3413, dSp:0.7549, bAp:2.7724, dAp:3.4703, bYm:1.2652, dYmAt:1.3941, dYmAr:1.5071, bYc:1.1974, dYcAr:0.4997, bSh:0.0067, dSh:0.0088},
-  ID: {bSp:0.1316, dSp:0.4906, bAp:1.7866, dAp:2.1739, bYm:0.8793, dYmAt:0.9675, dYmAr:1.3672, bYc:1.3152, dYcAr:0.1077, bSh:0.0067, dSh:0.0032},
-  VN: {bSp:0.3026, dSp:0.4382, bAp:1.8719, dAp:2.2665, bYm:null, dYmAt:null, dYmAr:0.6711, bYc:0.5674, dYcAr:0.1335, bSh:0.0067, dSh:0.0071},
-  HK: {bSp:1.8331, dSp:2.3707, bAp:5.3651, dAp:6.4423, bYm:null, dYmAt:1.2794, dYmAr:5.7108, bYc:5.4767, dYcAr:1.5784, bSh:0.0067, dSh:0.0225},
-  SG: {bSp:2.4460, dSp:2.8156, bAp:7.3020, dAp:8.7171, bYm:1.8492, dYmAt:2.0371, dYmAr:6.9630, bYc:6.0731, dYcAr:1.9421, bSh:0.0067, dSh:0.0314},
-  MY: {bSp:0.7057, dSp:1.0059, bAp:3.1351, dAp:3.9002, bYm:1.1381, dYmAt:1.2616, dYmAr:2.0249, bYc:1.8851, dYcAr:0.8015, bSh:0.0067, dSh:0.0103},
-  CN: {bSp:null, dSp:null, bAp:2.8302, dAp:3.2152, bYm:null, dYmAt:null, dYmAr:null, bYc:null, dYcAr:null, bSh:0.0067, dSh:null},
+  // bYv 数据来源：YouTube Music Video 专项 Excel（EUR/USD 1.085），Revenue/Quantity×1000 换算
+  US: {bSp:3.1903, dSp:3.5229, bAp:5.3960, dAp:4.5034, bYm:2.2686, dYmAt:2.5000, dYmAr:8.4011, bYv:6.9589, bYc:8.2096, dYcAr:2.6774, bSh:0.0067, dSh:0.1771},
+  GB: {bSp:3.3018, dSp:3.8657, bAp:8.3537, dAp:10.4151, bYm:2.2046, dYmAt:2.4255, dYmAr:8.9137, bYv:6.2866, bYc:10.1642, dYcAr:2.1446, bSh:0.0067, dSh:0.0828},
+  JP: {bSp:1.2971, dSp:1.6849, bAp:3.8469, dAp:5.0595, bYm:2.3167, dYmAt:1.9123, dYmAr:5.0883, bYv:3.7565, bYc:5.0935, dYcAr:1.3499, bSh:0.0067, dSh:0.0278},
+  KR: {bSp:1.4582, dSp:1.9649, bAp:3.6846, dAp:4.1088, bYm:2.0949, dYmAt:2.2995, dYmAr:5.3784, bYv:null,   bYc:4.4885, dYcAr:0.6931, bSh:0.0067, dSh:0.0259},
+  TW: {bSp:1.0250, dSp:1.1295, bAp:3.2324, dAp:3.8845, bYm:1.1492, dYmAt:1.2654, dYmAr:3.6433, bYv:2.6236, bYc:3.0005, dYcAr:1.1791, bSh:0.0067, dSh:0.0191},
+  TH: {bSp:0.3413, dSp:0.7549, bAp:2.7724, dAp:3.4703, bYm:1.2652, dYmAt:1.3941, dYmAr:1.5071, bYv:0.8363, bYc:1.1974, dYcAr:0.4997, bSh:0.0067, dSh:0.0088},
+  ID: {bSp:0.1316, dSp:0.4906, bAp:1.7866, dAp:2.1739, bYm:0.8793, dYmAt:0.9675, dYmAr:1.3672, bYv:0.9263, bYc:1.3152, dYcAr:0.1077, bSh:0.0067, dSh:0.0032},
+  VN: {bSp:0.3026, dSp:0.4382, bAp:1.8719, dAp:2.2665, bYm:null, dYmAt:null, dYmAr:0.6711, bYv:0.7021, bYc:0.5674, dYcAr:0.1335, bSh:0.0067, dSh:0.0071},
+  HK: {bSp:1.8331, dSp:2.3707, bAp:5.3651, dAp:6.4423, bYm:null, dYmAt:1.2794, dYmAr:5.7108, bYv:4.4256, bYc:5.4767, dYcAr:1.5784, bSh:0.0067, dSh:0.0225},
+  SG: {bSp:2.4460, dSp:2.8156, bAp:7.3020, dAp:8.7171, bYm:1.8492, dYmAt:2.0371, dYmAr:6.9630, bYv:4.7665, bYc:6.0731, dYcAr:1.9421, bSh:0.0067, dSh:0.0314},
+  MY: {bSp:0.7057, dSp:1.0059, bAp:3.1351, dAp:3.9002, bYm:1.1381, dYmAt:1.2616, dYmAr:2.0249, bYv:1.7693, bYc:1.8851, dYcAr:0.8015, bSh:0.0067, dSh:0.0103},
+  CN: {bSp:null, dSp:null, bAp:2.8302, dAp:3.2152, bYm:null, dYmAt:null, dYmAr:null, bYv:null,   bYc:null, dYcAr:null, bSh:0.0067, dSh:null},
 };
 
 // ══════════════════════════════════════════
@@ -601,6 +615,21 @@ buildTableRowsSorted('tb-spotify', 'bSp', 'dSp');
     const dArStr = dvAr != null ? `<span class="val-d">${fv(dvAr)}</span><br><span style="font-size:10px;color:var(--muted)">≈ ¥${(dvAr * 7.2).toFixed(2)}</span>` : '<span class="td-na">N/A</span>';
     // 优势方：Believe YT Official Content vs 东西 YT Audio CID（同类 Content ID 对比）
     html += `<tr><td class="td-region">${r} <span style="color:var(--muted);font-weight:400;font-size:11px">${rn}</span></td><td>${bStr}</td><td>${dArStr}</td><td>${winner(bv,dvAr)}</td></tr>`;
+  });
+  tb.innerHTML = html;
+})();
+
+// YouTube Music Video table: Believe YT Music Video only
+// 按地区收入排名排序；显示 USD + RMB
+(function(){
+  const tb = document.getElementById('tb-ytmusicvid');
+  let html = '';
+  const sortedRegions = [...REGIONS].sort((a, b) => (REGION_RANK_MAP[a] ?? 99) - (REGION_RANK_MAP[b] ?? 99));
+  sortedRegions.forEach(r => {
+    const rn = REGION_NAMES[r];
+    const bv = DATA[r]['bYv'];
+    const bStr = bv != null ? `<span class="val-b">${fv(bv)}</span><br><span style="font-size:10px;color:var(--muted)">≈ ¥${(bv * 7.2).toFixed(2)}</span>` : '<span class="td-na">N/A</span>';
+    html += `<tr><td class="td-region">${r} <span style="color:var(--muted);font-weight:400;font-size:11px">${rn}</span></td><td>${bStr}</td><td>—</td></tr>`;
   });
   tb.innerHTML = html;
 })();
