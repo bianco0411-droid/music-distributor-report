@@ -670,7 +670,7 @@ new Chart(document.getElementById('chart-bel-struct'), {
             const total = ctx.dataset.data.reduce((a,b)=>a+b,0);
             const pct = (ctx.parsed/total*100).toFixed(1);
             const rmb = (ctx.parsed * 7.2).toLocaleString('zh-CN', {maximumFractionDigits:0});
-            return ` $${ctx.parsed.toLocaleString()} / ¥${rmb} (${pct}%)`;
+            return ` $${ctx.parsed.toLocaleString()} ≈ ¥${rmb} (${pct}%)`;
           }
         }
       }
@@ -705,7 +705,7 @@ new Chart(document.getElementById('chart-dz-struct'), {
             const total = ctx.dataset.data.reduce((a,b)=>a+b,0);
             const pct = (ctx.parsed/total*100).toFixed(1);
             const rmb = (ctx.parsed * 7.2).toLocaleString('zh-CN', {maximumFractionDigits:0});
-            return ` $${ctx.parsed.toLocaleString()} / ¥${rmb} (${pct}%)`;
+            return ` $${ctx.parsed.toLocaleString()} ≈ ¥${rmb} (${pct}%)`;
           }
         }
       }
@@ -756,9 +756,9 @@ new Chart(document.getElementById('chart-combined'), {
             const belRmb = (bel * 7.2).toLocaleString('zh-CN', {maximumFractionDigits:0});
             const dzRmb  = (dz  * 7.2).toLocaleString('zh-CN', {maximumFractionDigits:0});
             return [
-              `合计: $${total.toLocaleString()} / ¥${(total*7.2).toLocaleString('zh-CN',{maximumFractionDigits:0})} (${pct}%)`,
-              `  Believe: $${bel.toLocaleString()} / ¥${belRmb}`,
-              `  东西界世: $${dz.toLocaleString()} / ¥${dzRmb}`
+              `合计: $${total.toLocaleString()} ≈ ¥${(total*7.2).toLocaleString('zh-CN',{maximumFractionDigits:0})} (${pct}%)`,
+              `  Believe: $${bel.toLocaleString()} ≈ ¥${belRmb}`,
+              `  东西界世: $${dz.toLocaleString()} ≈ ¥${dzRmb}`
             ];
           }
         }
