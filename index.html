@@ -315,7 +315,7 @@
   <!-- 合并渠道汇总 -->
   <div class="chart-card" style="margin-bottom:24px;">
     <div class="chart-title" style="color:var(--accent)">📊 两家合计 · 渠道收入汇总（$284,798 USD）</div>
-    <div class="chart-container">
+    <div class="chart-container" style="height:300px;">
       <canvas id="chart-combined"></canvas>
     </div>
   </div>
@@ -323,7 +323,12 @@
     <div class="insight-box neutral" style="border-left-color:var(--accent)">
       <h4 style="color:var(--accent)">📊 渠道汇总 · 各平台收入</h4>
       <ul>
-        <li><b>YouTube系</b>：$169,154 · ¥1,217,909（59.4%）</li>
+        <li><b>YouTube Official Content</b>：$16,277 · ¥117,194（5.7%）</li>
+        <li><b>YouTube Audio Content ID</b>：$44,427 · ¥319,874（15.6%）</li>
+        <li><b>YouTube Art Tracks</b>：$75,222 · ¥541,594（26.4%）</li>
+        <li><b>YouTube Music Video</b>：$28,603 · ¥205,943（10.0%）</li>
+        <li><b>YouTube UGC</b>：$2,255 · ¥16,238（0.8%）</li>
+        <li><b>YouTube Shorts</b>：$2,354 · ¥16,948（0.8%）</li>
         <li><b>Apple Music</b>：$56,944 · ¥409,997（20.0%）</li>
         <li><b>Spotify</b>：$46,071 · ¥331,714（16.2%）</li>
         <li><b>Facebook/其他</b>：$6,931 · ¥49,903（2.4%）</li>
@@ -334,10 +339,11 @@
     <div class="insight-box neutral" style="border-left-color:var(--accent)">
       <h4 style="color:var(--accent)">💡 渠道洞察</h4>
       <ul>
-        <li><b>YouTube系</b>占总收入近 <b style="color:var(--accent)">60%</b>，是绝对主力渠道</li>
-        <li>Apple Music 占比 20%，是第二大可靠渠道</li>
-        <li>Spotify 占比 16.2%，两家伙后约各占一半</li>
-        <li>TikTok 虽有近10亿次使用，但实际分成极低（0.5%）</li>
+        <li><b>YouTube Art Tracks</b> 是最大单一渠道（26.4%），全部来自东西</li>
+        <li><b>Apple Music</b> 占 20%，两家均可稳定依赖</li>
+        <li><b>Spotify</b> 占 16.2%，东西贡献了 80%</li>
+        <li><b>YouTube Audio CID</b> 占 15.6%，全部来自东西</li>
+        <li>TikTok 虽有近10亿次使用，但分成极低（0.5%）</li>
       </ul>
     </div>
   </div>
@@ -697,14 +703,24 @@ new Chart(document.getElementById('chart-dz-struct'), {
 });
 
 // ─── Combined Channel Summary ───
+// YouTube 按实际子类拆分（不含 Audio Tier $116）
 const combinedData = {
-  labels: ['YouTube系', 'Apple Music', 'Spotify', 'Facebook/其他', 'TikTok'],
+  labels: [
+    'YT Official Content', 'YT Audio Content ID', 'YT Art Tracks',
+    'YT Music Video', 'YT UGC', 'YT Shorts',
+    'Apple Music', 'Spotify', 'Facebook/其他', 'TikTok'
+  ],
   values: [
-    169154.00,   // YouTube系：Believe($18,532) + 东西($150,702)
-    56944.38,    // Apple Music：Believe($7,231) + 东西($49,713)
-    46071.33,    // Spotify：Believe($9,163) + 东西($36,908)
-    6931.73,     // Facebook/其他：Believe($3,985+$431) + 东西($2,474+$41)
-    1442.20      // TikTok：Believe($472) + 东西($970)
+    16276.83,   // Believe YT Official Content
+    44427.49,   // 东西 YT Audio Content ID
+    75221.71,   // 东西 YT Art Tracks
+    28603.15,   // 东西 YT Music Video
+    2255.38,    // Believe YT UGC
+    2354.32,    // Believe YT Shorts($20) + 东西 YT Shorts($2,334)
+    56944.38,   // Apple Music
+    46071.33,   // Spotify
+    6931.73,    // Facebook/其他
+    1442.20     // TikTok
   ]
 };
 new Chart(document.getElementById('chart-combined'), {
@@ -713,7 +729,11 @@ new Chart(document.getElementById('chart-combined'), {
     labels: combinedData.labels,
     datasets: [{
       data: combinedData.values,
-      backgroundColor: ['#64ffda','#74b9ff','#a29bfe','#fd79a8','#fdcb6e'],
+      backgroundColor: [
+        '#6C5CE7','#00B894','#00cec9',
+        '#e17055','#a29bfe','#fd79a8',
+        '#74b9ff','#55efc4','#fd79a8','#fdcb6e'
+      ],
       borderWidth: 2,
       borderColor: '#1a1d27'
     }]
