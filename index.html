@@ -298,24 +298,24 @@
   <div class="section-title">收入结构分析</div>
   <p class="section-desc">2026Q1三个月各平台收入占比对比</p>
 
-  <!-- 合并渠道汇总（置顶） -->
-  <div class="chart-card" style="margin-bottom:24px;">
-    <div class="chart-title" style="color:var(--accent)">📊 两家合计 · 渠道收入汇总（$284,798 USD）</div>
-    <div class="chart-container" style="height:300px;">
-      <canvas id="chart-combined"></canvas>
+  <!-- 合并渠道汇总 + 渠道洞察（并排） -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:24px;">
+    <div class="chart-card">
+      <div class="chart-title" style="color:var(--accent)">📊 两家合计 · 渠道收入汇总（$284,798 USD）</div>
+      <div class="chart-container" style="height:300px;">
+        <canvas id="chart-combined"></canvas>
+      </div>
     </div>
-  </div>
-
-  <!-- 渠道洞察 -->
-  <div class="insight-box neutral" style="border-left-color:var(--accent); margin-bottom:24px;">
-    <h4 style="color:var(--accent)">💡 渠道洞察</h4>
-    <ul>
-      <li><b>YouTube Art Tracks</b> 是最大单一渠道（26.4%），全部来自东西</li>
-      <li><b>Apple Music</b> 占 20%，两家均可稳定依赖</li>
-      <li><b>Spotify</b> 占 16.2%，东西贡献了 80%</li>
-      <li><b>YouTube Audio CID</b> 占 15.6%，全部来自东西</li>
-      <li>TikTok 虽有近10亿次使用，但分成极低（0.5%）</li>
-    </ul>
+    <div class="insight-box neutral" style="border-left-color:var(--accent);align-self:center;">
+      <h4 style="color:var(--accent)">💡 渠道洞察</h4>
+      <ul>
+        <li><b>YouTube Art Tracks</b> 是最大单一渠道（26.4%），全部来自东西</li>
+        <li><b>Apple Music</b> 占 20%，两家均可稳定依赖</li>
+        <li><b>Spotify</b> 占 16.2%，东西贡献了 80%</li>
+        <li><b>YouTube Audio CID</b> 占 15.6%，全部来自东西</li>
+        <li>TikTok 虽有近10亿次使用，但分成极低（0.5%）</li>
+      </ul>
+    </div>
   </div>
 
   <!-- 两家各自收入结构 -->
