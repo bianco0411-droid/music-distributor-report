@@ -492,17 +492,18 @@ const DATA = {
   // bYm 仅取 Platform=YouTube Audio Tier
   // dYmAt = 东西 YouTube Audio Tier, dYmAr = 东西 YouTube Art Tracks
   // dYcAr = 东西 YouTube Audio CID
-  US: {bSp:2.0960, dSp:3.5229, bAp:5.3960, dAp:4.5034, bYm:2.2686, dYmAt:2.5000, dYmAr:8.4011, bYc:8.2096, dYcAr:2.6774, bSh:0.0067, dSh:0.1771},
-  GB: {bSp:2.2745, dSp:3.8657, bAp:8.3537, dAp:10.4151, bYm:2.2046, dYmAt:2.4255, dYmAr:8.9137, bYc:10.1642, dYcAr:2.1446, bSh:0.0067, dSh:0.0828},
-  JP: {bSp:0.8668, dSp:1.6849, bAp:3.8469, dAp:5.0595, bYm:2.3167, dYmAt:1.9123, dYmAr:5.0883, bYc:5.0935, dYcAr:1.3499, bSh:0.0067, dSh:0.0278},
-  KR: {bSp:0.9632, dSp:1.9649, bAp:3.6846, dAp:4.1088, bYm:2.0949, dYmAt:2.2995, dYmAr:5.3784, bYc:4.4885, dYcAr:0.6931, bSh:0.0067, dSh:0.0259},
-  TW: {bSp:0.6202, dSp:1.1295, bAp:3.2324, dAp:3.8845, bYm:1.1492, dYmAt:1.2654, dYmAr:3.6433, bYc:3.0005, dYcAr:1.1791, bSh:0.0067, dSh:0.0191},
-  TH: {bSp:0.2334, dSp:0.7549, bAp:2.7724, dAp:3.4703, bYm:1.2652, dYmAt:1.3941, dYmAr:1.5071, bYc:1.1974, dYcAr:0.4997, bSh:0.0067, dSh:0.0088},
-  ID: {bSp:0.0853, dSp:0.4906, bAp:1.7866, dAp:2.1739, bYm:0.8793, dYmAt:0.9675, dYmAr:1.3672, bYc:1.3152, dYcAr:0.1077, bSh:0.0067, dSh:0.0032},
-  VN: {bSp:0.2174, dSp:0.4382, bAp:1.8719, dAp:2.2665, bYm:null, dYmAt:null, dYmAr:0.6711, bYc:0.5674, dYcAr:0.1335, bSh:0.0067, dSh:0.0071},
-  HK: {bSp:1.3609, dSp:2.3707, bAp:5.3651, dAp:6.4423, bYm:null, dYmAt:1.2794, dYmAr:5.7108, bYc:5.4767, dYcAr:1.5784, bSh:0.0067, dSh:0.0225},
-  SG: {bSp:1.5315, dSp:2.8156, bAp:7.3020, dAp:8.7171, bYm:1.8492, dYmAt:2.0371, dYmAr:6.9630, bYc:6.0731, dYcAr:1.9421, bSh:0.0067, dSh:0.0314},
-  MY: {bSp:0.4383, dSp:1.0059, bAp:3.1351, dAp:3.9002, bYm:1.1381, dYmAt:1.2616, dYmAr:2.0249, bYc:1.8851, dYcAr:0.8015, bSh:0.0067, dSh:0.0103},
+  // bSp 数据来源：Spotify 专项 Excel（EUR/USD 1.085），Revenue/Quantity×1000 换算
+  US: {bSp:3.1903, dSp:3.5229, bAp:5.3960, dAp:4.5034, bYm:2.2686, dYmAt:2.5000, dYmAr:8.4011, bYc:8.2096, dYcAr:2.6774, bSh:0.0067, dSh:0.1771},
+  GB: {bSp:3.3018, dSp:3.8657, bAp:8.3537, dAp:10.4151, bYm:2.2046, dYmAt:2.4255, dYmAr:8.9137, bYc:10.1642, dYcAr:2.1446, bSh:0.0067, dSh:0.0828},
+  JP: {bSp:1.2971, dSp:1.6849, bAp:3.8469, dAp:5.0595, bYm:2.3167, dYmAt:1.9123, dYmAr:5.0883, bYc:5.0935, dYcAr:1.3499, bSh:0.0067, dSh:0.0278},
+  KR: {bSp:1.4582, dSp:1.9649, bAp:3.6846, dAp:4.1088, bYm:2.0949, dYmAt:2.2995, dYmAr:5.3784, bYc:4.4885, dYcAr:0.6931, bSh:0.0067, dSh:0.0259},
+  TW: {bSp:1.0250, dSp:1.1295, bAp:3.2324, dAp:3.8845, bYm:1.1492, dYmAt:1.2654, dYmAr:3.6433, bYc:3.0005, dYcAr:1.1791, bSh:0.0067, dSh:0.0191},
+  TH: {bSp:0.3413, dSp:0.7549, bAp:2.7724, dAp:3.4703, bYm:1.2652, dYmAt:1.3941, dYmAr:1.5071, bYc:1.1974, dYcAr:0.4997, bSh:0.0067, dSh:0.0088},
+  ID: {bSp:0.1316, dSp:0.4906, bAp:1.7866, dAp:2.1739, bYm:0.8793, dYmAt:0.9675, dYmAr:1.3672, bYc:1.3152, dYcAr:0.1077, bSh:0.0067, dSh:0.0032},
+  VN: {bSp:0.3026, dSp:0.4382, bAp:1.8719, dAp:2.2665, bYm:null, dYmAt:null, dYmAr:0.6711, bYc:0.5674, dYcAr:0.1335, bSh:0.0067, dSh:0.0071},
+  HK: {bSp:1.8331, dSp:2.3707, bAp:5.3651, dAp:6.4423, bYm:null, dYmAt:1.2794, dYmAr:5.7108, bYc:5.4767, dYcAr:1.5784, bSh:0.0067, dSh:0.0225},
+  SG: {bSp:2.4460, dSp:2.8156, bAp:7.3020, dAp:8.7171, bYm:1.8492, dYmAt:2.0371, dYmAr:6.9630, bYc:6.0731, dYcAr:1.9421, bSh:0.0067, dSh:0.0314},
+  MY: {bSp:0.7057, dSp:1.0059, bAp:3.1351, dAp:3.9002, bYm:1.1381, dYmAt:1.2616, dYmAr:2.0249, bYc:1.8851, dYcAr:0.8015, bSh:0.0067, dSh:0.0103},
   CN: {bSp:null, dSp:null, bAp:2.8302, dAp:3.2152, bYm:null, dYmAt:null, dYmAr:null, bYc:null, dYcAr:null, bSh:0.0067, dSh:null},
 };
 
