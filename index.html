@@ -477,10 +477,10 @@
 // ══════════════════════════════════════════
 // DATA
 // ══════════════════════════════════════════
-const REGIONS = ['US','GB','JP','KR','TW','TH','ID','VN','HK','SG','MY'];
+const REGIONS = ['US','GB','JP','KR','TW','TH','ID','VN','HK','SG','MY','CN'];
 const REGION_NAMES = {
   US:'美国',GB:'英国',JP:'日本',KR:'韩国',TW:'台湾',TH:'泰国',
-  ID:'印度尼西亚',VN:'越南',HK:'香港',SG:'新加坡',MY:'马来西亚'
+  ID:'印度尼西亚',VN:'越南',HK:'香港',SG:'新加坡',MY:'马来西亚',CN:'中国'
 };
 
 const DATA = {
@@ -500,6 +500,7 @@ const DATA = {
   HK: {bSp:1.3609, dSp:2.3707, bAp:5.3651, dAp:6.4423, bYm:null, dYmAt:1.2794, dYmAr:5.7108, bYc:5.4767, dYcAr:1.5784, bSh:0.0067, dSh:0.0225},
   SG: {bSp:1.5315, dSp:2.8156, bAp:7.3020, dAp:8.7171, bYm:1.8492, dYmAt:2.0371, dYmAr:6.9630, bYc:6.0731, dYcAr:1.9421, bSh:0.0067, dSh:0.0314},
   MY: {bSp:0.4383, dSp:1.0059, bAp:3.1351, dAp:3.9002, bYm:1.1381, dYmAt:1.2616, dYmAr:2.0249, bYc:1.8851, dYcAr:0.8015, bSh:0.0067, dSh:0.0103},
+  CN: {bSp:null, dSp:null, bAp:2.8302, dAp:3.2152, bYm:null, dYmAt:null, dYmAr:null, bYc:null, dYcAr:null, bSh:0.0067, dSh:null},
 };
 
 // ══════════════════════════════════════════
@@ -536,7 +537,7 @@ function buildTableRowsSorted(tbId, bKey, dKey) {
 }
 
 // 地区收入排名（按东西界世收入从高到低）
-const REGION_REV_RANK = ['TW','US','HK','SG','MY','JP','VN','TH','GB','KR'];
+const REGION_REV_RANK = ['TW','US','HK','SG','MY','JP','VN','TH','GB','KR','CN'];
 const REGION_RANK_MAP = Object.fromEntries(REGION_REV_RANK.map((r,i) => [r, i]));
 
 buildTableRowsSorted('tb-spotify', 'bSp', 'dSp');
