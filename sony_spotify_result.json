@@ -1,0 +1,68 @@
+[
+  {
+    "region": "US",
+    "name": "United States",
+    "sony_paid": 3.5617,
+    "sony_free": 2.7255
+  },
+  {
+    "region": "TW",
+    "name": "Taiwan",
+    "sony_paid": 1.8005,
+    "sony_free": 0.053
+  },
+  {
+    "region": "SG",
+    "name": "Singapore",
+    "sony_paid": 3.2236,
+    "sony_free": 0.3712
+  },
+  {
+    "region": "HK",
+    "name": "Hong Kong",
+    "sony_paid": 3.7741,
+    "sony_free": 0.1659
+  },
+  {
+    "region": "MY",
+    "name": "Malaysia",
+    "sony_paid": 0.7006,
+    "sony_free": 0.7328
+  },
+  {
+    "region": "GB",
+    "name": "United Kingdom",
+    "sony_paid": 4.8267,
+    "sony_free": 1.4945
+  },
+  {
+    "region": "TH",
+    "name": "Thailand",
+    "sony_paid": 0.2958,
+    "sony_free": 0.3533
+  },
+  {
+    "region": "VN",
+    "name": "Vietnam",
+    "sony_paid": 1.0484,
+    "sony_free": 0.0422
+  },
+  {
+    "region": "JP",
+    "name": "Japan",
+    "sony_paid": 3.4184,
+    "sony_free": 0.2922
+  },
+  {
+    "region": "ID",
+    "name": "Indonesia",
+    "sony_paid": 0.1238,
+    "sony_free": 0.1368
+  },
+  {
+    "region": "KR",
+    "name": "South Korea",
+    "sony_paid": 3.0831,
+    "sony_free": 0.5705
+  }
+]

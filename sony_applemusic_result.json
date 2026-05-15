@@ -1,0 +1,57 @@
+[
+  {
+    "region": "US",
+    "name": "United States",
+    "price": 5.4801
+  },
+  {
+    "region": "TW",
+    "name": "Taiwan",
+    "price": 3.1068
+  },
+  {
+    "region": "SG",
+    "name": "Singapore",
+    "price": 8.7125
+  },
+  {
+    "region": "HK",
+    "name": "Hong Kong",
+    "price": 5.22
+  },
+  {
+    "region": "MY",
+    "name": "Malaysia",
+    "price": 2.6033
+  },
+  {
+    "region": "GB",
+    "name": "United Kingdom",
+    "price": 12.7533
+  },
+  {
+    "region": "TH",
+    "name": "Thailand",
+    "price": 2.7669
+  },
+  {
+    "region": "VN",
+    "name": "Vietnam",
+    "price": 1.3483
+  },
+  {
+    "region": "JP",
+    "name": "Japan",
+    "price": 8.4334
+  },
+  {
+    "region": "ID",
+    "name": "Indonesia",
+    "price": 1.9634
+  },
+  {
+    "region": "KR",
+    "name": "South Korea",
+    "price": 4.2066
+  }
+]

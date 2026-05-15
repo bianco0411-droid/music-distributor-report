@@ -1,0 +1,40 @@
+{
+  "believe_total_usd": 33829.23,
+  "believe_total_rmb": 243570.48,
+  "platform_totals_usd": {
+    "Yc": 16596.42,
+    "Sp": 7413.73,
+    "Ap": 6854.84,
+    "Fb": 2577.77,
+    "Tk": 359.58,
+    "Ym": 17.33,
+    "Sh": 9.57
+  },
+  "platform_pct": {
+    "Yc": 49.1,
+    "Sp": 21.9,
+    "Ap": 20.3,
+    "Fb": 7.6,
+    "Tk": 1.1,
+    "Ym": 0.1,
+    "Sh": 0.0
+  },
+  "kpi_updates": {
+    "believe_total": {
+      "usd": 33829.0,
+      "rmb": 243570.0
+    },
+    "believe_youtube": {
+      "usd": 16596.0,
+      "pct": 49.1
+    },
+    "believe_spotify": {
+      "usd": 7414.0,
+      "pct": 21.9
+    },
+    "believe_apple": {
+      "usd": 6855.0,
+      "pct": 20.3
+    }
+  }
+}

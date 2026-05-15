@@ -1,0 +1,71 @@
+{
+  "rate": 0.13736263736263735,
+  "data": [
+    {
+      "region": "US",
+      "paid": 0.0072,
+      "free": null,
+      "units": 6807
+    },
+    {
+      "region": "TW",
+      "paid": 0.0038,
+      "free": null,
+      "units": 36920
+    },
+    {
+      "region": "SG",
+      "paid": 0.0078,
+      "free": null,
+      "units": 6638
+    },
+    {
+      "region": "HK",
+      "paid": 0.006,
+      "free": null,
+      "units": 13216
+    },
+    {
+      "region": "MY",
+      "paid": 0.0034,
+      "free": null,
+      "units": 7250
+    },
+    {
+      "region": "GB",
+      "paid": 0.0096,
+      "free": null,
+      "units": 1536
+    },
+    {
+      "region": "TH",
+      "paid": 0.003,
+      "free": null,
+      "units": 6524
+    },
+    {
+      "region": "VN",
+      "paid": 0.0025,
+      "free": null,
+      "units": 1498
+    },
+    {
+      "region": "JP",
+      "paid": 0.0063,
+      "free": null,
+      "units": 1530
+    },
+    {
+      "region": "ID",
+      "paid": 0.0023,
+      "free": null,
+      "units": 2781
+    },
+    {
+      "region": "KR",
+      "paid": null,
+      "free": null,
+      "units": 0
+    }
+  ]
+}

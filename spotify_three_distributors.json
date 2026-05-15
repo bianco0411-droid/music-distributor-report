@@ -1,0 +1,125 @@
+{
+  "spotify_overall": [
+    {
+      "region": "US",
+      "name": "United States",
+      "dx_rate": 3.5229,
+      "bl_rate": 2.096,
+      "sony_rate": 3.8024,
+      "overall": 3.0948,
+      "dx_qty": 2207197,
+      "bl_qty": 990511,
+      "sony_qty": 62862
+    },
+    {
+      "region": "TW",
+      "name": "Taiwan",
+      "dx_rate": 1.1295,
+      "bl_rate": 0.6202,
+      "sony_rate": 1.1998,
+      "overall": 0.9473,
+      "dx_qty": 5899376,
+      "bl_qty": 3532276,
+      "sony_qty": 319462
+    },
+    {
+      "region": "SG",
+      "name": "Singapore",
+      "dx_rate": 2.8156,
+      "bl_rate": 1.5315,
+      "sony_rate": 2.6765,
+      "overall": 2.4404,
+      "dx_qty": 2126500,
+      "bl_qty": 912329,
+      "sony_qty": 132976
+    },
+    {
+      "region": "HK",
+      "name": "Hong Kong",
+      "dx_rate": 2.3707,
+      "bl_rate": 1.3609,
+      "sony_rate": 2.871,
+      "overall": 2.0707,
+      "dx_qty": 1026035,
+      "bl_qty": 470425,
+      "sony_qty": 32701
+    },
+    {
+      "region": "MY",
+      "name": "Malaysia",
+      "dx_rate": 1.0059,
+      "bl_rate": 0.4383,
+      "sony_rate": 1.007,
+      "overall": 0.844,
+      "dx_qty": 2115153,
+      "bl_qty": 874760,
+      "sony_qty": 76662
+    },
+    {
+      "region": "GB",
+      "name": "United Kingdom",
+      "dx_rate": 3.8657,
+      "bl_rate": 2.2745,
+      "sony_rate": 4.1159,
+      "overall": 3.4352,
+      "dx_qty": 285969,
+      "bl_qty": 111899,
+      "sony_qty": 9919
+    },
+    {
+      "region": "TH",
+      "name": "Thailand",
+      "dx_rate": 0.7549,
+      "bl_rate": 0.2334,
+      "sony_rate": 1.3966,
+      "overall": 0.5976,
+      "dx_qty": 1056430,
+      "bl_qty": 474035,
+      "sony_qty": 8123
+    },
+    {
+      "region": "VN",
+      "name": "Vietnam",
+      "dx_rate": 0.4382,
+      "bl_rate": 0.2174,
+      "sony_rate": 1.2693,
+      "overall": 0.3607,
+      "dx_qty": 1537308,
+      "bl_qty": 849669,
+      "sony_qty": 2889
+    },
+    {
+      "region": "JP",
+      "name": "Japan",
+      "dx_rate": 1.6849,
+      "bl_rate": 0.8668,
+      "sony_rate": 3.4659,
+      "overall": 1.4968,
+      "dx_qty": 393755,
+      "bl_qty": 123242,
+      "sony_qty": 1816
+    },
+    {
+      "region": "ID",
+      "name": "Indonesia",
+      "dx_rate": 0.4906,
+      "bl_rate": 0.0852,
+      "sony_rate": 0.2794,
+      "overall": 0.3413,
+      "dx_qty": 694722,
+      "bl_qty": 400734,
+      "sony_qty": 18241
+    },
+    {
+      "region": "KR",
+      "name": "South Korea",
+      "dx_rate": 1.9649,
+      "bl_rate": 0.9632,
+      "sony_rate": null,
+      "overall": 1.6985,
+      "dx_qty": 100250,
+      "bl_qty": 36320,
+      "sony_qty": 0
+    }
+  ]
+}
