@@ -248,10 +248,12 @@
     <table>
       <thead><tr>
         <th>地区</th>
-        <th style="color:#a29bfe">Believe</th>
-        <th style="color:#55efc4">东西界世</th>
-        <th style="color:var(--sony)">Sony</th>
-        <th>优势方</th>
+        <th style="color:#55efc4">东西会员</th>
+        <th style="color:#55efc4">东西免费</th>
+        <th style="color:#a29bfe">Believe会员</th>
+        <th style="color:#a29bfe">Believe免费</th>
+        <th style="color:var(--sony)">Sony会员</th>
+        <th style="color:var(--sony)">Sony免费</th>
       </tr></thead>
       <tbody id="tb-spotify"></tbody>
     </table>
@@ -269,22 +271,6 @@
         <th>优势方</th>
       </tr></thead>
       <tbody id="tb-apple"></tbody>
-    </table>
-  </div>
-
-  <!-- YouTube Music -->
-  <h3 style="font-size:14px;color:var(--muted);margin-bottom:8px;margin-top:20px;">▶️ YouTube Audio Tier — 每1,000 streams（占总收入 0.05%，其中东西占85.0%，Believe占15.0%）</h3>
-  <div style="font-size:12px;color:var(--muted);margin-bottom:12px;">YouTube Premium 中的音频播放或订阅分成</div>
-  <div class="table-wrap">
-    <table>
-      <thead><tr>
-        <th>地区</th>
-        <th style="color:#a29bfe">Believe<br>Audio Tier</th>
-        <th style="color:#55efc4">东西<br>Audio Tier</th>
-        <th style="color:var(--sony)">Sony<br>Audio Tier</th>
-        <th>优势方</th>
-      </tr></thead>
-      <tbody id="tb-ytmusic"></tbody>
     </table>
   </div>
 
@@ -515,17 +501,17 @@ const DATA = {
   // bYv 来源：music video.xlsx Unit Price (EUR) × 1.085 × 1000（按 quantity 加权平均）
   // YT Music Video 口径：东西 dYv=YouTube(不含子分类)，bYv=YouTube Music Video
   // Sony 单价：Roy. Price (RMB) × 1000（算术平均）。表格中主显示$（RMB÷7.25），副显示≈¥（原始RMB×1000）
-  US: {bSp:3.1903, dSp:3.5229, bAp:5.3956, dAp:4.4246, bYm:2.2686, dYmAt:2.5000, dYmAr:8.4011, bYv:6.9589, dYv:7.0181, bYc:2.9942, dYcAr:2.6736, bSh:0.0067, dSh:0.1771, sSp:28.2638, sAp:60.1275, sYm:null, sTk:7.1345},
-  GB: {bSp:3.3018, dSp:3.8657, bAp:8.3536, dAp:10.4151, bYm:2.2046, dYmAt:2.4255, dYmAr:8.9137, bYv:6.2866, dYv:5.9933, bYc:2.5115, dYcAr:2.1389, bSh:0.0067, dSh:0.0828, sSp:32.0096, sAp:74.2448, sYm:null, sTk:6.02},
-  JP: {bSp:1.2971, dSp:1.6849, bAp:3.8468, dAp:5.0595, bYm:2.3167, dYmAt:1.9123, dYmAr:5.0883, bYv:3.7565, dYv:4.0550, bYc:1.1970, dYcAr:1.3493, bSh:0.0067, dSh:0.0278, sSp:28.6273, sAp:51.5300, sYm:null, sTk:null},
-  KR: {bSp:1.4582, dSp:1.9649, bAp:3.6846, dAp:4.1088, bYm:2.0949, dYmAt:2.2995, dYmAr:5.3784, bYv:2.6276, dYv:3.5842, bYc:0.5905, dYcAr:0.6916, bSh:0.0067, dSh:0.0259, sSp:20.9524, sAp:30.4100, sYm:null, sTk:4.41},
-  TW: {bSp:1.025, dSp:1.1295, bAp:3.2324, dAp:3.8847, bYm:1.1492, dYmAt:1.2654, dYmAr:3.6433, bYv:2.6236, dYv:2.8197, bYc:1.6082, dYcAr:1.1778, bSh:0.0067, dSh:0.0191, sSp:9.3110, sAp:31.6395, sYm:9.6923, sTk:4.59},
-  TH: {bSp:0.3413, dSp:0.7549, bAp:2.7724, dAp:3.4703, bYm:1.2652, dYmAt:1.3941, dYmAr:1.5071, bYv:0.8363, dYv:1.2083, bYc:0.4842, dYcAr:0.5022, bSh:0.0067, dSh:0.0088, sSp:10.2714, sAp:22.2870, sYm:null, sTk:1.59},
-  ID: {bSp:0.1316, dSp:0.4906, bAp:1.7865, dAp:2.1739, bYm:0.8793, dYmAt:0.9675, dYmAr:1.3672, bYv:0.9263, dYv:0.9695, bYc:0.0896, dYcAr:0.1075, bSh:0.0067, dSh:0.0032, sSp:2.0333, sAp:16.9714, sYm:null, sTk:null},
-  VN: {bSp:0.3026, dSp:0.4382, bAp:1.872, dAp:2.2665, dYmAr:0.6711, bYv:0.7021, dYv:0.685, bYc:0.0593, dYcAr:0.1335, bSh:0.0067, dSh:0.0071, sSp:8.6200, sAp:21.4357, sYm:null, sTk:1.05},
-  HK: {bSp:1.8331, dSp:2.3707, bAp:5.3651, dAp:6.4423, dYmAt:1.2794, dYmAr:5.7108, bYv:4.4256, dYv:4.1506, bYc:1.9689, dYcAr:1.5761, bSh:0.0067, dSh:0.0225, sSp:21.8020, sAp:45.3027, sYm:null, sTk:null},
-  SG: {bSp:2.446, dSp:2.8156, bAp:7.3019, dAp:8.7171, bYm:1.8492, dYmAt:2.0371, dYmAr:6.963, bYv:4.7665, dYv:4.661, bYc:2.2618, dYcAr:1.9382, bSh:0.0067, dSh:0.0314, sSp:16.2352, sAp:63.6667, sYm:null, sTk:2.84},
-  MY: {bSp:0.7057, dSp:1.0059, bAp:3.1351, dAp:3.9002, bYm:1.1381, dYmAt:1.2616, dYmAr:2.0249, bYv:1.7693, dYv:1.722, bYc:0.8407, dYcAr:0.8007, bSh:0.0067, dSh:0.0103, sSp:7.3478, sAp:26.1222, sYm:null, sTk:null},
+  US: {bSpPaid:2.2172, bSpFree:1.8172, dSpPaid:4.1453, dSpFree:2.6352, sSpPaid:4.1133, sSpFree:3.9915, bAp:5.3956, dAp:4.4246, bYm:2.2686, dYmAt:2.5000, dYmAr:8.4011, bYv:6.9589, dYv:7.0181, bYc:2.9942, dYcAr:2.6736, bSh:0.0067, dSh:0.1771, sAp:60.1275, sYm:null, sTk:7.1345},
+  GB: {bSpPaid:3.1668, bSpFree:1.0476, dSpPaid:5.6600, dSpFree:1.5696, sSpPaid:5.7622, sSpFree:2.1782, bAp:8.3536, dAp:10.4151, bYm:2.2046, dYmAt:2.4255, dYmAr:8.9137, bYv:6.2866, dYv:5.9933, bYc:2.5115, dYcAr:2.1389, bSh:0.0067, dSh:0.0828, sAp:74.2448, sYm:null, sTk:6.02},
+  JP: {bSpPaid:2.2212, bSpFree:0.1928, dSpPaid:3.7404, dSpFree:0.2736, sSpPaid:4.3688, sSpFree:0.5385, bAp:3.8468, dAp:5.0595, bYm:2.3167, dYmAt:1.9123, dYmAr:5.0883, bYv:3.7565, dYv:4.0550, bYc:1.1970, dYcAr:1.3493, bSh:0.0067, dSh:0.0278, sAp:51.5300, sYm:null, sTk:null},
+  KR: {bSpPaid:1.6748, bSpFree:0.3868, dSpPaid:3.6698, dSpFree:0.9887, sSpPaid:3.1053, sSpFree:1.1645, bAp:3.6846, dAp:4.1088, bYm:2.0949, dYmAt:2.2995, dYmAr:5.3784, bYv:2.6276, dYv:3.5842, bYc:0.5905, dYcAr:0.6916, bSh:0.0067, dSh:0.0259, sAp:30.4100, sYm:null, sTk:4.41},
+  TW: {bSpPaid:1.0469, bSpFree:0.0345, dSpPaid:1.8932, dSpFree:0.0573, sSpPaid:1.9883, sSpFree:0.0997, bAp:3.2324, dAp:3.8847, bYm:1.1492, dYmAt:1.2654, dYmAr:3.6433, bYv:2.6236, dYv:2.8197, bYc:1.6082, dYcAr:1.1778, bSh:0.0067, dSh:0.0191, sAp:31.6395, sYm:9.6923, sTk:4.59},
+  TH: {bSpPaid:0.1947, bSpFree:0.2510, dSpPaid:0.7337, dSpFree:0.7338, sSpPaid:1.5439, sSpFree:0.0320, bAp:2.7724, dAp:3.4703, bYm:1.2652, dYmAt:1.3941, dYmAr:1.5071, bYv:0.8363, dYv:1.2083, bYc:0.4842, dYcAr:0.5022, bSh:0.0067, dSh:0.0088, sAp:22.2870, sYm:null, sTk:1.59},
+  ID: {bSpPaid:0.0766, bSpFree:0.0919, dSpPaid:1.1860, dSpFree:0.0143, sSpPaid:0.2995, sSpFree:0.3000, bAp:1.7865, dAp:2.1739, bYm:0.8793, dYmAt:0.9675, dYmAr:1.3672, bYv:0.9263, dYv:0.9695, bYc:0.0896, dYcAr:0.1075, bSh:0.0067, dSh:0.0032, sAp:16.9714, sYm:null, sTk:null},
+  VN: {bSpPaid:0.6634, bSpFree:0.0332, dSpPaid:0.4008, dSpFree:0.4007, sSpPaid:1.3971, sSpFree:0.0295, bAp:1.872, dAp:2.2665, dYmAr:0.6711, bYv:0.7021, dYv:0.685, bYc:0.0593, dYcAr:0.1335, bSh:0.0067, dSh:0.0071, sAp:21.4357, sYm:null, sTk:1.05},
+  HK: {bSpPaid:2.9293, bSpFree:0.1236, dSpPaid:2.3499, dSpFree:2.3500, sSpPaid:4.2626, sSpFree:0.2156, bAp:5.3651, dAp:6.4423, dYmAt:1.2794, dYmAr:5.7108, bYv:4.4256, dYv:4.1506, bYc:1.9689, dYcAr:1.5761, bSh:0.0067, dSh:0.0225, sAp:45.3027, sYm:null, sTk:null},
+  SG: {bSpPaid:2.0059, bSpFree:0.2421, dSpPaid:3.4382, dSpFree:0.3384, sSpPaid:3.3516, sSpFree:0.3491, bAp:7.3019, dAp:8.7171, bYm:1.8492, dYmAt:2.0371, dYmAr:6.963, bYv:4.7665, dYv:4.661, bYc:2.2618, dYcAr:1.9382, bSh:0.0067, dSh:0.0314, sAp:63.6667, sYm:null, sTk:2.84},
+  MY: {bSpPaid:0.4051, bSpFree:0.4893, dSpPaid:1.5829, dSpFree:0.0303, sSpPaid:1.0804, sSpFree:1.0809, bAp:3.1351, dAp:3.9002, bYm:1.1381, dYmAt:1.2616, dYmAr:2.0249, bYv:1.7693, dYv:1.722, bYc:0.8407, dYcAr:0.8007, bSh:0.0067, dSh:0.0103, sAp:26.1222, sYm:null, sTk:null},
   CN: {bAp:2.8433, dAp:3.2152, dYmAr:0.0, dYv:0.0, dYcAr:0.0, bSh:0.0067, sAp:21.175, sYm:null, sTk:null},
 };
 
@@ -611,18 +597,23 @@ function buildTableRowsSorted(tbId, bKey, dKey) {
 const REGION_REV_RANK = ['TW','US','HK','SG','MY','JP','VN','TH','GB','KR'];
 const REGION_RANK_MAP = Object.fromEntries(REGION_REV_RANK.map((r,i) => [r, i]));
 
-// Apple Music 表格：CN → TW → HK → US → SG → JP → MY → GB → KR → TH → VN
+// Spotify 表格：东西/Believe/Sony 各有会员和免费两个单价
 (function(){
   const tb = document.getElementById('tb-spotify');
   let html = '';
   const sortedRegions = [...REGIONS].sort((a, b) => (REGION_RANK_MAP[a] ?? 99) - (REGION_RANK_MAP[b] ?? 99));
   sortedRegions.forEach(r => {
     const rn = REGION_NAMES[r];
-    const bv = DATA[r]['bSp']; const dv = DATA[r]['dSp']; const sv = DATA[r]['sSp'];
-    const bStr = bv != null ? `<span class="val-b">${fv(bv)}</span><br><span style="font-size:10px;color:var(--muted)">≈ ¥${(bv*7.2).toFixed(2)}</span>` : '<span class="td-na">N/A</span>';
-    const dStr = dv != null ? `<span class="val-d">${fv(dv)}</span><br><span style="font-size:10px;color:var(--muted)">≈ ¥${(dv*7.2).toFixed(2)}</span>` : '<span class="td-na">N/A</span>';
-    const sStr = sv != null ? `<span class="val-s">$${(sv/7.25).toFixed(4)}</span><br><span style="font-size:10px;color:var(--muted)">≈ ¥${sv.toFixed(2)}</span>` : '<span class="td-na">N/A</span>';
-    html += `<tr><td class="td-region">${r} <span style="color:var(--muted);font-weight:400;font-size:11px">${rn}</span></td><td>${bStr}</td><td>${dStr}</td><td>${sStr}</td><td>${winner3(bv,dv,sv)}</td></tr>`;
+    const dp = DATA[r]['dSpPaid']; const df_v = DATA[r]['dSpFree'];
+    const bp = DATA[r]['bSpPaid']; const bf_v = DATA[r]['bSpFree'];
+    const sp = DATA[r]['sSpPaid']; const sf_v = DATA[r]['sSpFree'];
+    const dpStr = dp != null ? `<span class="val-d">$${dp.toFixed(4)}</span>` : '<span class="td-na">N/A</span>';
+    const dfStr = df_v != null ? `<span class="val-d">$${df_v.toFixed(4)}</span>` : '<span class="td-na">N/A</span>';
+    const bpStr = bp != null ? `<span class="val-b">$${bp.toFixed(4)}</span>` : '<span class="td-na">N/A</span>';
+    const bfStr = bf_v != null ? `<span class="val-b">$${bf_v.toFixed(4)}</span>` : '<span class="td-na">N/A</span>';
+    const spStr = sp != null ? `<span class="val-s">$${sp.toFixed(4)}</span>` : '<span class="td-na">N/A</span>';
+    const sfStr = sf_v != null ? `<span class="val-s">$${sf_v.toFixed(4)}</span>` : '<span class="td-na">N/A</span>';
+    html += `<tr><td class="td-region">${r} <span style="color:var(--muted);font-weight:400;font-size:11px">${rn}</span></td><td>${dpStr}</td><td>${dfStr}</td><td>${bpStr}</td><td>${bfStr}</td><td>${spStr}</td><td>${sfStr}</td></tr>`;
   });
   tb.innerHTML = html;
 })();
@@ -641,23 +632,6 @@ const REGION_RANK_MAP = Object.fromEntries(REGION_REV_RANK.map((r,i) => [r, i]))
     const dStr = dv != null ? `<span class="val-d">${fv(dv)}</span><br><span style="font-size:10px;color:var(--muted)">≈ ¥${(dv*7.2).toFixed(2)}</span>` : '<span class="td-na">N/A</span>';
     const sStr = sv != null ? `<span class="val-s">$${(sv/7.25).toFixed(4)}</span><br><span style="font-size:10px;color:var(--muted)">≈ ¥${sv.toFixed(2)}</span>` : '<span class="td-na">N/A</span>';
     html += `<tr><td class="td-region">${r} <span style="color:var(--muted);font-weight:400;font-size:11px">${rn}</span></td><td>${bStr}</td><td>${dStr}</td><td>${sStr}</td><td>${winner3(bv,dv,sv)}</td></tr>`;
-  });
-  tb.innerHTML = html;
-})();
-
-// YouTube Music table (Believe=YT Audio Tier, DZ=YT Audio Tier)
-// 按东西 YT Audio Tier 单价从高到低排序；两列均显示 USD + RMB
-(function(){
-  const tb = document.getElementById('tb-ytmusic');
-  let html = '';
-  const sortedRegions = [...REGIONS].sort((a, b) => (REGION_RANK_MAP[a] ?? 99) - (REGION_RANK_MAP[b] ?? 99));
-  sortedRegions.forEach(r => {
-    const rn = REGION_NAMES[r];
-    const bv = DATA[r]['bYm']; const dvAt = DATA[r]['dYmAt']; const sv = DATA[r]['sYm'];
-    const bStr = bv != null ? `<span class="val-b">${fv(bv)}</span><br><span style="font-size:10px;color:var(--muted)">≈ ¥${(bv*7.2).toFixed(2)}</span>` : '<span class="td-na">N/A</span>';
-    const dAtStr = dvAt != null ? `<span class="val-d">${fv(dvAt)}</span><br><span style="font-size:10px;color:var(--muted)">≈ ¥${(dvAt*7.2).toFixed(2)}</span>` : '<span class="td-na">N/A</span>';
-    const sStr = sv != null ? `<span class="val-s">$${(sv/7.25).toFixed(4)}</span><br><span style="font-size:10px;color:var(--muted)">≈ ¥${sv.toFixed(2)}</span>` : '<span class="td-na">N/A</span>';
-    html += `<tr><td class="td-region">${r} <span style="color:var(--muted);font-weight:400;font-size:11px">${rn}</span></td><td>${bStr}</td><td>${dAtStr}</td><td>${sStr}</td><td>${winner3(bv,dvAt,sv)}</td></tr>`;
   });
   tb.innerHTML = html;
 })();
