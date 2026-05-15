@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>海外音乐发行商对比分析报告 · Believe vs 东西</title>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
   :root {
@@ -16,18 +19,23 @@
     --text: #e8eaf6;
     --muted: #8892b0;
     --accent: #64ffda;
+  --sony: #FF6B35;
     --warn: #ffd166;
     --red: #ff6b6b;
     --green: #51cf66;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: var(--bg); color: var(--text); font-family: 'Inter', 'PingFang SC', 'Helvetica Neue', sans-serif; font-size: 14px; line-height: 1.6; }
+  body { background: var(--bg); color: var(--text); font-family: 'Inter', 'PingFang SC', 'Helvetica Neue', sans-serif; font-size: 14px; line-height: 1.6; overflow-x: hidden; }
 
   /* ── Layout ── */
-  .page-wrap { max-width: 1200px; margin: 0 auto; padding: 32px 24px 80px; }
-  
+  .page-wrap { max-width: 960px; margin: 0 auto; padding: 32px 24px 80px; width: 100%; box-sizing: border-box; overflow-x: hidden; }
+
+  /* 统一内容宽度：table 和 chart-card 必须与 page-wrap 内容区等宽 */
+  .table-wrap,
+  .chart-card { width: min(960px, 100%); max-width: 100%; }
+
   /* ── Header ── */
-  .header { border-bottom: 1px solid var(--border); padding-bottom: 24px; margin-bottom: 36px; }
+  .header { border-bottom: 1px solid var(--border); padding-bottom: 24px; margin-bottom: 36px; overflow-x: hidden; }
   .header h1 { font-size: 26px; font-weight: 700; letter-spacing: -0.5px; }
   .header h1 span.b { color: var(--believe); }
   .header h1 span.d { color: var(--dz); }
@@ -37,13 +45,15 @@
   .header .meta-tag b { color: var(--text); }
 
   /* ── Section ── */
-  .section { margin-bottom: 48px; }
+  .section { margin-bottom: 48px; max-width: 100%; overflow-x: hidden; }
   .section-title { font-size: 18px; font-weight: 700; margin-bottom: 4px; display: flex; align-items: center; gap: 8px; }
   .section-title::before { content: ''; display: inline-block; width: 4px; height: 18px; background: var(--accent); border-radius: 2px; }
   .section-desc { color: var(--muted); font-size: 12.5px; margin-bottom: 20px; margin-top: 4px; }
 
   /* ── KPI Cards ── */
-  .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 32px; }
+  .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 32px; }
+  @media (max-width: 768px) { .kpi-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 500px) { .kpi-grid { grid-template-columns: 1fr; } }
   .kpi-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
   .kpi-card .kpi-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
   .kpi-card .kpi-value { font-size: 28px; font-weight: 700; letter-spacing: -1px; }
@@ -52,13 +62,11 @@
   .kpi-card.dz { border-top: 3px solid var(--dz); }
 
   /* ── Tables ── */
-  .table-wrap { overflow-x: auto; border-radius: 10px; border: 1px solid var(--border); margin-bottom: 16px; }
+  .table-wrap { overflow-x: auto; border-radius: 10px; border: 1px solid var(--border); margin-bottom: 16px; max-width: 100%; }
   table { width: 100%; border-collapse: collapse; font-size: 13px; table-layout: fixed; }
   thead tr { background: var(--card2); }
   thead th { padding: 12px 14px; text-align: left; font-weight: 600; color: var(--muted); font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.3px; white-space: nowrap; border-bottom: 1px solid var(--border); }
-  thead th:first-child { width: 140px; }
-  thead th:nth-child(2) { width: 25%; }
-  thead th:nth-child(3) { width: 25%; }
+  thead th { width: auto; }
   tbody tr { border-bottom: 1px solid var(--border); transition: background 0.15s; }
   tbody tr:last-child { border-bottom: none; }
   tbody tr:hover { background: rgba(255,255,255,0.03); }
@@ -67,21 +75,27 @@
   .td-na { color: var(--muted); font-style: italic; }
   .val-b { color: #a29bfe; font-weight: 600; }
   .val-d { color: #55efc4; font-weight: 600; }
+  .val-s { color: var(--sony); font-weight: 600; }
   .val-higher { background: rgba(81,207,102,0.08); border-radius: 4px; padding: 2px 6px; }
   .badge { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 600; }
   .badge-b { background: rgba(108,92,231,0.2); color: #a29bfe; }
   .badge-d { background: rgba(0,184,148,0.2); color: #55efc4; }
+  .badge-s { background: rgba(255,107,53,0.2); color: var(--sony); }
   .badge-na { background: rgba(136,146,176,0.15); color: var(--muted); }
 
   /* ── Charts ── */
-  .charts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px; }
+  .charts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px; width: 100%; max-width: 100%; }
+  .charts-grid.single { grid-template-columns: 1fr; }
+  .charts-grid.single .chart-container,
+  .charts-grid.single .chart-container-lg { max-width: 560px; margin: 0 auto; }
   @media (max-width: 768px) { .charts-grid { grid-template-columns: 1fr; } }
-  .chart-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+  .chart-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; max-width: 100%; overflow: hidden; }
   .chart-title { font-size: 14px; font-weight: 600; margin-bottom: 16px; }
   .chart-title span.b { color: var(--believe); }
   .chart-title span.d { color: var(--dz); }
-  .chart-container { position: relative; height: 260px; }
-  .chart-container-lg { position: relative; height: 320px; }
+  .chart-container { position: relative; height: 260px; width: 100%; max-width: 100%; }
+  .chart-container-lg { position: relative; height: 320px; width: 100%; max-width: 100%; }
+  canvas { display: block; max-width: 100%; }
 
   /* ── Capability Matrix ── */
   .matrix-table thead th { font-size: 12px; }
@@ -116,6 +130,7 @@
   .bar-track { height: 14px; background: var(--card2); border-radius: 7px; overflow: hidden; }
   .bar-fill-b { height: 100%; background: linear-gradient(90deg, var(--believe), #a29bfe); border-radius: 7px; transition: width 0.6s ease; }
   .bar-fill-d { height: 100%; background: linear-gradient(90deg, var(--dz), #55efc4); border-radius: 7px; transition: width 0.6s ease; }
+  .bar-fill-s { height: 100%; background: linear-gradient(90deg, var(--sony), #ff9f7a); border-radius: 7px; transition: width 0.6s ease; }
   .bar-val { width: 60px; font-size: 11.5px; font-weight: 600; flex-shrink: 0; }
 
   /* ── Note ── */
@@ -145,15 +160,14 @@
      HEADER
 ═══════════════════════════════════════════════ -->
 <div class="header">
-  <h1>海外音乐发行商对比分析报告<br><span class="b">Believe</span> vs <span class="d">东西界世</span></h1>
+  <h1>海外音乐发行商对比分析报告<br><span class="b">Believe</span> vs <span class="d">东西界世</span> vs <span style="color:var(--sony)">Sony</span></h1>
   <div class="meta-row">
     <span class="meta-tag">数据区间：<b>2026年1月—3月</b></span>
-    <span class="meta-tag">汇率：<b>1 EUR = 1.085 USD</b> · <b>1 USD = 7.20 RMB</b></span>
-    <span class="meta-tag">所有金额单位：<b>USD</b></span>
+    <span class="meta-tag">汇率：<b>1 EUR = 1.085 USD</b> · <b>1 USD = 7.25 RMB</b></span>
   </div>
   <div class="meta-row">
     <span class="meta-tag">收入口径：<b>分成后</b>（版权方实际到手）</span>
-    <span class="meta-tag">单价口径：<b>分成前</b>（东西=DSP实付，Believe=Gross Revenue）</span>
+    <span class="meta-tag">单价口径：<b>分成前</b>（东西=DSP实付 USD，Believe=Gross Revenue EUR×1.085）<br>Sony=原始 RMB 数据，表格中主显示¥（RMB），副显示≈$（RMB÷7.25）</span>
   </div>
 </div>
 
@@ -166,23 +180,23 @@
   <div class="kpi-grid">
     <div class="kpi-card believe">
       <div class="kpi-label">Believe · 总收入</div>
-      <div class="kpi-value" style="color:var(--believe)">$39,856</div>
-      <div class="kpi-sub">≈ ¥286,963</div>
+      <div class="kpi-value" style="color:var(--believe)">$33,829</div>
+      <div class="kpi-sub">≈ ¥243,570</div>
     </div>
     <div class="kpi-card believe">
-      <div class="kpi-label">Believe · YouTube Official Content</div>
-      <div class="kpi-value" style="color:var(--believe)">$16,277</div>
-      <div class="kpi-sub">≈ ¥117,194 · 占收入 40.8%</div>
+      <div class="kpi-label">Believe · YT Official Content</div>
+      <div class="kpi-value" style="color:var(--believe)">$16,596</div>
+      <div class="kpi-sub">≈ ¥119,491</div>
     </div>
     <div class="kpi-card believe">
       <div class="kpi-label">Believe · Spotify</div>
-      <div class="kpi-value" style="color:var(--believe)">$9,163</div>
-      <div class="kpi-sub">≈ ¥65,974 · 占收入 23.0%</div>
+      <div class="kpi-value" style="color:var(--believe)">$7,414</div>
+      <div class="kpi-sub">≈ ¥53,381</div>
     </div>
     <div class="kpi-card believe">
       <div class="kpi-label">Believe · Apple Music</div>
-      <div class="kpi-value" style="color:var(--believe)">$7,231</div>
-      <div class="kpi-sub">≈ ¥52,063 · 占收入 18.1%</div>
+      <div class="kpi-value" style="color:var(--believe)">$6,855</div>
+      <div class="kpi-sub">≈ ¥49,356</div>
     </div>
   </div>
   <div class="kpi-grid">
@@ -194,17 +208,27 @@
     <div class="kpi-card dz">
       <div class="kpi-label">东西界世 · YouTube Art Tracks</div>
       <div class="kpi-value" style="color:var(--dz)">$75,222</div>
-      <div class="kpi-sub">≈ ¥541,598 · 占收入 30.7%</div>
+      <div class="kpi-sub">≈ ¥541,598</div>
     </div>
     <div class="kpi-card dz">
       <div class="kpi-label">东西界世 · Apple Music</div>
       <div class="kpi-value" style="color:var(--dz)">$49,713</div>
-      <div class="kpi-sub">≈ ¥357,934 · 占收入 20.3%</div>
+      <div class="kpi-sub">≈ ¥357,934</div>
     </div>
     <div class="kpi-card dz">
       <div class="kpi-label">东西界世 · YouTube Audio CID</div>
       <div class="kpi-value" style="color:var(--dz)">$44,427</div>
-      <div class="kpi-sub">≈ ¥319,874 · 占收入 18.1%</div>
+      <div class="kpi-sub">≈ ¥319,874</div>
+    </div>
+  </div>
+
+  <!-- 渠道汇总 -->
+  <div style="display:grid;grid-template-columns:1fr;gap:24px;margin-bottom:24px;align-items:stretch;">
+    <div class="chart-card" style="display:flex;flex-direction:column;width:100%;">
+      <div class="chart-title" style="color:var(--accent)">📊 两家合计 · 渠道收入汇总（$278,771 USD）</div>
+      <div class="chart-container" style="height:300px;flex:1;">
+        <canvas id="chart-combined"></canvas>
+      </div>
     </div>
   </div>
 </div>
@@ -219,13 +243,14 @@
   </p>
 
   <!-- Spotify -->
-  <h3 style="font-size:14px;color:var(--muted);margin-bottom:8px;margin-top:20px;">🎵 Spotify — 每1,000 streams</h3>
+  <h3 style="font-size:14px;color:var(--muted);margin-bottom:8px;margin-top:20px;">🟢 Spotify — 每1,000 streams（占总收入 16.5%，其中东西占78.0%，Believe占22.0%）</h3>
   <div class="table-wrap">
     <table>
       <thead><tr>
         <th>地区</th>
-        <th style="color:#a29bfe">Believe（USD）</th>
+        <th style="color:#a29bfe">Believe</th>
         <th style="color:#55efc4">东西界世</th>
+        <th style="color:var(--sony)">Sony</th>
         <th>优势方</th>
       </tr></thead>
       <tbody id="tb-spotify"></tbody>
@@ -233,13 +258,14 @@
   </div>
 
   <!-- Apple Music -->
-  <h3 style="font-size:14px;color:var(--muted);margin-bottom:8px;margin-top:20px;">🍎 Apple Music — 每1,000 streams</h3>
+  <h3 style="font-size:14px;color:var(--muted);margin-bottom:8px;margin-top:20px;">🍎 Apple Music — 每1,000 streams（占总收入 19.9%，其中东西占87.3%，Believe占12.7%）</h3>
   <div class="table-wrap">
     <table>
       <thead><tr>
         <th>地区</th>
-        <th style="color:#a29bfe">Believe（USD）</th>
+        <th style="color:#a29bfe">Believe</th>
         <th style="color:#55efc4">东西界世</th>
+        <th style="color:var(--sony)">Sony</th>
         <th>优势方</th>
       </tr></thead>
       <tbody id="tb-apple"></tbody>
@@ -247,14 +273,15 @@
   </div>
 
   <!-- YouTube Music -->
-  <h3 style="font-size:14px;color:var(--muted);margin-bottom:8px;margin-top:20px;">▶️ YouTube Music / Art Tracks — 每1,000 streams</h3>
+  <h3 style="font-size:14px;color:var(--muted);margin-bottom:8px;margin-top:20px;">▶️ YouTube Audio Tier — 每1,000 streams（占总收入 0.05%，其中东西占85.0%，Believe占15.0%）</h3>
+  <div style="font-size:12px;color:var(--muted);margin-bottom:12px;">YouTube Premium 中的音频播放或订阅分成</div>
   <div class="table-wrap">
     <table>
       <thead><tr>
         <th>地区</th>
-        <th style="color:#a29bfe">Believe（YT Audio Tier）</th>
-        <th style="color:#55efc4">东西（YT Audio Tier）</th>
-        <th style="color:#55efc4">东西（YT Art Tracks）</th>
+        <th style="color:#a29bfe">Believe<br>Audio Tier</th>
+        <th style="color:#55efc4">东西<br>Audio Tier</th>
+        <th style="color:var(--sony)">Sony<br>Audio Tier</th>
         <th>优势方</th>
       </tr></thead>
       <tbody id="tb-ytmusic"></tbody>
@@ -262,12 +289,13 @@
   </div>
 
   <!-- YouTube Content ID -->
-  <h3 style="font-size:14px;color:var(--muted);margin-bottom:8px;margin-top:20px;">🎬 YouTube Content ID — 每1,000 streams</h3>
+  <h3 style="font-size:14px;color:var(--muted);margin-bottom:8px;margin-top:20px;">🎬 YouTube Content ID — 每1,000 streams（占总收入 16.3%，其中东西占95.2%，Believe占4.8%）</h3>
+  <div style="font-size:12px;color:var(--muted);margin-bottom:12px;">用户上传内容识别收入</div>
   <div class="table-wrap">
     <table>
       <thead><tr>
         <th>地区</th>
-        <th style="color:#a29bfe">Believe (YT Official Content)</th>
+        <th style="color:#a29bfe">Believe (YouTube UGC)</th>
         <th style="color:#55efc4">东西（YT Audio CID）</th>
         <th>优势方</th>
       </tr></thead>
@@ -275,8 +303,38 @@
     </table>
   </div>
 
+  <!-- YouTube Official Content vs Art Tracks -->
+  <h3 style="font-size:14px;color:var(--muted);margin-bottom:8px;margin-top:20px;">🎬 YouTube Official Content vs Art Tracks — 每1,000 streams（占总收入 30.7%，其中东西占85.6%，Believe占14.4%）</h3>
+  <div style="font-size:12px;color:var(--muted);margin-bottom:12px;">YouTube / YouTube Music 自动生成的官方音轨播放收入</div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr>
+        <th>地区</th>
+        <th style="color:#a29bfe">Believe (YT Official Content)</th>
+        <th style="color:#55efc4">东西界世 (Art Tracks)</th>
+        <th>优势方</th>
+      </tr></thead>
+      <tbody id="tb-yt-official-art"></tbody>
+    </table>
+  </div>
+
+  <!-- YouTube Music Video -->
+  <h3 style="font-size:14px;color:var(--muted);margin-bottom:8px;margin-top:20px;">🎵 YouTube Music Video — 每1,000 streams（占总收入 11.3%，其中东西占88.8%，Believe占11.2%）</h3>
+  <div style="font-size:12px;color:var(--muted);margin-bottom:12px;">官方制作或上传的 MV、Lyric Video、Performance Video 等视频内容变现</div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr>
+        <th>地区</th>
+        <th style="color:#a29bfe">Believe</th>
+        <th style="color:#55efc4">东西界世</th>
+        <th>优势方</th>
+      </tr></thead>
+      <tbody id="tb-ytmusicvid"></tbody>
+    </table>
+  </div>
+
   <!-- YouTube Shorts -->
-  <h3 style="font-size:14px;color:var(--muted);margin-bottom:8px;margin-top:20px;">🩳 YouTube Shorts — 每1,000 shorts</h3>
+  <h3 style="font-size:14px;color:var(--muted);margin-bottom:8px;margin-top:20px;">🩳 YouTube Shorts — 每1,000 shorts（占总收入 0.8%，其中东西占99.1%，Believe占0.9%）</h3>
   <div class="table-wrap">
     <table>
       <thead><tr>
@@ -289,7 +347,8 @@
     </table>
   </div>
 
-</div>
+</div><!-- /section 2 -->
+
 
 <!-- ═══════════════════════════════════════════════
      3. REVENUE STRUCTURE
@@ -297,6 +356,8 @@
 <div class="section">
   <div class="section-title">收入结构分析</div>
   <p class="section-desc">2026Q1三个月各平台收入占比对比</p>
+
+  <!-- 两家各自收入结构 -->
   <div class="charts-grid">
     <div class="chart-card">
       <div class="chart-title"><span class="b">■ Believe</span> 收入结构（$39,856 USD · Gross）</div>
@@ -312,21 +373,21 @@
     </div>
   </div>
 
-  <!-- YouTube CID highlight -->
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+  <!-- 两家各自收入明细 -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:20px;width:100%;max-width:100%;overflow-x:hidden;">
     <div class="insight-box believe">
       <h4 style="color:var(--believe)">🎬 Believe · 收入结构</h4>
       <ul>
-        <li style="margin-bottom:4px"><b style="color:var(--warn)">YouTube系 $18,532 · ¥133,430（46.5%）</b> <button onclick="toggleYt('bel-yt-items',this)" style="background:var(--card2);border:1px solid var(--border);color:var(--accent);border-radius:4px;padding:1px 8px;font-size:11px;cursor:pointer">展开</button></li>
+        <li style="margin-bottom:4px"><b style="color:var(--warn)">YouTube系 $16,596 · ¥119,491（49.1%）</b> <button onclick="toggleYt('bel-yt-items',this)" style="background:var(--card2);border:1px solid var(--border);color:var(--accent);border-radius:4px;padding:1px 8px;font-size:11px;cursor:pointer">展开</button></li>
         <div id="bel-yt-items" style="display:none;padding-left:4px">
-          <li>YouTube Official Content：<b style="color:var(--text)">$16,277 · ¥117,194</b>（40.8%）</li>
-          <li>YouTube UGC：<b style="color:var(--text)">$2,255 · ¥16,238</b>（5.7%）</li>
-          <li>YouTube Shorts：$20 · ¥146（0.1%），单价$0.0067/1000</li>
+          <li>YouTube Official Content：<b style="color:var(--text)">$14,493 · ¥104,350</b>（42.9%）</li>
+          <li>YouTube UGC：<b style="color:var(--text)">$2,104 · ¥15,149</b>（6.2%）</li>
+          <li>YouTube Shorts：<b style="color:var(--text)">$10 · ¥72</b>（0.0%）</li>
         </div>
-        <li>Spotify：$9,163 · ¥65,974（23.0%）</li>
-        <li>Apple Music：$7,231 · ¥52,063（18.1%）</li>
-        <li>TikTok：$472 · ¥3,402（1.2%），单价$0.99/1000</li>
-        <li style="border-top:1px solid var(--border);margin-top:6px;padding-top:6px"><b>总收入：$39,856 USD · ¥286,963</b></li>
+        <li>Spotify：$7,414 · ¥53,381（21.9%）</li>
+        <li>Apple Music：$6,855 · ¥49,356（20.3%）</li>
+        <li>TikTok：$360 · ¥2,592（1.1%）</li>
+        <li style="border-top:1px solid var(--border);margin-top:6px;padding-top:6px"><b>总收入：$33,829 USD · ¥243,570</b></li>
       </ul>
     </div>
     <div class="insight-box dz">
@@ -335,7 +396,7 @@
         <li style="margin-bottom:4px"><b style="color:var(--warn)">YouTube系 $150,702 · ¥1,084,054（61.5%）</b> <button onclick="toggleYt('dz-yt-items',this)" style="background:var(--card2);border:1px solid var(--border);color:var(--accent);border-radius:4px;padding:1px 8px;font-size:11px;cursor:pointer">展开</button></li>
         <div id="dz-yt-items" style="display:none;padding-left:4px">
           <li>YouTube Art Tracks：<b style="color:var(--text)">$75,222 · ¥541,594</b>（30.7%）</li>
-          <li>YouTube Audio Tier：<b style="color:var(--text)">$116 · ¥839</b>（0.0%）</li>
+          <li>YouTube Audio Tier：<b style="color:var(--text)">$116 · ¥839</b>（0.05%）</li>
           <li>YouTube Music Video：<b style="color:var(--text)">$28,603 · ¥205,943</b>（11.7%）</li>
           <li>YouTube Audio Content ID：<b style="color:var(--text)">$44,427 · ¥319,876</b>（18.1%）</li>
           <li>YouTube Shorts：<b style="color:var(--text)">$2,334 · ¥16,802</b>（1.0%）</li>
@@ -364,12 +425,10 @@
     <div class="insight-box believe">
       <h4 style="color:var(--believe)">Believe 地区格局</h4>
       <ul>
-        <li>TW第一：$11,340 (28.5%)</li>
-        <li>US第二：$5,616 (14.1%)</li>
-        <li>CN第三：$3,664 (9.2%)</li>
-        <li>HK第四：$3,298 (8.3%)</li>
-        <li>东南亚合计（VN+TH+MY+ID+SG）约23.2%</li>
-        <li>英日德法占比相对较低（合计约7.3%）</li>
+        <li>TW第一：$11,305 (33.4%)</li>
+        <li>US第二：$5,568 (16.5%)</li>
+        <li>HK第三：$3,140 (9.3%)</li>
+        <li>东南亚合计（VN+TH+MY+ID+SG）约24.8%</li>
       </ul>
     </div>
     <div class="insight-box dz">
@@ -379,8 +438,6 @@
         <li>US第二：$23,606 (12.1%)</li>
         <li>HK第三：$14,983 (7.7%)</li>
         <li>东亚华语圈合计（VN+TH+MY+ID+SG）约13.3%</li>
-        <li>KR独立成第10位：$2,604，Believe KR €384 (1.0%)</li>
-        <li>JP：$8,621，约4.4%，明显强于Believe JP $729</li>
       </ul>
     </div>
   </div>
@@ -391,14 +448,14 @@
 ═══════════════════════════════════════════════ -->
 <div class="section">
   <div class="section-title">TikTok 专项分析</div>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:100%;overflow-x:hidden;">
     <div class="insight-box believe">
       <h4 style="color:var(--believe)">Believe · TikTok</h4>
       <ul>
-        <li>收入：<b style="color:var(--text)">$97.4 USD · ¥701</b></li>
-        <li>使用次数：142,449次</li>
-        <li>每1000次平均分成：<b style="color:var(--text)">$0.68 USD · ¥4.90</b></li>
-        <li>单价相对合理，TikTok占总收入约0.4%</li>
+        <li>收入：<b style="color:var(--text)">$359.58 USD · ¥2,589</b></li>
+        <li>使用次数：306,535次</li>
+        <li>每1000次平均分成：<b style="color:var(--text)">$1.17 USD · ¥8.46</b></li>
+        <li>单价相对合理，TikTok占总收入约1.1%</li>
       </ul>
     </div>
     <div class="insight-box dz">
@@ -412,44 +469,32 @@
     </div>
   </div>
 
-  <!-- TikTok 各地区单价对比（¥/1,000次） -->
-  <p style="color:var(--muted);font-size:12px;margin-top:16px;margin-bottom:12px;">各地区单价</p>
+  <!-- TikTok 各地区单价对比（$/1,000次） -->
+  <p style="color:var(--muted);font-size:12px;margin-top:16px;margin-bottom:12px;">各地区单价（占总收入 2.0%）</p>
   <div class="table-wrap">
     <table>
       <thead><tr>
         <th>排名</th>
         <th>地区</th>
-        <th style="color:#a29bfe">Believe 单价 (¥/1,000次)</th>
-        <th style="color:#55efc4">东西界世 单价 (¥/1,000次)</th>
+        <th style="color:#a29bfe">Believe ($/1,000次)</th>
+        <th style="color:#55efc4">东西界世 ($/1,000次)</th>
+        <th style="color:var(--sony)">Sony ($/1,000次)</th>
       </tr></thead>
-      <tbody>
-        <tr><td>1</td><td>印度 (IN)</td><td style="color:#a29bfe">¥8.4600</td><td style="color:#55efc4">¥0.0014</td></tr>
-        <tr><td>2</td><td>泰国 (TH)</td><td style="color:#a29bfe">¥8.5572</td><td style="color:#55efc4">¥0.0065</td></tr>
-        <tr><td>3</td><td>韩国 (KR)</td><td style="color:#a29bfe">¥8.2742</td><td style="color:#55efc4">¥0.0202</td></tr>
-        <tr><td>4</td><td>英国 (GB)</td><td style="color:#a29bfe">¥8.0690</td><td style="color:#55efc4">¥0.0338</td></tr>
-        <tr><td>5</td><td>新加坡 (SG)</td><td style="color:#a29bfe">¥8.0575</td><td style="color:#55efc4">¥0.0173</td></tr>
-        <tr><td>6</td><td>台湾 (TW)</td><td style="color:#a29bfe">¥8.0546</td><td style="color:#55efc4">¥0.0216</td></tr>
-        <tr><td>7</td><td>越南 (VN)</td><td style="color:#a29bfe">¥7.9668</td><td style="color:#55efc4">¥0.0036</td></tr>
-        <tr><td>8</td><td>马来西亚 (MY)</td><td style="color:#a29bfe">¥7.9488</td><td style="color:#55efc4">¥0.0065</td></tr>
-        <tr><td>9</td><td>香港 (HK)</td><td style="color:#a29bfe">¥7.9162</td><td style="color:#55efc4">¥0.0014</td></tr>
-        <tr><td>10</td><td>印度尼西亚 (ID)</td><td style="color:#a29bfe">¥7.7162</td><td style="color:#55efc4">¥0.0029</td></tr>
-        <tr><td>11</td><td>日本 (JP)</td><td style="color:#a29bfe">¥7.7026</td><td style="color:#55efc4">¥0.0173</td></tr>
-        <tr><td>12</td><td>美国 (US)</td><td style="color:#a29bfe">¥7.3692</td><td style="color:#55efc4">¥0.0389</td></tr>
+      <tbody id="tb-tiktok-unit">
       </tbody>
     </table>
   </div>
 
-  <!-- TikTok 启示 -->
   <div class="note" style="margin-top:20px;background:rgba(255,209,102,0.08);border-color:rgba(255,209,102,0.3);">
     <b style="color:var(--warn)">💡 TikTok启示：</b>东西在TikTok有近<b>10亿次使用</b>，但每千次仅分成<b style="color:var(--warn)">$0.001</b>。Believe虽然使用量少，但每千次分成<b style="color:var(--warn)">$1.17</b>。这一差异可能来自：① 东西曲库有大量免费UGC内容混入；② 计量口径不同（东西可能统计了每次片段播放，Believe统计的是创建次数）。
   </div>
 
-</div>
+</div><!-- /section 7 -->
 
 <div class="footer" style="margin-top:40px;">
   <p>数据来源：Believe报表 2026年1月—3月（Gross Revenue，EUR×1.085换算为USD）vs 东西界世采用Gross Revenue口径（USD） | YouTube分类：Believe=Official Content/UGC/Audio Tier；东西=Art Tracks+Audio Tier→YouTube Music；Music Video→YouTube Music Video；Audio CID→YouTube Content ID | 汇率：1 EUR = 1.085 USD（2026Q1均值） | 生成时间：2026-05-13</p>
   <p style="margin-top:4px;">本报告仅供商业决策参考，不构成投资或法律建议。</p>
-</div>
+</div><!-- /footer -->
 
 </div><!-- /page-wrap -->
 
@@ -457,31 +502,31 @@
 // ══════════════════════════════════════════
 // DATA
 // ══════════════════════════════════════════
-const REGIONS = ['US','GB','JP','KR','TW','TH','ID','VN','CN','HK','SG','MY'];
+const REGIONS = ['US','GB','JP','KR','TW','TH','ID','VN','HK','SG','MY'];
 const REGION_NAMES = {
   US:'美国',GB:'英国',JP:'日本',KR:'韩国',TW:'台湾',TH:'泰国',
-  ID:'印度尼西亚',VN:'越南',CN:'中国大陆',HK:'香港',SG:'新加坡',MY:'马来西亚'
+  ID:'印度尼西亚',VN:'越南',HK:'香港',SG:'新加坡',MY:'马来西亚'
 };
 
 const DATA = {
-  // Believe单价已换算为USD（EUR × 1.085）
-  // bYc 仅取 Platform=YouTube Official Content（不含 YouTube UGC）
-  // bYm 仅取 Platform=YouTube Audio Tier
-  // dYmAt = 东西 YouTube Audio Tier, dYmAr = 东西 YouTube Art Tracks
-  // dYcAr = 东西 YouTube Audio CID
-  US: {bSp:2.0960, dSp:3.5229, bAp:5.3960, dAp:4.5034, bYm:2.2686, dYmAt:2.5000, dYmAr:8.4011, bYc:8.2096, dYcAr:2.6774, bSh:0.0067, dSh:0.1771},
-  GB: {bSp:2.2745, dSp:3.8657, bAp:8.3537, dAp:10.4151, bYm:2.2046, dYmAt:2.4255, dYmAr:8.9137, bYc:10.1642, dYcAr:2.1446, bSh:0.0067, dSh:0.0828},
-  JP: {bSp:0.8668, dSp:1.6849, bAp:3.8469, dAp:5.0595, bYm:2.3167, dYmAt:1.9123, dYmAr:5.0883, bYc:5.0935, dYcAr:1.3499, bSh:0.0067, dSh:0.0278},
-  KR: {bSp:0.9632, dSp:1.9649, bAp:3.6846, dAp:4.1088, bYm:2.0949, dYmAt:2.2995, dYmAr:5.3784, bYc:4.4885, dYcAr:0.6931, bSh:0.0067, dSh:0.0259},
-  TW: {bSp:0.6202, dSp:1.1295, bAp:3.2324, dAp:3.8845, bYm:1.1492, dYmAt:1.2654, dYmAr:3.6433, bYc:3.0005, dYcAr:1.1791, bSh:0.0067, dSh:0.0191},
-  TH: {bSp:0.2334, dSp:0.7549, bAp:2.7724, dAp:3.4703, bYm:1.2652, dYmAt:1.3941, dYmAr:1.5071, bYc:1.1974, dYcAr:0.4997, bSh:0.0067, dSh:0.0088},
-  ID: {bSp:0.0853, dSp:0.4906, bAp:1.7866, dAp:2.1739, bYm:0.8793, dYmAt:0.9675, dYmAr:1.3672, bYc:1.3152, dYcAr:0.1077, bSh:0.0067, dSh:0.0032},
-  VN: {bSp:0.2174, dSp:0.4382, bAp:1.8719, dAp:2.2665, bYm:null, dYmAt:null, dYmAr:0.6711, bYc:0.5674, dYcAr:0.1335, bSh:0.0067, dSh:0.0071},
-  // IN: {bSp:0.4214, dSp:0.6439, bAp:1.0705, dAp:1.2591, bYm:0.4957, dYmAt:0.5472, dYmAr:0.8933, bYc:0.9624, dYcAr:0.0576, bSh:0.0067, dSh:0.0052},  // 印度（已移除）
-  CN: {bSp:0.8500, dSp:1.2000, bAp:2.8302, dAp:3.2152, bYm:1.8000, dYmAt:2.0000, dYmAr:4.5000, bYc:4.0000, dYcAr:1.5000, bSh:0.0067, dSh:0.0500},
-  HK: {bSp:1.3609, dSp:2.3707, bAp:5.3651, dAp:6.4423, bYm:null, dYmAt:1.2794, dYmAr:5.7108, bYc:5.4767, dYcAr:1.5784, bSh:0.0067, dSh:0.0225},
-  SG: {bSp:1.5315, dSp:2.8156, bAp:7.3020, dAp:8.7171, bYm:1.8492, dYmAt:2.0371, dYmAr:6.9630, bYc:6.0731, dYcAr:1.9421, bSh:0.0067, dSh:0.0314},
-  MY: {bSp:0.4383, dSp:1.0059, bAp:3.1351, dAp:3.9002, bYm:1.1381, dYmAt:1.2616, dYmAr:2.0249, bYc:1.8851, dYcAr:0.8015, bSh:0.0067, dSh:0.0103},
+  // 口径说明
+  // Believe 单价：Gross Revenue (EUR) × 1.085 / Quantity × 1000（加权平均）
+  // 东西单价：AmountPaidByStore (USD) / Quantity × 1000（加权平均）
+  // bYv 来源：music video.xlsx Unit Price (EUR) × 1.085 × 1000（按 quantity 加权平均）
+  // YT Music Video 口径：东西 dYv=YouTube(不含子分类)，bYv=YouTube Music Video
+  // Sony 单价：Roy. Price (RMB) × 1000（算术平均）。表格中主显示$（RMB÷7.25），副显示≈¥（原始RMB×1000）
+  US: {bSp:3.1903, dSp:3.5229, bAp:5.3956, dAp:4.4246, bYm:2.2686, dYmAt:2.5000, dYmAr:8.4011, bYv:6.9589, dYv:7.0181, bYc:2.9942, dYcAr:2.6736, bSh:0.0067, dSh:0.1771, sSp:28.2638, sAp:60.1275, sYm:null, sTk:7.1345},
+  GB: {bSp:3.3018, dSp:3.8657, bAp:8.3536, dAp:10.4151, bYm:2.2046, dYmAt:2.4255, dYmAr:8.9137, bYv:6.2866, dYv:5.9933, bYc:2.5115, dYcAr:2.1389, bSh:0.0067, dSh:0.0828, sSp:32.0096, sAp:74.2448, sYm:null, sTk:6.02},
+  JP: {bSp:1.2971, dSp:1.6849, bAp:3.8468, dAp:5.0595, bYm:2.3167, dYmAt:1.9123, dYmAr:5.0883, bYv:3.7565, dYv:4.0550, bYc:1.1970, dYcAr:1.3493, bSh:0.0067, dSh:0.0278, sSp:28.6273, sAp:51.5300, sYm:null, sTk:null},
+  KR: {bSp:1.4582, dSp:1.9649, bAp:3.6846, dAp:4.1088, bYm:2.0949, dYmAt:2.2995, dYmAr:5.3784, bYv:2.6276, dYv:3.5842, bYc:0.5905, dYcAr:0.6916, bSh:0.0067, dSh:0.0259, sSp:20.9524, sAp:30.4100, sYm:null, sTk:4.41},
+  TW: {bSp:1.025, dSp:1.1295, bAp:3.2324, dAp:3.8847, bYm:1.1492, dYmAt:1.2654, dYmAr:3.6433, bYv:2.6236, dYv:2.8197, bYc:1.6082, dYcAr:1.1778, bSh:0.0067, dSh:0.0191, sSp:9.3110, sAp:31.6395, sYm:9.6923, sTk:4.59},
+  TH: {bSp:0.3413, dSp:0.7549, bAp:2.7724, dAp:3.4703, bYm:1.2652, dYmAt:1.3941, dYmAr:1.5071, bYv:0.8363, dYv:1.2083, bYc:0.4842, dYcAr:0.5022, bSh:0.0067, dSh:0.0088, sSp:10.2714, sAp:22.2870, sYm:null, sTk:1.59},
+  ID: {bSp:0.1316, dSp:0.4906, bAp:1.7865, dAp:2.1739, bYm:0.8793, dYmAt:0.9675, dYmAr:1.3672, bYv:0.9263, dYv:0.9695, bYc:0.0896, dYcAr:0.1075, bSh:0.0067, dSh:0.0032, sSp:2.0333, sAp:16.9714, sYm:null, sTk:null},
+  VN: {bSp:0.3026, dSp:0.4382, bAp:1.872, dAp:2.2665, dYmAr:0.6711, bYv:0.7021, dYv:0.685, bYc:0.0593, dYcAr:0.1335, bSh:0.0067, dSh:0.0071, sSp:8.6200, sAp:21.4357, sYm:null, sTk:1.05},
+  HK: {bSp:1.8331, dSp:2.3707, bAp:5.3651, dAp:6.4423, dYmAt:1.2794, dYmAr:5.7108, bYv:4.4256, dYv:4.1506, bYc:1.9689, dYcAr:1.5761, bSh:0.0067, dSh:0.0225, sSp:21.8020, sAp:45.3027, sYm:null, sTk:null},
+  SG: {bSp:2.446, dSp:2.8156, bAp:7.3019, dAp:8.7171, bYm:1.8492, dYmAt:2.0371, dYmAr:6.963, bYv:4.7665, dYv:4.661, bYc:2.2618, dYcAr:1.9382, bSh:0.0067, dSh:0.0314, sSp:16.2352, sAp:63.6667, sYm:null, sTk:2.84},
+  MY: {bSp:0.7057, dSp:1.0059, bAp:3.1351, dAp:3.9002, bYm:1.1381, dYmAt:1.2616, dYmAr:2.0249, bYv:1.7693, dYv:1.722, bYc:0.8407, dYcAr:0.8007, bSh:0.0067, dSh:0.0103, sSp:7.3478, sAp:26.1222, sYm:null, sTk:null},
+  CN: {bAp:2.8433, dAp:3.2152, dYmAr:0.0, dYv:0.0, dYcAr:0.0, bSh:0.0067, sAp:21.175, sYm:null, sTk:null},
 };
 
 // ══════════════════════════════════════════
@@ -490,9 +535,29 @@ const DATA = {
 function fv(v) { return v != null ? '$' + v.toFixed(4) : null; }
 function winner(b, d) {
   if (b == null || d == null) return '<span class="badge badge-na">—</span>';
-  if (d > b) return '<span class="badge badge-d">东西 ▲</span>';
   if (b > d) return '<span class="badge badge-b">Believe ▲</span>';
+  if (d > b) return '<span class="badge badge-d">东西 ▲</span>';
   return '<span class="badge badge-na">持平</span>';
+}
+function winner3(b, d, s, showSony=true) {
+  // Sony 单价是 RMB×1000，需要除以 7.25 换算为 USD 才能比较
+  const vals = [[b,'B'],[d,'D'],[s!=null ? s/7.25 : null,'S']].filter(([v]) => v != null);
+  if (vals.length < 2) return '<span class="badge badge-na">—</span>';
+  const maxVal = Math.max(...vals.map(([v]) => v));
+  const winners = vals.filter(([v]) => v === maxVal);
+  if (winners.length === 1) {
+    const [,code] = winners[0];
+    if (code === 'B') return '<span class="badge badge-b">Believe ▲</span>';
+    if (code === 'D') return '<span class="badge badge-d">东西 ▲</span>';
+    if (code === 'S') return '<span class="badge badge-s">Sony ▲</span>';
+  }
+  if (winners.length === 2) {
+    const codes = winners.map(([,c]) => c).sort();
+    if (codes[0]==='B' && codes[1]==='D') return '<span class="badge badge-na">B/D 并列</span>';
+    if (codes[0]==='B' && codes[1]==='S') return '<span class="badge badge-na">B/S 并列</span>';
+    if (codes[0]==='D' && codes[1]==='S') return '<span class="badge badge-na">D/S 并列</span>';
+  }
+  return '<span class="badge badge-na">三方持平</span>';
 }
 function ratio(b, d) {
   if (b == null || d == null) return '<span class="td-na">—</span>';
@@ -501,11 +566,36 @@ function ratio(b, d) {
   return `<span style="${cls}">${r.toFixed(2)}x</span>`;
 }
 
-// 按指定 key 从高到低排序后生成表格行（两列均显示 USD + RMB）
-function buildTableRowsSorted(tbId, bKey, dKey, sortKey) {
+// TikTok 各地区单价表格
+// Believe TikTok：统一 $1.17/1000（根据报告数据）
+// 东西 TikTok：统一 $0.001/1000（极低）
+// Sony TikTok：从 DATA[sTk] 获取（原始 RMB×1000，换算 USD 显示）
+const TIKTOK_RANK_ORDER = ['US','GB','JP','KR','TW','TH','ID','VN','HK','SG','MY'];
+const BELIEVE_TIKTOK = 1.17; // Believe TikTok $/1000
+const DONGXI_TIKTOK = 0.001; // 东西 TikTok $/1000
+(function(){
+  const tb = document.getElementById('tb-tiktok-unit');
+  let html = '';
+  TIKTOK_RANK_ORDER.forEach((r, i) => {
+    const rn = REGION_NAMES[r];
+    const bv = BELIEVE_TIKTOK;
+    const dv = DONGXI_TIKTOK;
+    const sv = DATA[r]['sTk']; // Sony TikTok RMB×1000
+
+    const bStr = `<span style="color:#a29bfe">$${bv.toFixed(4)}<br><span style="font-size:10px;color:var(--muted)">≈ ¥${(bv*7.2).toFixed(2)}</span></span>`;
+    const dStr = `<span style="color:#55efc4">$${dv.toFixed(4)}<br><span style="font-size:10px;color:var(--muted)">≈ ¥${(dv*7.2).toFixed(4)}</span></span>`;
+    const sStr = sv != null ? `<span style="color:var(--sony)">$${sv.toFixed(4)}<br><span style="font-size:10px;color:var(--muted)">≈ ¥${(sv*7.25).toFixed(2)}</span></span>` : '<span class="td-na">—</span>';
+
+    html += `<tr><td>${i+1}</td><td>${r} <span style="color:var(--muted);font-weight:400;font-size:11px">${rn}</span></td><td>${bStr}</td><td>${dStr}</td><td>${sStr}</td></tr>`;
+  });
+  tb.innerHTML = html;
+})();
+
+// 按地区收入排名排序（TW→US→HK...）
+function buildTableRowsSorted(tbId, bKey, dKey) {
   const tb = document.getElementById(tbId);
   let html = '';
-  const sortedRegions = [...REGIONS].sort((a, b) => (DATA[b][sortKey] ?? -Infinity) - (DATA[a][sortKey] ?? -Infinity));
+  const sortedRegions = [...REGIONS].sort((a, b) => (REGION_RANK_MAP[a] ?? 99) - (REGION_RANK_MAP[b] ?? 99));
   sortedRegions.forEach(r => {
     const rn = REGION_NAMES[r];
     const bv = DATA[r][bKey];
@@ -517,35 +607,69 @@ function buildTableRowsSorted(tbId, bKey, dKey, sortKey) {
   tb.innerHTML = html;
 }
 
-buildTableRowsSorted('tb-spotify', 'bSp', 'dSp', 'dSp');
-buildTableRowsSorted('tb-apple', 'bAp', 'dAp', 'dAp');
+// 地区收入排名（按东西界世收入从高到低）
+const REGION_REV_RANK = ['TW','US','HK','SG','MY','JP','VN','TH','GB','KR'];
+const REGION_RANK_MAP = Object.fromEntries(REGION_REV_RANK.map((r,i) => [r, i]));
 
-// YouTube Music table (Believe=YT Audio Tier, DZ=YT Audio Tier / YT Art Tracks)
-// 按东西 YT Art Tracks 单价从高到低排序；两列均显示 USD + RMB
+// Apple Music 表格：正常排序 + CN 单独追加（CN 无收入数据，排在最后）
+(function(){
+  const tb = document.getElementById('tb-spotify');
+  let html = '';
+  const sortedRegions = [...REGIONS].sort((a, b) => (REGION_RANK_MAP[a] ?? 99) - (REGION_RANK_MAP[b] ?? 99));
+  sortedRegions.forEach(r => {
+    const rn = REGION_NAMES[r];
+    const bv = DATA[r]['bSp']; const dv = DATA[r]['dSp']; const sv = DATA[r]['sSp'];
+    const bStr = bv != null ? `<span class="val-b">${fv(bv)}</span><br><span style="font-size:10px;color:var(--muted)">≈ ¥${(bv*7.2).toFixed(2)}</span>` : '<span class="td-na">N/A</span>';
+    const dStr = dv != null ? `<span class="val-d">${fv(dv)}</span><br><span style="font-size:10px;color:var(--muted)">≈ ¥${(dv*7.2).toFixed(2)}</span>` : '<span class="td-na">N/A</span>';
+    const sStr = sv != null ? `<span class="val-s">$${(sv/7.25).toFixed(4)}</span><br><span style="font-size:10px;color:var(--muted)">≈ ¥${sv.toFixed(2)}</span>` : '<span class="td-na">N/A</span>';
+    html += `<tr><td class="td-region">${r} <span style="color:var(--muted);font-weight:400;font-size:11px">${rn}</span></td><td>${bStr}</td><td>${dStr}</td><td>${sStr}</td><td>${winner3(bv,dv,sv)}</td></tr>`;
+  });
+  tb.innerHTML = html;
+})();
+(function(){
+  const tb = document.getElementById('tb-apple');
+  let html = '';
+  const sortedRegions = [...REGIONS].sort((a, b) => (REGION_RANK_MAP[a] ?? 99) - (REGION_RANK_MAP[b] ?? 99));
+  sortedRegions.forEach(r => {
+    const rn = REGION_NAMES[r];
+    const bv = DATA[r]['bAp']; const dv = DATA[r]['dAp']; const sv = DATA[r]['sAp'];
+    const bStr = bv != null ? `<span class="val-b">${fv(bv)}</span><br><span style="font-size:10px;color:var(--muted)">≈ ¥${(bv*7.2).toFixed(2)}</span>` : '<span class="td-na">N/A</span>';
+    const dStr = dv != null ? `<span class="val-d">${fv(dv)}</span><br><span style="font-size:10px;color:var(--muted)">≈ ¥${(dv*7.2).toFixed(2)}</span>` : '<span class="td-na">N/A</span>';
+    const sStr = sv != null ? `<span class="val-s">$${(sv/7.25).toFixed(4)}</span><br><span style="font-size:10px;color:var(--muted)">≈ ¥${sv.toFixed(2)}</span>` : '<span class="td-na">N/A</span>';
+    html += `<tr><td class="td-region">${r} <span style="color:var(--muted);font-weight:400;font-size:11px">${rn}</span></td><td>${bStr}</td><td>${dStr}</td><td>${sStr}</td><td>${winner3(bv,dv,sv)}</td></tr>`;
+  });
+  // CN 大陆单独追加（Apple Music 专项数据）
+  const bvCN = DATA['CN']['bAp']; const dvCN = DATA['CN']['dAp']; const svCN = DATA['CN']['sAp'];
+  const bStrCN = bvCN != null ? `<span class="val-b">${fv(bvCN)}</span><br><span style="font-size:10px;color:var(--muted)">≈ ¥${(bvCN*7.2).toFixed(2)}</span>` : '<span class="td-na">N/A</span>';
+  const dStrCN = dvCN != null ? `<span class="val-d">${fv(dvCN)}</span><br><span style="font-size:10px;color:var(--muted)">≈ ¥${(dvCN*7.2).toFixed(2)}</span>` : '<span class="td-na">N/A</span>';
+  const sStrCN = svCN != null ? `<span class="val-s">$${(svCN/7.25).toFixed(4)}</span><br><span style="font-size:10px;color:var(--muted)">≈ ¥${svCN.toFixed(2)}</span>` : '<span class="td-na">N/A</span>';
+  html += `<tr><td class="td-region">CN <span style="color:var(--muted);font-weight:400;font-size:11px">中国</span></td><td>${bStrCN}</td><td>${dStrCN}</td><td>${sStrCN}</td><td>${winner3(bvCN,dvCN,svCN)}</td></tr>`;
+  tb.innerHTML = html;
+})();
+
+// YouTube Music table (Believe=YT Audio Tier, DZ=YT Audio Tier)
+// 按东西 YT Audio Tier 单价从高到低排序；两列均显示 USD + RMB
 (function(){
   const tb = document.getElementById('tb-ytmusic');
   let html = '';
-  const sortedRegions = [...REGIONS].sort((a, b) => (DATA[b]['dYmAr'] ?? -Infinity) - (DATA[a]['dYmAr'] ?? -Infinity));
+  const sortedRegions = [...REGIONS].sort((a, b) => (REGION_RANK_MAP[a] ?? 99) - (REGION_RANK_MAP[b] ?? 99));
   sortedRegions.forEach(r => {
     const rn = REGION_NAMES[r];
-    const bv = DATA[r]['bYm'];
-    const dvAt = DATA[r]['dYmAt'];
-    const dvAr = DATA[r]['dYmAr'];
-    const bStr = bv != null ? `<span class="val-b">${fv(bv)}</span><br><span style="font-size:10px;color:var(--muted)">≈ ¥${(bv * 7.2).toFixed(2)}</span>` : '<span class="td-na">N/A</span>';
-    const dAtStr = dvAt != null ? `<span class="val-d">${fv(dvAt)}</span><br><span style="font-size:10px;color:var(--muted)">≈ ¥${(dvAt * 7.2).toFixed(2)}</span>` : '<span class="td-na">N/A</span>';
-    const dArStr = dvAr != null ? `<span class="val-d">${fv(dvAr)}</span><br><span style="font-size:10px;color:var(--muted)">≈ ¥${(dvAr * 7.2).toFixed(2)}</span>` : '<span class="td-na">N/A</span>';
-    // 优势方：Believe Audio Tier vs 东西 Audio Tier（同类对比）
-    html += `<tr><td class="td-region">${r} <span style="color:var(--muted);font-weight:400;font-size:11px">${rn}</span></td><td>${bStr}</td><td>${dAtStr}</td><td>${dArStr}</td><td>${winner(bv,dvAt)}</td></tr>`;
+    const bv = DATA[r]['bYm']; const dvAt = DATA[r]['dYmAt']; const sv = DATA[r]['sYm'];
+    const bStr = bv != null ? `<span class="val-b">${fv(bv)}</span><br><span style="font-size:10px;color:var(--muted)">≈ ¥${(bv*7.2).toFixed(2)}</span>` : '<span class="td-na">N/A</span>';
+    const dAtStr = dvAt != null ? `<span class="val-d">${fv(dvAt)}</span><br><span style="font-size:10px;color:var(--muted)">≈ ¥${(dvAt*7.2).toFixed(2)}</span>` : '<span class="td-na">N/A</span>';
+    const sStr = sv != null ? `<span class="val-s">$${(sv/7.25).toFixed(4)}</span><br><span style="font-size:10px;color:var(--muted)">≈ ¥${sv.toFixed(2)}</span>` : '<span class="td-na">N/A</span>';
+    html += `<tr><td class="td-region">${r} <span style="color:var(--muted);font-weight:400;font-size:11px">${rn}</span></td><td>${bStr}</td><td>${dAtStr}</td><td>${sStr}</td><td>${winner3(bv,dvAt,sv)}</td></tr>`;
   });
   tb.innerHTML = html;
 })();
 
 // YouTube Content ID table: Believe YT Official Content vs 东西 Audio CID
-// 按 Believe YT Official Content 单价从高到低排序；两列均显示 USD + RMB
+// 按地区收入排名排序；两列均显示 USD + RMB
 (function(){
   const tb = document.getElementById('tb-ytcid');
   let html = '';
-  const sortedRegions = [...REGIONS].sort((a, b) => (DATA[b]['bYc'] ?? -Infinity) - (DATA[a]['bYc'] ?? -Infinity));
+  const sortedRegions = [...REGIONS].sort((a, b) => (REGION_RANK_MAP[a] ?? 99) - (REGION_RANK_MAP[b] ?? 99));
   sortedRegions.forEach(r => {
     const rn = REGION_NAMES[r];
     const bv = DATA[r]['bYc'];
@@ -558,20 +682,51 @@ buildTableRowsSorted('tb-apple', 'bAp', 'dAp', 'dAp');
   tb.innerHTML = html;
 })();
 
+// YouTube Official Content vs Art Tracks table
+(function(){
+  const tb = document.getElementById('tb-yt-official-art');
+  let html = '';
+  const sortedRegions = [...REGIONS].sort((a, b) => (REGION_RANK_MAP[a] ?? 99) - (REGION_RANK_MAP[b] ?? 99));
+  sortedRegions.forEach(r => {
+    const rn = REGION_NAMES[r];
+    const bv = DATA[r]['bYv'];
+    const dv = DATA[r]['dYmAr'];
+    const bStr = bv != null ? `<span class="val-b">${fv(bv)}</span><br><span style="font-size:10px;color:var(--muted)">≈ ¥${(bv*7.2).toFixed(2)}</span>` : '<span class="td-na">N/A</span>';
+    const dStr = dv != null ? `<span class="val-d">${fv(dv)}</span><br><span style="font-size:10px;color:var(--muted)">≈ ¥${(dv*7.2).toFixed(2)}</span>` : '<span class="td-na">N/A</span>';
+    html += `<tr><td class="td-region">${r} <span style="color:var(--muted);font-weight:400;font-size:11px">${rn}</span></td><td>${bStr}</td><td>${dStr}</td><td>${winner(bv,dv)}</td></tr>`;
+  });
+  tb.innerHTML = html;
+})();
+
+// YouTube Music Video table: Believe YT Music Video vs 东西 YT Music Video
+// 按地区收入排名排序；显示 USD + RMB
+(function(){
+  const tb = document.getElementById('tb-ytmusicvid');
+  let html = '';
+  const sortedRegions = [...REGIONS].sort((a, b) => (REGION_RANK_MAP[a] ?? 99) - (REGION_RANK_MAP[b] ?? 99));
+  sortedRegions.forEach(r => {
+    const rn = REGION_NAMES[r];
+    const bv = DATA[r]['bYv'];
+    const dv = DATA[r]['dYv'];
+    const bStr = bv != null ? `<span class="val-b">${fv(bv)}</span><br><span style="font-size:10px;color:var(--muted)">≈ ¥${(bv * 7.2).toFixed(2)}</span>` : '<span class="td-na">N/A</span>';
+    const dStr = dv != null ? `<span class="val-d">${fv(dv)}</span><br><span style="font-size:10px;color:var(--muted)">≈ ¥${(dv * 7.2).toFixed(2)}</span>` : '<span class="td-na">N/A</span>';
+    html += `<tr><td class="td-region">${r} <span style="color:var(--muted);font-weight:400;font-size:11px">${rn}</span></td><td>${bStr}</td><td>${dStr}</td><td>${winner(bv,dv)}</td></tr>`;
+  });
+  tb.innerHTML = html;
+})();
+
 // Shorts
-// 按东西 YT Shorts 单价从高到低排序；两列均显示 USD + RMB
+// 按地区收入排名排序；两列均显示 USD + RMB
 (function(){
   const tb = document.getElementById('tb-ytshorts');
   let html = '';
-  const sortedRegions = [...REGIONS].sort((a, b) => (DATA[b]['dSh'] ?? -Infinity) - (DATA[a]['dSh'] ?? -Infinity));
+  const sortedRegions = [...REGIONS].sort((a, b) => (REGION_RANK_MAP[a] ?? 99) - (REGION_RANK_MAP[b] ?? 99));
   sortedRegions.forEach(r => {
     const rn = REGION_NAMES[r];
-    const bv = DATA[r]['bSh'];
-    const dv = DATA[r]['dSh'];
-    const bStr = bv != null ? `<span class="val-b">${fv(bv)}</span><br><span style="font-size:10px;color:var(--muted)">≈ ¥${(bv * 7.2).toFixed(4)}</span>` : '<span class="td-na">N/A</span>';
-    const dStr = dv != null ? `<span class="val-d">${fv(dv)}</span><br><span style="font-size:10px;color:var(--muted)">≈ ¥${(dv * 7.2).toFixed(4)}</span>` : '<span class="td-na">N/A</span>';
-    const note = winner(bv, dv);
-    html += `<tr><td class="td-region">${r} <span style="color:var(--muted);font-weight:400;font-size:11px">${rn}</span></td><td>${bStr}</td><td>${dStr}</td><td>${note}</td></tr>`;
+    const bv = DATA[r]['bSh']; const dv = DATA[r]['dSh'];
+    const bStr = bv != null ? `<span class="val-b">${fv(bv)}</span><br><span style="font-size:10px;color:var(--muted)">≈ ¥${(bv*7.2).toFixed(4)}</span>` : '<span class="td-na">N/A</span>';
+    const dStr = dv != null ? `<span class="val-d">${fv(dv)}</span><br><span style="font-size:10px;color:var(--muted)">≈ ¥${(dv*7.2).toFixed(4)}</span>` : '<span class="td-na">N/A</span>';
+    html += `<tr><td class="td-region">${r} <span style="color:var(--muted);font-weight:400;font-size:11px">${rn}</span></td><td>${bStr}</td><td>${dStr}</td><td>${winner(bv,dv)}</td></tr>`;
   });
   tb.innerHTML = html;
 })();
@@ -601,7 +756,7 @@ Chart.defaults.font.family = "'Inter','PingFang SC',sans-serif";
 const belRevData = {
   labels: ['YouTube Official Content', 'Spotify', 'Apple Music', 'Facebook/Instagram', 'YouTube UGC', 'TikTok', 'YouTube Shorts', 'YouTube Audio Tier', '其他'],
   // 已换算为USD（EUR × 1.085）
-  values: [16276.83, 9163.33, 7231.02, 3984.74, 2255.38, 472.20, 20.40, 20.49, 431.95]
+  values: [14492.64, 7413.73, 6854.84, 2577.77, 2103.78, 359.58, 9.57, 17.33, 0.0]
 };
 new Chart(document.getElementById('chart-bel-struct'), {
   type: 'doughnut',
@@ -617,14 +772,14 @@ new Chart(document.getElementById('chart-bel-struct'), {
   options: {
     responsive: true, maintainAspectRatio: false,
     plugins: {
-      legend: { position: 'right', labels: { font: { size: 11 }, padding: 10, boxWidth: 12 } },
+      legend: { position: 'right', labels: { color: '#e8eaf6', font: { size: 11 }, padding: 10, boxWidth: 12 } },
       tooltip: {
         callbacks: {
           label: (ctx) => {
             const total = ctx.dataset.data.reduce((a,b)=>a+b,0);
             const pct = (ctx.parsed/total*100).toFixed(1);
             const rmb = (ctx.parsed * 7.2).toLocaleString('zh-CN', {maximumFractionDigits:0});
-            return ` $${ctx.parsed.toLocaleString()} / ¥${rmb} (${pct}%)`;
+            return ` $${ctx.parsed.toLocaleString()} ≈ ¥${rmb} (${pct}%)`;
           }
         }
       }
@@ -652,14 +807,68 @@ new Chart(document.getElementById('chart-dz-struct'), {
   options: {
     responsive: true, maintainAspectRatio: false,
     plugins: {
-      legend: { position: 'right', labels: { font: { size: 11 }, padding: 10, boxWidth: 12 } },
+      legend: { position: 'right', labels: { color: '#e8eaf6', font: { size: 11 }, padding: 10, boxWidth: 12 } },
       tooltip: {
         callbacks: {
           label: (ctx) => {
             const total = ctx.dataset.data.reduce((a,b)=>a+b,0);
             const pct = (ctx.parsed/total*100).toFixed(1);
             const rmb = (ctx.parsed * 7.2).toLocaleString('zh-CN', {maximumFractionDigits:0});
-            return ` $${ctx.parsed.toLocaleString()} / ¥${rmb} (${pct}%)`;
+            return ` $${ctx.parsed.toLocaleString()} ≈ ¥${rmb} (${pct}%)`;
+          }
+        }
+      }
+    }
+  }
+});
+
+// ─── Combined Channel Summary — 饼图，点击显示两家贡献 ───
+// 每条渠道展示 Believe vs 东西各自贡献
+const combinedBarData = {
+  labels: [
+    'YT Official Content', 'YT Audio Content ID', 'YT Art Tracks',
+    'YT Music Video', 'YT UGC', 'YT Shorts',
+    'Apple Music', 'Spotify', 'Facebook/其他', 'TikTok'
+  ],
+  belVals: [14492.64, 0, 0, 17.33, 2103.78, 9.57, 6854.84, 7413.73, 2577.77, 359.58],
+  dzVals:  [0, 44427.49, 75221.71, 28603.15, 0, 2333.92, 49713.36, 36908.49, 2473.79, 969.70]
+};
+new Chart(document.getElementById('chart-combined'), {
+  type: 'doughnut',
+  data: {
+    labels: combinedBarData.labels,
+    datasets: [{
+      data: combinedBarData.labels.map((_, i) => combinedBarData.belVals[i] + combinedBarData.dzVals[i]),
+      backgroundColor: [
+        '#6C5CE7','#00B894','#00cec9',
+        '#e17055','#a29bfe','#fd79a8',
+        '#74b9ff','#55efc4','#fd79a8','#fdcb6e'
+      ],
+      borderWidth: 2,
+      borderColor: '#1a1d27'
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { position: 'right', labels: { color: '#e8eaf6', font: { size: 11 }, padding: 10, boxWidth: 12 } },
+      tooltip: {
+        callbacks: {
+          label: (ctx) => {
+            const i = ctx.dataIndex;
+            const bel = combinedBarData.belVals[i];
+            const dz  = combinedBarData.dzVals[i];
+            const total = bel + dz;
+            const grandTotal = combinedBarData.belVals.reduce((a, v, j) => a + v + combinedBarData.dzVals[j], 0);
+            const pct = (total / grandTotal * 100).toFixed(1);
+            const belRmb = (bel * 7.2).toLocaleString('zh-CN', {maximumFractionDigits:0});
+            const dzRmb  = (dz  * 7.2).toLocaleString('zh-CN', {maximumFractionDigits:0});
+            return [
+              `合计: $${total.toLocaleString()} ≈ ¥${(total*7.2).toLocaleString('zh-CN',{maximumFractionDigits:0})} (${pct}%)`,
+              `  Believe: $${bel.toLocaleString()} ≈ ¥${belRmb}`,
+              `  东西界世: $${dz.toLocaleString()} ≈ ¥${dzRmb}`
+            ];
           }
         }
       }
@@ -669,18 +878,17 @@ new Chart(document.getElementById('chart-dz-struct'), {
 
 // Region Revenue — 按东西收入从高到低排序
 const regionData = [
-  {r:'TW', b:11340.29, d:63772.25},
-  {r:'US', b:5615.57, d:23606.20},
-  {r:'CN', b:3663.82, d:14983.16},
-  {r:'HK', b:3297.98, d:13081.60},
-  {r:'SG', b:2779.43, d:13005.90},
-  {r:'MY', b:2139.46, d:8620.85},
-  {r:'JP', b:728.61,  d:8621.28},
-  {r:'VN', b:1665.82, d:5678.11},
-  {r:'TH', b:1579.09, d:4434.99},
-  {r:'GB', b:677.20,  d:3581.51},
-  {r:'KR', b:416.31,  d:3255.15},
-  {r:'AU', b:1267.41, d:3139.46}
+  {r:'TW', b:11304.70, d:63772.25},
+  {r:'US', b:5567.83, d:23606.20},
+  {r:'HK', b:3140.43, d:13081.60},
+  {r:'SG', b:2768.48, d:13005.90},
+  {r:'MY', b:2121.91, d:8620.85},
+  {r:'JP', b:681.78,  d:8621.28},
+  {r:'VN', b:1647.55, d:5678.11},
+  {r:'TH', b:1570.58, d:4434.99},
+  {r:'GB', b:670.54,  d:3581.51},
+  {r:'KR', b:414.21,  d:3255.15},
+  {r:'AU', b:0, d:3139.46}
 ].sort((a,b) => b.d - a.d);
 const topRegions = regionData.map(x => x.r);
 const belRegVals = regionData.map(x => x.b);
@@ -707,53 +915,39 @@ new Chart(document.getElementById('chart-region'), {
     plugins: {
       legend: {
         labels: {
-          font: { size: 12 },
-          generateLabels: function(chart) {
-            return chart.data.datasets.map(function(ds, i) {
-              return {
-                text: ds.label,
-                fillStyle: ds.backgroundColor,
-                strokeStyle: 'rgba(0,0,0,0.1)',
-                lineWidth: 1,
-                hidden: false,
-                index: i,
-                datasetIndex: i
-              };
-            });
-          }
+          color: '#e8eaf6',
+          font: { size: 12 }
         }
       },
       tooltip: {
         callbacks: { label: ctx => ` $${ctx.parsed.y.toLocaleString(undefined,{maximumFractionDigits:0})}` }
+      },
+      strikethroughLegend: {
+        afterDraw: function(chart) {
+          const ctx = chart.ctx;
+          const legend = chart.legend;
+          if (!legend) return;
+          legend.legendItems.forEach(function(item) {
+            if (item.text === '东西界世 (USD)') {
+              const fontSize = 12;
+              ctx.save();
+              ctx.font = 'bold ' + fontSize + 'px "Segoe UI", Arial, sans-serif';
+              const labelWidth = ctx.measureText(item.text).width;
+              const colorBox = legend.left + item.x + 4;
+              const textX = colorBox + 10;
+              const y = legend.top + item.y + fontSize * 0.75;
+              ctx.strokeStyle = '#e74c3c';
+              ctx.lineWidth = 1.5;
+              ctx.beginPath();
+              ctx.moveTo(textX, y - fontSize * 0.3);
+              ctx.lineTo(textX + labelWidth, y - fontSize * 0.3);
+              ctx.stroke();
+              ctx.restore();
+            }
+          });
+        }
       }
-    },
-    plugins: [{
-      id: 'strikethrough-legend',
-      afterDraw: function(chart) {
-        const ctx = chart.ctx;
-        const legend = chart.legend;
-        if (!legend) return;
-        legend.legendItems.forEach(function(item, i) {
-          if (item.text === '东西界世') {
-            const fontSize = 12;
-            ctx.save();
-            ctx.font = 'bold ' + fontSize + 'px "Segoe UI", Arial, sans-serif';
-            const labelWidth = ctx.measureText(item.text).width;
-            // legend item position: color box is to the left
-            const colorBox = legend.left + item.x + 4;
-            const textX = colorBox + 10;
-            const y = legend.top + item.y + fontSize * 0.75;
-            ctx.strokeStyle = '#e74c3c';
-            ctx.lineWidth = 1.5;
-            ctx.beginPath();
-            ctx.moveTo(textX, y - fontSize * 0.3);
-            ctx.lineTo(textX + labelWidth, y - fontSize * 0.3);
-            ctx.stroke();
-            ctx.restore();
-          }
-        });
-      }
-    }]
+    }
   }
 });
 
